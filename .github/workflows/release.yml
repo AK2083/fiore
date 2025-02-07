@@ -1,0 +1,42 @@
+# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
+# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+
+name: Node.js Package
+
+on:
+  pull_request:
+    types:
+      - opened
+    branches:
+      - main
+
+jobs:
+  release:
+      name: Release
+      runs-on: ubuntu-latest
+      permissions:
+        contents: write
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            ref: ${{ github.event.pull_request.head.ref }}
+            fetch-depth: 0 # Notwendig für release-it, um alle Commits zu sehen
+  
+        - name: Setup Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: 22 # Oder deine bevorzugte Node-Version
+  
+        - name: Install dependencies
+          run: npm ci
+
+        - name: Git Konfiguration
+          run: |
+            git config --global user.email "action@github.com"
+            git config --global user.name "GitHub Action"
+          
+        - name: Release
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          run: npx release-it
