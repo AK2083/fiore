@@ -14,6 +14,76 @@
           </div>
         </div>
       </div>
+
+      <div class="relative ml-3">
+        <div class="hidden md:block">
+          <button type="button" (click)="changeLanguage()"
+            class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">View notifications</span>
+            <app-flag></app-flag>
+          </button>
+        </div>
+
+        <div *ngIf="isLanguageMenuOpen" class="relative z-10" aria-labelledby="slide-over-title" role="dialog"
+          aria-modal="true">
+          <!-- Background backdrop, show/hide based on slide-over state. -->
+          <div class="fixed inset-0"></div>
+
+          <div class="fixed inset-0 overflow-hidden">
+            <div class="absolute inset-0 overflow-hidden">
+              <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <!--
+                  Slide-over panel, show/hide based on slide-over state.
+        
+                  Entering: "transform transition ease-in-out duration-500 sm:duration-700"
+                    From: "translate-x-full"
+                    To: "translate-x-0"
+                  Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
+                    From: "translate-x-0"
+                    To: "translate-x-full"
+                -->
+                <div class="pointer-events-auto w-screen max-w-md">
+                  <div class="flex h-full flex-col overflow-y-scroll bg-gray-800 py-6 shadow-xl">
+                    <div class="px-4 sm:px-6">
+                      <div class="flex items-start justify-between">
+                        <h2 class="text-base font-semibold text-white" id="slide-over-title">Panel title</h2>
+                        <div class="ml-3 flex h-7 items-center">
+                          <button type="button" (click)="isLanguageMenuOpen = !isLanguageMenuOpen"
+                            class="relative rounded-md text-gray-300 hover:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
+                            <span class="absolute -inset-2.5"></span>
+                            <span class="sr-only">Close panel</span>
+                            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                              aria-hidden="true" data-slot="icon">
+                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="relative mt-6 flex-1 px-4 sm:px-6">
+
+                      <!-- Content -->
+                      <div class="grid grid-cols-2 gap-6 items-center">
+                        <app-lang-button>
+                          <app-de-flag #flagAnimation="flagAnimation"></app-de-flag>
+                        </app-lang-button>
+                        <app-lang-button>
+                          <app-en-flag #flagAnimation="flagAnimation"></app-en-flag>
+                        </app-lang-button>
+                        <app-lang-button>
+                          <app-es-flag #flagAnimation="flagAnimation"></app-es-flag>
+                        </app-lang-button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="-mr-2 flex md:hidden">
         <!-- Mobile menu button -->
         <button type="button" (click)="isMobileMenuOpen = !isMobileMenuOpen"
@@ -39,11 +109,24 @@
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="md:hidden" id="mobile-menu" *ngIf="isMobileMenuOpen">
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-      <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-      <a href="#" *ngFor="let item of routeItems"
+      <a *ngFor="let item of routeItems" [routerLink]="[item.route]"
         class="block rounded-md px-3 py-2 text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white"
         aria-current="page"
         routerLinkActive="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">{{item.name}}</a>
+    </div>
+    <div class="border-t border-gray-700 pt-4 pb-3">
+      <div class="flex items-center px-5">
+        <div class="shrink-0">
+          <span class="relative rounded-full bg-gray-800 p-1 text-gray-400">
+            <span>Übersetze in:</span>
+          </span>
+        </div>
+        <div class="ml-3 flex flex-row gap-2">
+          <div class="text-xs rounded-full bg-orange-700 size-8 text-white flex items-center justify-center">DE</div>
+          <div class="text-xs rounded-full bg-red-700 size-8 text-white flex items-center justify-center">EN</div>
+          <div class="text-xs rounded-full bg-purple-700 size-8 text-white flex items-center justify-center">ES</div>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
