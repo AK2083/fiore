@@ -24,7 +24,7 @@ import { EsFlagComponent } from '../designsystem/animation/es-flag/es-flag.compo
 })
 export class CommonNavigationBarComponent {
   isMobileMenuOpen = false;
-  isLanguageMenuOpen = false;
+  isLanguageMenuOpen = true;
   isHover = true;
 
   routeItems = [

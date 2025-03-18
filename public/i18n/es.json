@@ -1,0 +1,14 @@
+{
+    "app": {
+        "title": "Natsu",
+        "info": "Messages",
+        "user": "User",
+        "lang": "Language",
+        "greeting": "Good Morning",
+        "langNames": {
+            "en": "English",
+            "de": "German",
+            "es": "Español"
+        }
+    }
+}
