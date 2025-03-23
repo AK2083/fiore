@@ -1,6 +1,7 @@
 <div (click)="changeLang()" role="button" tabindex="0" (keydown)="onKeyDown($event)"
+    [attr.aria-label]="'Sprache ändern zu ' + language.langName" [attr.aria-pressed]="language.isActive"
     [ngClass]="{'border-x-amber-500': language.isActive, 'border-x-slate-600': !language.isActive}"
     class="relative bg-slate-900 w-44 h-12 rounded border-y-1 border-x-4 hover:border-x-lime-600 cursor-pointer">
-    <div class="text-slate-300 pl-3">{{ language.langName }}</div>
-    <div class="text-sm text-slate-500 pl-3">{{ language.welcomeText }}</div>
+    <div class="text-slate-200 pl-3">{{ language.langName }}</div>
+    <div class="text-sm text-slate-400 pl-3">{{ language.welcomeText }}</div>
 </div>
