@@ -1,13 +1,9 @@
 {
     "app": {
-        "title": "Natsu",
-        "info": "Messages",
-        "user": "User",
-        "lang": "Language",
-        "greeting": "Good Morning",
+        "title": "Traducir al",
         "langNames": {
-            "en": "English",
-            "de": "German",
+            "en": "Inglés",
+            "de": "Aleman",
             "es": "Español"
         }
     }
