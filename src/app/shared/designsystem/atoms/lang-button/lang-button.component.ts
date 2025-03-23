@@ -1,29 +1,32 @@
-import { Component, OnInit, ContentChildren, Input, QueryList } from '@angular/core';
-import { IFlag } from '../../animation/iflag/IFlag';
-import { TranslateService, TranslatePipe } from "@ngx-translate/core";
+import { NgClass } from '@angular/common';
+import { Component, Input, EventEmitter, Output, OnChanges, SimpleChanges } from '@angular/core';
+
+export type LanguageModel = {
+  langName: string;
+  lang: string;
+  welcomeText: string;
+  isActive: boolean;
+}
 
 @Component({
   selector: 'app-lang-button',
-  imports: [TranslatePipe],
+  imports: [NgClass],
   templateUrl: './lang-button.component.html',
   styles: ``
 })
 export class LangButtonComponent {
-  @ContentChildren('flagAnimation') flagAnimations!: QueryList<IFlag>;
-  @Input() langName = "";
-  @Input() lang = "";
-
-  constructor(public translate: TranslateService) { }
-
-  onMouseEnter() {
-    this.flagAnimations.forEach(flag => flag.setHovered(true));
-  }
-
-  onMouseLeave() {
-    this.flagAnimations.forEach(flag => flag.setHovered(false));
-  }
+  @Output() changeLanguage = new EventEmitter<LanguageModel>();
+  @Input() language: LanguageModel = {
+    langName: '',
+    lang: '',
+    welcomeText: '',
+    isActive: false
+  };
 
   changeLang() {
-    this.translate.use(this.lang);
+    this.changeLanguage.emit({
+      ...this.language,
+      isActive: true
+    });
   }
 }

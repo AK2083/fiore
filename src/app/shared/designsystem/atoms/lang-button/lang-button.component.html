@@ -1,28 +1,4 @@
-<div class="relative">
-    <div
-        class="absolute z-30 -top-1/3 left-2/3 flex justify-center items-center bg-orange-600 text-white rounded-full size-11 border-4 border-slate-900">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-            class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round"
-                d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-        </svg>
-    </div>
-
-    <div (mouseenter)="onMouseEnter()" (mouseleave)="onMouseLeave()" (click)="changeLang()"
-        class="group flex flex-col bg-gray-200 rounded hover:bg-gray-400 border-l-6 border-gray-500 cursor-pointer h-14 w-48 overflow-hidden relative">
-
-        <!-- White Background-->
-        <div class="absolute left-5/12 top-1 -rotate-30 overflow-hidden z-10 bg-white h-full w-full scale-120"></div>
-
-        <!-- Animation -->
-        <ng-content></ng-content>
-
-        <!-- Text -->
-        <div class="z-20 px-1 group-hover:text-white">
-            {{langName | translate}}
-        </div>
-        <div class="z-20 px-1 text-xs text-gray-500 group-hover:text-white">
-            {{ 'app.greeting' | translate }}
-        </div>
-    </div>
+<div (click)="changeLang()" [ngClass]="{'border-x-amber-500': language.isActive, 'border-x-slate-600': !language.isActive}" class="relative bg-slate-900 w-44 h-12 rounded border-y-1 border-x-4 hover:border-x-lime-600">
+    <div class="text-slate-300 pl-3">{{ language.langName }}</div>
+    <div class="text-sm text-slate-500 pl-3">{{ language.welcomeText }}</div>
 </div>

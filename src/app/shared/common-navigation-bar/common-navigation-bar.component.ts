@@ -1,11 +1,10 @@
-import { NgClass, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgFor, NgIf } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FlagComponent } from '../designsystem/icons/flag/flag.component';
-import { LangButtonComponent } from '../designsystem/atoms/lang-button/lang-button.component';
-import { DeFlagComponent } from '../designsystem/animation/de-flag/de-flag.component';
-import { EnFlagComponent } from '../designsystem/animation/en-flag/en-flag.component';
-import { EsFlagComponent } from '../designsystem/animation/es-flag/es-flag.component';
+import { LangButtonComponent, LanguageModel } from '../designsystem/atoms/lang-button/lang-button.component';
+import { HeaderComponent } from '../designsystem/atoms/header/header.component';
+
+import { TranslationService } from '../services/translation.service';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -13,16 +12,13 @@ import { EsFlagComponent } from '../designsystem/animation/es-flag/es-flag.compo
     NgIf,
     NgFor,
     RouterLink,
-    FlagComponent,
+    HeaderComponent,
     LangButtonComponent,
-    DeFlagComponent,
-    EnFlagComponent,
-    EsFlagComponent
   ],
   templateUrl: './common-navigation-bar.component.html',
   styleUrl: './common-navigation-bar.component.css'
 })
-export class CommonNavigationBarComponent {
+export class CommonNavigationBarComponent implements OnInit {
   isMobileMenuOpen = false;
   isLanguageMenuOpen = true;
   isHover = true;
@@ -35,7 +31,52 @@ export class CommonNavigationBarComponent {
     },
   ];
 
-  changeLanguage() {
+  langItems: LanguageModel[] = [];
+  menuTitle = "";
+
+  constructor(public translate: TranslationService) { }
+
+  ngOnInit() {
+    this.loadLanguageItems();
+  }
+
+  changeLanguageEvent(data: LanguageModel) {
+    this.translate.setSelectedLanguage(data.lang);
+    this.loadLanguageItems(data.lang); 
+  }
+
+  openLanguageMenu() {
     this.isLanguageMenuOpen = !this.isLanguageMenuOpen;
+  }
+
+  loadLanguageItems(lng: string = "") {
+    if (lng === "") lng = this.translate.getDefaultLanguage();
+
+    this.translate.getLanguageNames().subscribe(({ de, en, es }) => {
+      this.langItems = [
+        {
+          langName: de,
+          lang: 'de',
+          welcomeText: 'Guten Morgen',
+          isActive: lng === 'de'
+        },
+        {
+          langName: en,
+          lang: 'en',
+          welcomeText: 'Good Morning',
+          isActive: lng === 'en'
+        },
+        {
+          langName: es,
+          lang: 'es',
+          welcomeText: 'Buenos Dias!',
+          isActive: lng === 'es'
+        }
+      ];
+    });
+
+    this.translate
+      .getTranslationTitle()
+      .subscribe((result: string) => this.menuTitle = result);
   }
 }

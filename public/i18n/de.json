@@ -1,14 +1,11 @@
 {
     "app": {
-        "title": "Natsu",
-        "info": "Meldungen",
-        "user": "Benutzer",
-        "lang": "Sprache",
-        "greeting": "Guten Morgen",
+        "title": "Übersetze mich in",
         "langNames": {
-            "en": "English",
+            "en": "Englisch",
             "de": "Deutsch",
             "es": "Spanisch"
         }
+
     }
 }

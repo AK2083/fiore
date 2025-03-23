@@ -17,13 +17,15 @@
 
       <div class="relative ml-3">
         <div class="hidden md:block">
-          <button type="button" (click)="changeLanguage()"
+          <button type="button" (click)="openLanguageMenu()"
             class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only">View notifications</span>
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
-            </svg>   
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+              stroke="currentColor" class="size-6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
+            </svg>
           </button>
         </div>
 
@@ -46,27 +48,10 @@
                     To: "translate-x-full"
                 -->
                 <div class="pointer-events-auto w-screen max-w-md">
-                  <div class="flex h-full flex-col overflow-y-scroll bg-slate-900 py-6 shadow-xl">
+                  <div class="flex h-full flex-col bg-slate-900 py-4 shadow-xl border-l-4 border-slate-700">
                     <div class="px-4 sm:px-6">
-                      <div class="flex items-start justify-between">
-
-                        <div class="relative mb-4 w-full rounded overflow-hidden">
-                          <!-- Gradient Border -->
-                          <div class="absolute inset-0 bg-conic-240 from-orange-600 via-slate-800 to-slate-900 rounded z-0"></div>
-                        
-                          <div class="absolute left-5/11 top-1 -rotate-30 bg-white h-full w-full scale-140 z-10"></div>
-
-                          <!-- Inhalt (über allem) -->
-                          <div class="relative bg-gray-900 rounded p-2 text-slate-400 m-[1px] z-0 flex ">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 3.03v.568c0 .334.148.65.405.864l1.068.89c.442.369.535 1.01.216 1.49l-.51.766a2.25 2.25 0 0 1-1.161.886l-.143.048a1.107 1.107 0 0 0-.57 1.664c.369.555.169 1.307-.427 1.605L9 13.125l.423 1.059a.956.956 0 0 1-1.652.928l-.679-.906a1.125 1.125 0 0 0-1.906.172L4.5 15.75l-.612.153M12.75 3.031a9 9 0 0 0-8.862 12.872M12.75 3.031a9 9 0 0 1 6.69 14.036m0 0-.177-.529A2.25 2.25 0 0 0 17.128 15H16.5l-.324-.324a1.453 1.453 0 0 0-2.328.377l-.036.073a1.586 1.586 0 0 1-.982.816l-.99.282c-.55.157-.894.702-.8 1.267l.073.438c.08.474.49.821.97.821.846 0 1.598.542 1.865 1.345l.215.643m5.276-3.67a9.012 9.012 0 0 1-5.276 3.67m0 0a9 9 0 0 1-10.275-4.835M15.75 9c0 .896-.393 1.7-1.016 2.25" />
-                            </svg>                            
-                            <span class="pl-2 text-white">Übersetzen in</span>
-                          </div>
-                        </div>
-                        
-
-                        <div class="ml-3 flex justify-items-center items-center h-full p-2">
+                      <div class="flex justify-end">
+                        <div class="h-full">
                           <button type="button" (click)="isLanguageMenuOpen = !isLanguageMenuOpen"
                             class="relative rounded-md text-slate-300 hover:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
                             <span class="absolute -inset-2.5"></span>
@@ -79,19 +64,16 @@
                         </div>
                       </div>
                     </div>
-                    <div class="relative mt-6 flex-1 px-4 sm:px-6">
 
-                      <!-- Content -->
-                      <div class="grid grid-cols-2 gap-6 items-center">
-                        <app-lang-button [langName]="'app.langNames.de'" [lang]="'de'">
-                          <app-de-flag #flagAnimation="flagAnimation"></app-de-flag>
-                        </app-lang-button>
-                        <app-lang-button [langName]="'app.langNames.en'" [lang]="'en'">
-                          <app-en-flag #flagAnimation="flagAnimation"></app-en-flag>
-                        </app-lang-button>
-                        <app-lang-button [langName]="'app.langNames.es'" [lang]="'es'">
-                          <app-es-flag #flagAnimation="flagAnimation"></app-es-flag>
-                        </app-lang-button>
+                    <div class="relative mt-2 px-2 sm:px-6 grid grid-rows-2 gap-2">
+                      <div class="bg-slate-800 p-3 rounded border-x-1 border-b-1 border-t-4 border-slate-700">
+                        <app-header [title]="menuTitle"></app-header>
+
+                        <!-- Content -->
+                        <div class="grid grid-cols-2 gap-4 items-center">
+                          <app-lang-button *ngFor="let item of langItems" [language]="item" (changeLanguage)="changeLanguageEvent($event)"></app-lang-button>
+                        </div>
+
                       </div>
 
                     </div>
