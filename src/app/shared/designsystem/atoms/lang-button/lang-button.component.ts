@@ -29,4 +29,10 @@ export class LangButtonComponent {
       isActive: true
     });
   }
+
+  onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Enter' || event.key === ' ') {
+      this.changeLang();
+    }
+  }
 }
