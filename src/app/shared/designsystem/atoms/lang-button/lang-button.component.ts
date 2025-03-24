@@ -3,6 +3,7 @@ import { Component, Input, EventEmitter, Output, OnChanges, SimpleChanges } from
 
 export type LanguageModel = {
   langName: string;
+  ariaLabel: string,
   lang: string;
   welcomeText: string;
   isActive: boolean;
@@ -18,6 +19,7 @@ export class LangButtonComponent {
   @Output() changeLanguage = new EventEmitter<LanguageModel>();
   @Input() language: LanguageModel = {
     langName: '',
+    ariaLabel: '',
     lang: '',
     welcomeText: '',
     isActive: false

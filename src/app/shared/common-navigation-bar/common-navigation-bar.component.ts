@@ -5,6 +5,13 @@ import { LangButtonComponent, LanguageModel } from '../designsystem/atoms/lang-b
 import { HeaderComponent } from '../designsystem/atoms/header/header.component';
 
 import { TranslationService } from '../services/translation.service';
+import { StatusButtonComponent } from '../designsystem/atoms/status-button/status-button.component';
+
+enum Language {
+  DE = 'de',
+  EN = 'en',
+  ES = 'es'
+}
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -14,6 +21,7 @@ import { TranslationService } from '../services/translation.service';
     RouterLink,
     HeaderComponent,
     LangButtonComponent,
+    StatusButtonComponent
   ],
   templateUrl: './common-navigation-bar.component.html',
   styleUrl: './common-navigation-bar.component.css'
@@ -34,43 +42,50 @@ export class CommonNavigationBarComponent implements OnInit {
   langItems: LanguageModel[] = [];
   menuTitle = "";
 
+  language = Language;
+  languageKeys = Object.keys(this.language);
+
   constructor(public translate: TranslationService) { }
 
   ngOnInit() {
     this.loadLanguageItems();
   }
 
-  changeLanguageEvent(data: LanguageModel) {
-    this.translate.setSelectedLanguage(data.lang);
-    this.loadLanguageItems(data.lang); 
+  changeLanguageEvent(langType: string) {
+    this.translate.setSelectedLanguage(langType);
+    this.loadLanguageItems(langType);
   }
 
   openLanguageMenu() {
-    this.isLanguageMenuOpen = !this.isLanguageMenuOpen;
+    this.isLanguageMenuOpen = !this.isLanguageMenuOpen; 
   }
 
   loadLanguageItems(lng: string = "") {
-    if (lng === "") lng = this.translate.getDefaultLanguage();
+    if (lng === "") 
+      lng = this.translate.getDefaultLanguage();
 
     this.translate.getLanguageNames().subscribe(({ de, en, es }) => {
       this.langItems = [
         {
-          langName: de,
-          lang: 'de',
+          langName: de.langName,
+          ariaLabel: de.ariaLabel,
+          lang: this.language.DE,
           welcomeText: 'Guten Morgen',
-          isActive: lng === 'de'
+          isActive: lng === this.language.DE
         },
         {
-          langName: en,
-          lang: 'en',
+          langName: en.langName,
+          ariaLabel: en.ariaLabel,
+          lang: this.language.EN,
           welcomeText: 'Good Morning',
-          isActive: lng === 'en'
+          isActive: lng === this.language.EN
         },
         {
-          langName: es,
-          lang: 'es',
+          langName: es.langName,
+          ariaLabel: es.ariaLabel,
+          lang: this.language.ES,
           welcomeText: 'Buenos Dias!',
-          isActive: lng === 'es'
+          isActive: lng === this.language.ES
         }
       ];
     });

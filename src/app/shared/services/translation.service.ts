@@ -9,11 +9,24 @@ export class TranslationService {
 
   constructor(public translate: TranslateService) { }
 
-  getLanguageNames(): Observable<{ de: string, en: string, es: string }> {
+  getLanguageNames(): Observable<{ 
+    de: { langName: string, ariaLabel: string }, 
+    en: { langName: string, ariaLabel: string }, 
+    es: { langName: string, ariaLabel: string } 
+  }> {
     return forkJoin({
-      de: this.translate.get(_('app.langNames.de')),
-      en: this.translate.get(_('app.langNames.en')),
-      es: this.translate.get(_('app.langNames.es'))
+      de: forkJoin({
+        langName: this.translate.get(_('app.langNames.de')),
+        ariaLabel: this.translate.get(_('app.ariaLabel'))
+      }),
+      en: forkJoin({
+        langName: this.translate.get(_('app.langNames.en')),
+        ariaLabel: this.translate.get(_('app.ariaLabel'))
+      }),
+      es: forkJoin({
+        langName: this.translate.get(_('app.langNames.es')),
+        ariaLabel: this.translate.get(_('app.ariaLabel'))
+      })
     });
   }
 

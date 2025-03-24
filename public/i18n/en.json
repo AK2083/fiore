@@ -1,6 +1,7 @@
 {
     "app": {
         "title": "Translate me into",
+        "ariaLabel": "Change language to English",
         "langNames": {
             "en": "English",
             "de": "German",

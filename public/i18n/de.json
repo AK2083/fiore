@@ -1,6 +1,7 @@
 {
     "app": {
         "title": "Übersetze mich in",
+        "ariaLabel": "Sprache in Deutsch ändern",
         "langNames": {
             "en": "Englisch",
             "de": "Deutsch",
