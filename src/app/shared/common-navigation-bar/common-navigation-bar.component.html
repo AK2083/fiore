@@ -71,7 +71,17 @@
 
                         <!-- Content -->
                         <div class="grid grid-cols-2 gap-4 items-center">
-                          <app-lang-button *ngFor="let item of langItems" [language]="item" (changeLanguage)="changeLanguageEvent($event)"></app-lang-button>
+                          <!-- <app-lang-button *ngFor="let item of langItems" [language]="item"
+                            (changeLanguage)="changeLanguageEvent($event)">
+                            <div class="text-slate-200 pl-3">{{ item.langName }}</div>
+                            <div class="text-sm text-slate-400 pl-3">{{ item.welcomeText }}</div>
+                          </app-lang-button> -->
+
+                          <app-status-button *ngFor="let item of langItems" [isActive]="item.isActive" [type]="item.lang"
+                            (returnIdentifier)="changeLanguageEvent($event)">
+                            <div class="text-slate-200 pl-3">{{ item.langName }}</div>
+                            <div class="text-sm text-slate-400 pl-3">{{ item.welcomeText }}</div>
+                          </app-status-button>
                         </div>
 
                       </div>
