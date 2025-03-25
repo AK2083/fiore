@@ -17,7 +17,7 @@
 
       <div class="relative ml-3">
         <div class="hidden md:block">
-          <button type="button" (click)="openLanguageMenu()"
+          <button type="button" (click)="openLanguageMenu(true)"
             class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-hidden">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only">View notifications</span>
@@ -29,58 +29,19 @@
           </button>
         </div>
 
+        <!-- Language Menu -->
         <div *ngIf="isLanguageMenuOpen" class="relative z-10" aria-labelledby="slide-over-title" role="dialog"
           aria-modal="true">
-          <!-- Background backdrop, show/hide based on slide-over state. -->
-          <div class="fixed inset-0"></div>
-
-          <div class="fixed inset-0 overflow-hidden">
-            <div class="absolute inset-0 overflow-hidden">
-              <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-                <!--
-                  Slide-over panel, show/hide based on slide-over state.
-        
-                  Entering: "transform transition ease-in-out duration-500 sm:duration-700"
-                    From: "translate-x-full"
-                    To: "translate-x-0"
-                  Leaving: "transform transition ease-in-out duration-500 sm:duration-700"
-                    From: "translate-x-0"
-                    To: "translate-x-full"
-                -->
-                <div class="pointer-events-auto w-screen max-w-md">
-                  <div class="flex h-full flex-col bg-slate-900 py-4 shadow-xl border-l-4 border-slate-700">
-                    <div class="px-4 sm:px-6">
-                      <div class="flex justify-end">
-                        <div class="h-full">
-                          <button type="button" (click)="isLanguageMenuOpen = !isLanguageMenuOpen"
-                            class="relative rounded-md text-slate-300 hover:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
-                            <span class="absolute -inset-2.5"></span>
-                            <span class="sr-only">Close panel</span>
-                            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                              aria-hidden="true" data-slot="icon">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                            </svg>
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="relative mt-2 px-2 sm:px-6 grid grid-rows-2 gap-2">
-                      <div class="bg-slate-800 p-3 rounded border-x-1 border-b-1 border-t-4 border-slate-700">
-                        <app-header [title]="menuTitle$ | async"></app-header>
-
-                        <!-- Content -->
-                        <app-language-overview></app-language-overview>
-
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <app-drawer (pressButton)="openLanguageMenu($event)">
+            <app-simple-panel>
+              <app-header [title]="menuTitle$ | async">
+                <app-globe></app-globe>
+              </app-header>
+              <app-language-overview></app-language-overview>
+            </app-simple-panel>
+          </app-drawer>
         </div>
+
       </div>
       <div class="-mr-2 flex md:hidden">
         <!-- Mobile menu button -->

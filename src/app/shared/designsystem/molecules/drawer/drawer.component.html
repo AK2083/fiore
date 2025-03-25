@@ -1,1 +1,35 @@
-<p>drawer works!</p>
+<div class="relative z-10" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0"></div>
+    <div class="fixed inset-0 overflow-hidden">
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
+                <div class="pointer-events-auto w-screen max-w-md">
+                    <div class="flex h-full flex-col bg-slate-900 py-4 shadow-xl border-l-4 border-slate-700">
+                        <div class="px-4 sm:px-6">
+                            <div class="flex justify-end">
+                                <div class="h-full">
+                                    <button type="button" (click)="onClick()"
+                                        class="relative rounded-md text-slate-300 hover:text-gray-400 focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:outline-hidden">
+                                        <span class="absolute -inset-2.5"></span>
+                                        <span class="sr-only">Close panel</span>
+                                        <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                            stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M6 18 18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative mt-2 px-2 sm:px-6 grid grid-rows-2 gap-2">
+
+                            <ng-content></ng-content>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
