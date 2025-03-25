@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslationService } from '../../shared/services/translation.service';
+import { LanguageNames, TranslationService } from '../../shared/services/translation.service';
 import { LanguageModel } from '../../shared/designsystem/atoms/lang-button/lang-button.component';
 import { NgFor } from '@angular/common';
 import { StatusButtonComponent } from '../../shared/designsystem/atoms/status-button/status-button.component';
@@ -23,7 +23,8 @@ export class LanguageOverviewComponent implements OnInit {
   constructor(public translate: TranslationService) { }
 
   ngOnInit() {
-    this.loadLanguageItems();
+    var lang = this.translate.getCurrentLanguage() || this.translate.getDefaultLanguage();
+    this.loadLanguageItems(lang);
   }
 
   changeLanguageEvent(langType: string) {
@@ -31,34 +32,36 @@ export class LanguageOverviewComponent implements OnInit {
     this.loadLanguageItems(langType);
   }
 
-  loadLanguageItems(lng: string = "") {
-    if (lng === "") 
-      lng = this.translate.getDefaultLanguage();
-
-    this.translate.getLanguageNames().subscribe(({ de, en, es }) => {
-      this.langItems = [
-        {
-          langName: de.langName,
-          ariaLabel: de.ariaLabel,
-          lang: this.language.DE,
-          welcomeText: 'Guten Morgen',
-          isActive: lng === this.language.DE
-        },
-        {
-          langName: en.langName,
-          ariaLabel: en.ariaLabel,
-          lang: this.language.EN,
-          welcomeText: 'Good Morning',
-          isActive: lng === this.language.EN
-        },
-        {
-          langName: es.langName,
-          ariaLabel: es.ariaLabel,
-          lang: this.language.ES,
-          welcomeText: 'Buenos Dias!',
-          isActive: lng === this.language.ES
-        }
-      ];
+  loadLanguageItems(lng: string) {
+    this.translate.getLanguageNames().subscribe({
+      next: (names: LanguageNames) => {
+        this.langItems = [
+          {
+            langName: names.de.langName,
+            ariaLabel: names.de.ariaLabel,
+            lang: this.language.DE,
+            welcomeText: 'Guten Morgen',
+            isActive: lng === this.language.DE
+          },
+          {
+            langName: names.en.langName,
+            ariaLabel: names.en.ariaLabel,
+            lang: this.language.EN,
+            welcomeText: 'Good Morning',
+            isActive: lng === this.language.EN
+          },
+          {
+            langName: names.es.langName,
+            ariaLabel: names.es.ariaLabel,
+            lang: this.language.ES,
+            welcomeText: 'Buenos Dias',
+            isActive: lng === this.language.ES
+          }
+        ];
+      },
+      error: (error) => {
+        console.error('Error loading language names:', error);
+      }
     });
   }
 }
