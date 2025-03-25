@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-drawer',
@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styles: ``
 })
 export class DrawerComponent {
+  @Output() pressButton = new EventEmitter<boolean>();
 
+  onClick() {
+    this.pressButton.emit(false);
+  }
 }
