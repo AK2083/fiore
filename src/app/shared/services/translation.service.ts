@@ -2,6 +2,21 @@ import { Injectable } from '@angular/core';
 import { _, TranslateService } from '@ngx-translate/core';
 import { forkJoin, Observable } from 'rxjs';
 
+export type LanguageNames = {
+  de: {
+    langName: string,
+    ariaLabel: string
+  },
+  en: {
+    langName: string,
+    ariaLabel: string
+  },
+  es: {
+    langName: string,
+    ariaLabel: string
+  },
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -9,11 +24,7 @@ export class TranslationService {
 
   constructor(public translate: TranslateService) { }
 
-  public getLanguageNames(): Observable<{ 
-    de: { langName: string, ariaLabel: string }, 
-    en: { langName: string, ariaLabel: string }, 
-    es: { langName: string, ariaLabel: string } 
-  }> {
+  public getLanguageNames(): Observable<LanguageNames> {
     return forkJoin({
       de: forkJoin({
         langName: this.translate.get(_('app.langNames.de')),
@@ -36,6 +47,10 @@ export class TranslationService {
 
   public getDefaultLanguage() {
     return this.translate.defaultLang;
+  }
+
+  public getCurrentLanguage() {
+    return this.translate.currentLang;
   }
 
   public setSelectedLanguage(lang: string) {
