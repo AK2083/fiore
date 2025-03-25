@@ -9,7 +9,7 @@ export class TranslationService {
 
   constructor(public translate: TranslateService) { }
 
-  getLanguageNames(): Observable<{ 
+  public getLanguageNames(): Observable<{ 
     de: { langName: string, ariaLabel: string }, 
     en: { langName: string, ariaLabel: string }, 
     es: { langName: string, ariaLabel: string } 
@@ -30,19 +30,19 @@ export class TranslationService {
     });
   }
 
-  getTranslationTitle() {
+  public getTranslationTitle() {
     return this.getTranslationOf(_('app.title'));
   }
 
-  getDefaultLanguage() {
+  public getDefaultLanguage() {
     return this.translate.defaultLang;
   }
 
-  setSelectedLanguage(lang: string) {
+  public setSelectedLanguage(lang: string) {
     this.translate.use(lang);
   }
 
-  getTranslationOf(content: string) {
-    return this.translate.get(content);
+  private getTranslationOf(content: string) {
+    return this.translate.stream(content);
   }
 }

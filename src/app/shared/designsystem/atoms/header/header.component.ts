@@ -7,5 +7,9 @@ import { Component, Input } from '@angular/core';
   styles: ``
 })
 export class HeaderComponent {
-  @Input() title = "";
+  @Input() title: string | null = null;
+
+  get safeTitle(): string {
+    return this.title ?? 'Allgemeiner Titel';
+  }
 }

@@ -67,22 +67,10 @@
 
                     <div class="relative mt-2 px-2 sm:px-6 grid grid-rows-2 gap-2">
                       <div class="bg-slate-800 p-3 rounded border-x-1 border-b-1 border-t-4 border-slate-700">
-                        <app-header [title]="menuTitle"></app-header>
+                        <app-header [title]="menuTitle$ | async"></app-header>
 
                         <!-- Content -->
-                        <div class="grid grid-cols-2 gap-4 items-center">
-                          <!-- <app-lang-button *ngFor="let item of langItems" [language]="item"
-                            (changeLanguage)="changeLanguageEvent($event)">
-                            <div class="text-slate-200 pl-3">{{ item.langName }}</div>
-                            <div class="text-sm text-slate-400 pl-3">{{ item.welcomeText }}</div>
-                          </app-lang-button> -->
-
-                          <app-status-button *ngFor="let item of langItems" [isActive]="item.isActive" [type]="item.lang"
-                            (returnIdentifier)="changeLanguageEvent($event)">
-                            <div class="text-slate-200 pl-3">{{ item.langName }}</div>
-                            <div class="text-sm text-slate-400 pl-3">{{ item.welcomeText }}</div>
-                          </app-status-button>
-                        </div>
+                        <app-language-overview></app-language-overview>
 
                       </div>
 

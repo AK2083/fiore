@@ -1,32 +1,26 @@
-import { NgFor, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { Component, OnChanges } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { LangButtonComponent, LanguageModel } from '../designsystem/atoms/lang-button/lang-button.component';
 import { HeaderComponent } from '../designsystem/atoms/header/header.component';
 
 import { TranslationService } from '../services/translation.service';
-import { StatusButtonComponent } from '../designsystem/atoms/status-button/status-button.component';
-
-enum Language {
-  DE = 'de',
-  EN = 'en',
-  ES = 'es'
-}
+import { LanguageOverviewComponent } from '../../translation/language-overview/language-overview.component';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-common-navigation-bar',
   imports: [
     NgIf,
     NgFor,
+    AsyncPipe,
     RouterLink,
     HeaderComponent,
-    LangButtonComponent,
-    StatusButtonComponent
+    LanguageOverviewComponent
   ],
   templateUrl: './common-navigation-bar.component.html',
   styleUrl: './common-navigation-bar.component.css'
 })
-export class CommonNavigationBarComponent implements OnInit {
+export class CommonNavigationBarComponent {
   isMobileMenuOpen = false;
   isLanguageMenuOpen = true;
   isHover = true;
@@ -39,59 +33,13 @@ export class CommonNavigationBarComponent implements OnInit {
     },
   ];
 
-  langItems: LanguageModel[] = [];
-  menuTitle = "";
+  menuTitle$: Observable<string>;
 
-  language = Language;
-  languageKeys = Object.keys(this.language);
-
-  constructor(public translate: TranslationService) { }
-
-  ngOnInit() {
-    this.loadLanguageItems();
-  }
-
-  changeLanguageEvent(langType: string) {
-    this.translate.setSelectedLanguage(langType);
-    this.loadLanguageItems(langType);
+  constructor(public translate: TranslationService) { 
+    this.menuTitle$ = this.translate.getTranslationTitle(); 
   }
 
   openLanguageMenu() {
-    this.isLanguageMenuOpen = !this.isLanguageMenuOpen; 
-  }
-
-  loadLanguageItems(lng: string = "") {
-    if (lng === "") 
-      lng = this.translate.getDefaultLanguage();
-
-    this.translate.getLanguageNames().subscribe(({ de, en, es }) => {
-      this.langItems = [
-        {
-          langName: de.langName,
-          ariaLabel: de.ariaLabel,
-          lang: this.language.DE,
-          welcomeText: 'Guten Morgen',
-          isActive: lng === this.language.DE
-        },
-        {
-          langName: en.langName,
-          ariaLabel: en.ariaLabel,
-          lang: this.language.EN,
-          welcomeText: 'Good Morning',
-          isActive: lng === this.language.EN
-        },
-        {
-          langName: es.langName,
-          ariaLabel: es.ariaLabel,
-          lang: this.language.ES,
-          welcomeText: 'Buenos Dias!',
-          isActive: lng === this.language.ES
-        }
-      ];
-    });
-
-    this.translate
-      .getTranslationTitle()
-      .subscribe((result: string) => this.menuTitle = result);
+    this.isLanguageMenuOpen = !this.isLanguageMenuOpen;
   }
 }
