@@ -1,8 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { LanguageNames, TranslationService } from '../../shared/services/translation.service';
-import { LanguageModel } from '../../shared/designsystem/atoms/lang-button/lang-button.component';
 import { NgFor } from '@angular/common';
 import { StatusButtonComponent } from '../../shared/designsystem/atoms/status-button/status-button.component';
+
+export type LanguageModel = {
+  langName: string;
+  ariaLabel: string,
+  lang: string;
+  welcomeText: string;
+  isActive: boolean;
+}
 
 enum Language {
   DE = 'de',

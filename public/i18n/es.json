@@ -1,11 +1,14 @@
 {
     "app": {
         "title": "Traducir al",
-        "ariaLabel": "Cambiar idioma a español",
         "langNames": {
             "en": "Inglés",
             "de": "Aleman",
             "es": "Español"
+        },
+        "aria": {
+            "translationLabel": "Cambiar idioma a {{lang}}",
+            "iconLabel": "Mostrar traducción"
         }
     }
 }

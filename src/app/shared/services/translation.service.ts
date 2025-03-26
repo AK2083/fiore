@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { _, TranslateService } from '@ngx-translate/core';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, map, Observable, switchMap } from 'rxjs';
 
 export type LanguageNames = {
   de: {
@@ -26,23 +26,36 @@ export class TranslationService {
 
   public getLanguageNames(): Observable<LanguageNames> {
     return forkJoin({
-      de: forkJoin({
-        langName: this.translate.get(_('app.langNames.de')),
-        ariaLabel: this.translate.get(_('app.ariaLabel'))
-      }),
-      en: forkJoin({
-        langName: this.translate.get(_('app.langNames.en')),
-        ariaLabel: this.translate.get(_('app.ariaLabel'))
-      }),
-      es: forkJoin({
-        langName: this.translate.get(_('app.langNames.es')),
-        ariaLabel: this.translate.get(_('app.ariaLabel'))
-      })
+      de: this.translate.get(_('app.langNames.de')).pipe(
+        switchMap((langName) =>
+          this.translate.get(_('app.aria.translationLabel'), { lang: langName }).pipe(
+            map((ariaLabel) => ({ langName, ariaLabel }))
+          )
+        )
+      ),
+      en: this.translate.get(_('app.langNames.en')).pipe(
+        switchMap((langName) =>
+          this.translate.get(_('app.aria.translationLabel'), { lang: langName }).pipe(
+            map((ariaLabel) => ({ langName, ariaLabel }))
+          )
+        )
+      ),
+      es: this.translate.get(_('app.langNames.es')).pipe(
+        switchMap((langName) =>
+          this.translate.get(_('app.aria.translationLabel'), { lang: langName }).pipe(
+            map((ariaLabel) => ({ langName, ariaLabel }))
+          )
+        )
+      )
     });
   }
 
   public getTranslationTitle() {
     return this.getTranslationOf(_('app.title'));
+  }
+
+  public getIconSRSupport() {
+    return this.getTranslationOf(_('app.aria.iconLabel'));
   }
 
   public getDefaultLanguage() {

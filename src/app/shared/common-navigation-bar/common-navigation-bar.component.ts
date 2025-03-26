@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { SimplePanelComponent } from '../designsystem/atoms/simple-panel/simple-panel.component';
 import { GlobeComponent } from '../designsystem/icons/globe/globe.component';
 import { DrawerComponent } from '../designsystem/molecules/drawer/drawer.component';
+import { IconButtonComponent } from '../designsystem/atoms/icon-button/icon-button.component';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -20,6 +21,7 @@ import { DrawerComponent } from '../designsystem/molecules/drawer/drawer.compone
     HeaderComponent,
     LanguageOverviewComponent,
     SimplePanelComponent,
+    IconButtonComponent,
     GlobeComponent,
     DrawerComponent
   ],
@@ -39,9 +41,11 @@ export class CommonNavigationBarComponent {
   ];
 
   menuTitle$: Observable<string>;
+  iconSRSupport$: Observable<string>;
 
   constructor(public translate: TranslationService) { 
     this.menuTitle$ = this.translate.getTranslationTitle(); 
+    this.iconSRSupport$ = this.translate.getIconSRSupport();
   }
 
   openLanguageMenu(openMenu: boolean) {

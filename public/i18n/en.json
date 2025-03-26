@@ -1,11 +1,14 @@
 {
     "app": {
         "title": "Translate me into",
-        "ariaLabel": "Change language to English",
         "langNames": {
             "en": "English",
             "de": "German",
             "es": "Spanish"
+        },
+        "aria": {
+            "translationLabel": "Change language to {{lang}}",
+            "iconLabel": "Show Translation"
         }
     }
 }
