@@ -1,12 +1,14 @@
 {
     "app": {
         "title": "Übersetze mich in",
-        "ariaLabel": "Sprache in Deutsch ändern",
         "langNames": {
             "en": "Englisch",
             "de": "Deutsch",
             "es": "Spanisch"
+        },
+        "aria": {
+            "translationLabel": "Sprache in {{lang}} ändern",
+            "iconLabel": "Zeige Übersetzung"
         }
-
     }
 }
