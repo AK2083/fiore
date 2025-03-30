@@ -1,7 +1,17 @@
-<div (click)="emitEvent()" role="button" tabindex="0" (keydown)="onKeyDown($event)"
-    [attr.aria-label]="label" [attr.aria-pressed]="isActive"
-    [ngClass]="{'border-x-lime-600': isActive, 'border-x-slate-600': !isActive}"
-    class="relative bg-slate-900 w-44 h-12 rounded border-y-1 border-x-4 hover:border-x-orange-600 cursor-pointer">
+<div (click)="emitEvent()" role="button" tabindex="0" (keydown)="onKeyDown($event)" [attr.aria-label]="label"
+    [attr.aria-pressed]="isActive" [ngClass]="{'border-x-lime-600': isActive && !isLoading, 'border-x-slate-600': !isActive}"
+    class="relative bg-slate-900 w-44 h-12 rounded border-y-1 border-x-4 hover:border-x-orange-600 cursor-pointer border-y-slate-700">
 
     <ng-content></ng-content>
+
+    <ng-container *ngIf="!isLoading; else loadingAnimation">
+        <ng-content></ng-content>
+    </ng-container>
+
+    <ng-template #loadingAnimation>
+        <div class="flex flex-col gap-2 m-2 animate-pulse">
+            <div class="h-3 rounded bg-gray-200"></div>
+            <div class="h-2 rounded bg-gray-200"></div>
+        </div>
+    </ng-template>
 </div>

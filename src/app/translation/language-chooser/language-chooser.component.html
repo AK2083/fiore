@@ -1,0 +1,13 @@
+<app-simple-panel>
+    <app-header [title]="menuTitle$ | async" [isLoading]="isLoading">
+        <app-globe></app-globe>
+    </app-header>
+
+    <div class="grid grid-cols-2 gap-4 items-center">
+        <app-status-button *ngFor="let item of langItems" [isActive]="item.isActive" [type]="item.lang"
+            [label]="item.ariaLabel" (returnIdentifier)="changeLanguageEvent($event)" [isLoading]="isLoading">
+            <app-text-with-subtext [isLoading]="isLoading" [header]="item.langName" [subtext]="item.welcomeText">
+            </app-text-with-subtext>
+        </app-status-button>
+    </div>
+</app-simple-panel>

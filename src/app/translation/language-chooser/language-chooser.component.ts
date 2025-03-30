@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { LanguageNames, TranslationService } from '../../shared/services/translation.service';
-import { NgFor } from '@angular/common';
+import { SimplePanelComponent } from '../../shared/designsystem/atoms/simple-panel/simple-panel.component';
+import { HeaderComponent } from '../../shared/designsystem/atoms/header/header.component';
+import { GlobeComponent } from '../../shared/designsystem/icons/globe/globe.component';
 import { StatusButtonComponent } from '../../shared/designsystem/atoms/status-button/status-button.component';
+import { AsyncPipe, NgFor } from '@angular/common';
+import { LanguageNames, TranslationService } from '../../shared/services/translation.service';
+import { combineLatest, Observable } from 'rxjs';
+import { TextWithSubtextComponent } from '../../shared/designsystem/molecules/text-with-subtext/text-with-subtext.component';
 
 export type LanguageModel = {
   langName: string;
@@ -18,16 +23,32 @@ enum Language {
 }
 
 @Component({
-  selector: 'app-language-overview',
-  imports: [NgFor, StatusButtonComponent],
-  templateUrl: './language-overview.component.html',
+  selector: 'app-language-chooser',
+  imports: [
+    AsyncPipe,
+    NgFor,
+    SimplePanelComponent,
+    HeaderComponent,
+    GlobeComponent,
+    StatusButtonComponent,
+    TextWithSubtextComponent
+  ],
+  templateUrl: './language-chooser.component.html',
   styles: ``
 })
-export class LanguageOverviewComponent implements OnInit {
+export class LanguageChooserComponent implements OnInit {
   langItems: LanguageModel[] = [];
   language = Language;
-  
-  constructor(public translate: TranslationService) { }
+
+  isLoading = true;
+
+  menuTitle$: Observable<string>;
+  iconSRSupport$: Observable<string>;
+
+  constructor(public translate: TranslationService) { 
+    this.menuTitle$ = this.translate.getTranslationTitle(); 
+    this.iconSRSupport$ = this.translate.getIconSRSupport();
+  }
 
   ngOnInit() {
     var lang = this.translate.getCurrentLanguage() || this.translate.getDefaultLanguage();
@@ -47,24 +68,26 @@ export class LanguageOverviewComponent implements OnInit {
             langName: names.de.langName,
             ariaLabel: names.de.ariaLabel,
             lang: this.language.DE,
-            welcomeText: 'Guten Morgen',
+            welcomeText: names.de.welcomeText,
             isActive: lng === this.language.DE
           },
           {
             langName: names.en.langName,
             ariaLabel: names.en.ariaLabel,
             lang: this.language.EN,
-            welcomeText: 'Good Morning',
+            welcomeText: names.en.welcomeText,
             isActive: lng === this.language.EN
           },
           {
             langName: names.es.langName,
             ariaLabel: names.es.ariaLabel,
             lang: this.language.ES,
-            welcomeText: 'Buenos Dias',
+            welcomeText: names.es.welcomeText,
             isActive: lng === this.language.ES
           }
         ];
+
+        this.isLoading = false
       },
       error: (error) => {
         console.error('Error loading language names:', error);

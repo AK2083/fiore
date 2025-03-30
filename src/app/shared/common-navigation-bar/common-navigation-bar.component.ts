@@ -1,15 +1,14 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { HeaderComponent } from '../designsystem/atoms/header/header.component';
 
 import { TranslationService } from '../services/translation.service';
-import { LanguageOverviewComponent } from '../../translation/language-overview/language-overview.component';
 import { Observable } from 'rxjs';
-import { SimplePanelComponent } from '../designsystem/atoms/simple-panel/simple-panel.component';
-import { GlobeComponent } from '../designsystem/icons/globe/globe.component';
 import { DrawerComponent } from '../designsystem/molecules/drawer/drawer.component';
 import { IconButtonComponent } from '../designsystem/atoms/icon-button/icon-button.component';
+import { LanguageChooserComponent } from '../../translation/language-chooser/language-chooser.component';
+import { GlobeComponent } from '../designsystem/icons/globe/globe.component';
+import { BurgerComponent } from '../designsystem/icons/burger/burger.component';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -18,11 +17,10 @@ import { IconButtonComponent } from '../designsystem/atoms/icon-button/icon-butt
     NgFor,
     AsyncPipe,
     RouterLink,
-    HeaderComponent,
-    LanguageOverviewComponent,
-    SimplePanelComponent,
+    LanguageChooserComponent,
     IconButtonComponent,
     GlobeComponent,
+    BurgerComponent,
     DrawerComponent
   ],
   templateUrl: './common-navigation-bar.component.html',
@@ -40,15 +38,17 @@ export class CommonNavigationBarComponent {
     },
   ];
 
-  menuTitle$: Observable<string>;
   iconSRSupport$: Observable<string>;
 
   constructor(public translate: TranslationService) { 
-    this.menuTitle$ = this.translate.getTranslationTitle(); 
     this.iconSRSupport$ = this.translate.getIconSRSupport();
   }
 
-  openLanguageMenu(openMenu: boolean) {
-    this.isLanguageMenuOpen = openMenu;
+  openLanguageMenu() {
+    this.isLanguageMenuOpen = !this.isLanguageMenuOpen;
+  }
+
+  openMobileMenu() {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 }

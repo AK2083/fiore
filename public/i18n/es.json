@@ -1,13 +1,20 @@
 {
     "app": {
         "title": "Traducir al",
-        "langNames": {
-            "en": "Inglés",
-            "de": "Aleman",
-            "es": "Español"
+        "language": { 
+            "names": {
+                "en": "Inglés",
+                "de": "Aleman",
+                "es": "Español"
+            },
+            "subtitles": {
+                "welcomeTextDE": "Guten Morgen",
+                "welcomeTextEN": "Good Morning",
+                "welcomeTextES": "Buenos Dias"
+            }
         },
         "aria": {
-            "translationLabel": "Cambiar idioma a {{lang}}",
+            "translationLabel": "Cambiar idioma a",
             "iconLabel": "Mostrar traducción"
         }
     }
