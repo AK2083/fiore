@@ -5,15 +5,18 @@ import { forkJoin, map, Observable, switchMap } from 'rxjs';
 export type LanguageNames = {
   de: {
     langName: string,
-    ariaLabel: string
+    ariaLabel: string,
+    welcomeText: string
   },
   en: {
     langName: string,
-    ariaLabel: string
+    ariaLabel: string,
+    welcomeText: string
   },
   es: {
     langName: string,
-    ariaLabel: string
+    ariaLabel: string,
+    welcomeText: string
   },
 }
 
@@ -24,29 +27,59 @@ export class TranslationService {
 
   constructor(public translate: TranslateService) { }
 
-  public getLanguageNames(): Observable<LanguageNames> {
+  getLanguageNames(): Observable<LanguageNames> {
     return forkJoin({
-      de: this.translate.get(_('app.langNames.de')).pipe(
+      de: this.translate.get('app.language.names.de').pipe(
         switchMap((langName) =>
-          this.translate.get(_('app.aria.translationLabel'), { lang: langName }).pipe(
-            map((ariaLabel) => ({ langName, ariaLabel }))
+          forkJoin({
+            langName: this.translate.get('app.language.names.de'),
+            ariaLabel: this.translate.get('app.aria.translationLabel', {
+              lang: langName,
+            }),
+            welcomeText: this.translate.get('app.language.subtitles.welcomeTextDE'),
+          }).pipe(
+            map((texts) => ({
+              langName: texts.langName,
+              ariaLabel: texts.ariaLabel,
+              welcomeText: texts.welcomeText,
+            }))
           )
         )
       ),
-      en: this.translate.get(_('app.langNames.en')).pipe(
+      en: this.translate.get('app.language.names.en').pipe(
         switchMap((langName) =>
-          this.translate.get(_('app.aria.translationLabel'), { lang: langName }).pipe(
-            map((ariaLabel) => ({ langName, ariaLabel }))
+          forkJoin({
+            langName: this.translate.get('app.language.names.en'),
+            ariaLabel: this.translate.get('app.aria.translationLabel', {
+              lang: langName,
+            }),
+            welcomeText: this.translate.get('app.language.subtitles.welcomeTextEN'),
+          }).pipe(
+            map((texts) => ({
+              langName: texts.langName,
+              ariaLabel: texts.ariaLabel,
+              welcomeText: texts.welcomeText,
+            }))
           )
         )
       ),
-      es: this.translate.get(_('app.langNames.es')).pipe(
+      es: this.translate.get('app.language.names.es').pipe(
         switchMap((langName) =>
-          this.translate.get(_('app.aria.translationLabel'), { lang: langName }).pipe(
-            map((ariaLabel) => ({ langName, ariaLabel }))
+          forkJoin({
+            langName: this.translate.get('app.language.names.es'),
+            ariaLabel: this.translate.get('app.aria.translationLabel', {
+              lang: langName,
+            }),
+            welcomeText: this.translate.get('app.language.subtitles.welcomeTextES'),
+          }).pipe(
+            map((texts) => ({
+              langName: texts.langName,
+              ariaLabel: texts.ariaLabel,
+              welcomeText: texts.welcomeText,
+            }))
           )
         )
-      )
+      ),
     });
   }
 

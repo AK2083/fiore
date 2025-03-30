@@ -1,9 +1,12 @@
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-status-button',
-  imports: [NgClass],
+  imports: [
+    NgClass, 
+    NgIf
+  ],
   templateUrl: './status-button.component.html',
   styles: ``
 })
@@ -11,6 +14,8 @@ export class StatusButtonComponent {
   @Input() type!: string;
 
   @Input() isActive = false;
+  @Input() isLoading = true;
+
   @Input() label = "";
   @Output() returnIdentifier = new EventEmitter<string>();
 

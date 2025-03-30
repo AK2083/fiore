@@ -1,15 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, Input, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [NgIf],
   templateUrl: './header.component.html',
   styles: ``
 })
 export class HeaderComponent {
   @Input() title: string | null = null;
-
-  get safeTitle(): string {
-    return this.title ?? 'Allgemeiner Titel';
-  }
+  @Input() isLoading = true;
 }

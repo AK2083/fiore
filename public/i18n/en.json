@@ -1,13 +1,20 @@
 {
     "app": {
         "title": "Translate me into",
-        "langNames": {
-            "en": "English",
-            "de": "German",
-            "es": "Spanish"
+        "language": {
+            "names": {
+                "en": "English",
+                "de": "German",
+                "es": "Spanish"
+            },
+            "subtitles": {
+                "welcomeTextDE": "Guten Morgen",
+                "welcomeTextEN": "Good Morning",
+                "welcomeTextES": "Buenos Dias"
+            }
         },
         "aria": {
-            "translationLabel": "Change language to {{lang}}",
+            "translationLabel": "Change language to",
             "iconLabel": "Show Translation"
         }
     }

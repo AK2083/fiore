@@ -1,13 +1,20 @@
 {
     "app": {
         "title": "Übersetze mich in",
-        "langNames": {
-            "en": "Englisch",
-            "de": "Deutsch",
-            "es": "Spanisch"
+        "language": {
+            "names": {
+                "en": "Englisch",
+                "de": "Deutsch",
+                "es": "Spanisch"
+            },
+            "subtitles": {
+                "welcomeTextDE": "Guten Morgen",
+                "welcomeTextEN": "Good Morning",
+                "welcomeTextES": "Buenos Dias"
+            }
         },
         "aria": {
-            "translationLabel": "Sprache in {{lang}} ändern",
+            "translationLabel": "Sprache ändern in",
             "iconLabel": "Zeige Übersetzung"
         }
     }
