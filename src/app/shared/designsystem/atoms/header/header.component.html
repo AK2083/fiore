@@ -1,7 +1,7 @@
-<div class="relative w-full rounded overflow-hidden mb-10">
-    <div class="absolute inset-0 bg-conic-80 from-orange-600 via-slate-500 to-slate-900 rounded z-0"></div>
+<div class="relative w-full rounded overflow-hidden mb-3">
+    <div class="hidden md:block absolute inset-0 bg-conic-80 from-orange-600 via-slate-500 to-slate-900 rounded z-0"></div>
 
-    <div class="relative bg-slate-900 rounded p-2 text-slate-400 m-[1px] z-0 flex ">
+    <div class="relative md:bg-slate-900 rounded md:p-2 text-slate-400 m-[1px] z-0 flex ">
 
         <ng-container *ngIf="!isLoading; else loadingAnimation">
             <ng-content></ng-content>
