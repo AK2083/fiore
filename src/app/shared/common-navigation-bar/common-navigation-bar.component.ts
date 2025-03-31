@@ -1,5 +1,5 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { TranslationService } from '../services/translation.service';
@@ -40,7 +40,7 @@ export class CommonNavigationBarComponent {
 
   iconSRSupport$: Observable<string>;
 
-  constructor(public translate: TranslationService) { 
+  constructor(public translate: TranslationService) {
     this.iconSRSupport$ = this.translate.getIconSRSupport();
   }
 
@@ -50,5 +50,20 @@ export class CommonNavigationBarComponent {
 
   openMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  closeMenu() {
+    this.isLanguageMenuOpen = false;
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onDocumentClick(event: MouseEvent) {
+    if (window.innerWidth < 768) {
+      this.isLanguageMenuOpen = false;
+    }
+
+    if (window.innerWidth > 768) {
+      this.isMobileMenuOpen = false;
+    }
   }
 }
