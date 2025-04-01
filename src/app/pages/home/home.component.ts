@@ -1,9 +1,8 @@
-import { NgClass } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  imports: [NgClass],
+  imports: [],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
