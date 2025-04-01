@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { _, TranslateService } from '@ngx-translate/core';
 import { forkJoin, map, Observable, switchMap } from 'rxjs';
 
-export type LanguageNames = {
+export interface LanguageNames {
   de: {
     langName: string,
     ariaLabel: string,
