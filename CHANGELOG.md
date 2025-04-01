@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.2.2](https://github.com/AK2083/fiore/compare/0.2.1...0.2.2) (2025-04-01)
+
+
+### Bug Fixes
+
+* **fiore:** fix drawer behaviour on resize ([edd1877](https://github.com/AK2083/fiore/commit/edd1877299b1922d386b7a406a1408601d5561e0))
+* **fiore:** fix wrong start status on language button ([9847c8d](https://github.com/AK2083/fiore/commit/9847c8dce16eba32bc55f26620031da28204cd78))
+
 ## [0.2.1](https://github.com/AK2083/fiore/compare/0.2.0...0.2.1) (2025-02-23)
 
 # 0.2.0 (2025-02-21)
