@@ -24,7 +24,6 @@ import { BurgerComponent } from '../designsystem/icons/burger/burger.component';
     DrawerComponent
   ],
   templateUrl: './common-navigation-bar.component.html',
-  styleUrl: './common-navigation-bar.component.css'
 })
 export class CommonNavigationBarComponent {
   isMobileMenuOpen = false;
@@ -65,5 +64,10 @@ export class CommonNavigationBarComponent {
     if (window.innerWidth > 768) {
       this.isMobileMenuOpen = false;
     }
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  onEscapeKeydown() {
+    this.isLanguageMenuOpen = false;
   }
 }
