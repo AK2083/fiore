@@ -69,5 +69,6 @@ export class CommonNavigationBarComponent {
   @HostListener('document:keydown.escape', ['$event'])
   onEscapeKeydown() {
     this.isLanguageMenuOpen = false;
+    this.isMobileMenuOpen = false;
   }
 }
