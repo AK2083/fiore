@@ -1,9 +1,9 @@
 <ng-container *ngIf="!isLoading; else loadingAnimation">
-    <div class="hidden md:block text-slate-200 pl-3">{{ header }}</div>
-    <div class="block md:hidden text-slate-200 flex justify-center items-center w-full h-full">
+    <div class="hidden md:block text-slate-800 dark:text-slate-200 pl-3">{{ header }}</div>
+    <div class="block md:hidden text-slate-800 dark:text-slate-200 flex justify-center items-center w-full h-full">
         {{ header?.slice(0, 2) | uppercase }}
     </div>
-    <div class="hidden md:block text-sm text-slate-400 pl-3">{{ subtext }}</div>
+    <div class="hidden md:block text-sm dark:text-slate-400 text-slate-500 pl-3">{{ subtext }}</div>
 </ng-container>
 
 <ng-template #loadingAnimation>
