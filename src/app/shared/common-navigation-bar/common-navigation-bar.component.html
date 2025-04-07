@@ -2,45 +2,59 @@
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center">
-
         <!-- Title -->
         <div class="shrink-0">
-          <span class="text-2xl font-semibold dark:text-white">Fi<span class="text-orange-600">o</span>re</span>
+          <span class="text-2xl font-semibold dark:text-white"
+            >Fi<span class="text-orange-600">o</span>re</span
+          >
         </div>
-        
+
         <!-- Routes -->
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
-            <a [routerLink]="[item.route]" *ngFor="let item of routeItems"
-              class="rounded-md px-3 py-2 text-sm font-medium text-slate-800 dark:text-slate-300 dark:hover:bg-gray-700 hover:bg-slate-400 hover:text-slate-200"
+            <a
+              [routerLink]="[item.route]"
+              *ngFor="let item of routeItems"
+              class="rounded-md px-3 py-2 text-sm font-medium text-slate-800 hover:bg-slate-400 hover:text-slate-200 dark:text-slate-300 dark:hover:bg-gray-700"
               aria-current="page"
-              routerLinkActive="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium dark:text-white">{{item.name}}</a>
+              routerLinkActive="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium dark:text-white"
+              >{{ item.name }}</a
+            >
           </div>
         </div>
-
       </div>
 
       <!-- Language Menu -->
       <div class="relative ml-3">
         <div class="hidden md:block">
-          <app-icon-button (pressButton)="openLanguageMenu()" [srText]="iconSRSupport$ | async">
+          <app-icon-button
+            (pressButton)="openLanguageMenu()"
+            [srText]="iconSRSupport$ | async"
+          >
             <app-globe></app-globe>
           </app-icon-button>
         </div>
 
         <!-- Language Drawer -->
-        <div *ngIf="isLanguageMenuOpen" class="relative z-10" aria-labelledby="slide-over-title" role="dialog"
-          aria-modal="true">
+        <div
+          *ngIf="isLanguageMenuOpen"
+          class="relative z-10"
+          aria-labelledby="slide-over-title"
+          role="dialog"
+          aria-modal="true"
+        >
           <app-drawer (pressButton)="openLanguageMenu()">
             <app-language-chooser></app-language-chooser>
           </app-drawer>
         </div>
-
       </div>
-      
+
       <!-- Burger Icon for Mobile Menu -->
       <div class="-mr-2 flex md:hidden">
-        <app-icon-button (pressButton)="openMobileMenu()" [srText]="iconSRSupport$ | async">
+        <app-icon-button
+          (pressButton)="openMobileMenu()"
+          [srText]="iconSRSupport$ | async"
+        >
           <app-burger></app-burger>
         </app-icon-button>
       </div>
@@ -49,11 +63,15 @@
 
   <!-- Mobile menu, show/hide based on menu state. -->
   <div class="md:hidden" id="mobile-menu" *ngIf="isMobileMenuOpen">
-    <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-      <a *ngFor="let item of routeItems" [routerLink]="[item.route]"
-        class="block rounded-md px-3 py-2 text-base font-medium text-slate-800 dark:text-slate-300 dark:hover:bg-gray-700 hover:bg-slate-400 hover:text-slate-200"
+    <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+      <a
+        *ngFor="let item of routeItems"
+        [routerLink]="[item.route]"
+        class="block rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-slate-400 hover:text-slate-200 dark:text-slate-300 dark:hover:bg-gray-700"
         aria-current="page"
-        routerLinkActive="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white">{{item.name}}</a>
+        routerLinkActive="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+        >{{ item.name }}</a
+      >
     </div>
     <app-language-chooser></app-language-chooser>
   </div>

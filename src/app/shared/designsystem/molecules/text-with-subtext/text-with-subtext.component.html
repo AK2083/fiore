@@ -1,14 +1,20 @@
 <ng-container *ngIf="!isLoading; else loadingAnimation">
-    <div class="hidden md:block text-slate-800 dark:text-slate-200 pl-3">{{ header }}</div>
-    <div class="block md:hidden text-slate-800 dark:text-slate-200 flex justify-center items-center w-full h-full">
-        {{ header?.slice(0, 2) | uppercase }}
-    </div>
-    <div class="hidden md:block text-sm dark:text-slate-400 text-slate-500 pl-3">{{ subtext }}</div>
+  <div class="hidden pl-3 text-slate-800 md:block dark:text-slate-200">
+    {{ header }}
+  </div>
+  <div
+    class="block flex h-full w-full items-center justify-center text-slate-800 md:hidden dark:text-slate-200"
+  >
+    {{ header?.slice(0, 2) | uppercase }}
+  </div>
+  <div class="hidden pl-3 text-sm text-slate-500 md:block dark:text-slate-400">
+    {{ subtext }}
+  </div>
 </ng-container>
 
 <ng-template #loadingAnimation>
-    <div class="flex flex-col gap-2 m-2 animate-pulse">
-        <div class="h-3 rounded bg-gray-200"></div>
-        <div class="h-2 rounded bg-gray-200"></div>
-    </div>
+  <div class="m-2 flex animate-pulse flex-col gap-2">
+    <div class="h-3 rounded bg-gray-200"></div>
+    <div class="h-2 rounded bg-gray-200"></div>
+  </div>
 </ng-template>

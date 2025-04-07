@@ -1,13 +1,23 @@
 <app-simple-panel>
-    <app-header [title]="menuTitle$ | async" [isLoading]="isLoading">
-        <app-globe></app-globe>
-    </app-header>
+  <app-header [title]="menuTitle$ | async" [isLoading]="isLoading">
+    <app-globe></app-globe>
+  </app-header>
 
-    <div class="flex flex-wrap gap-2 justify-start items-center">
-        <app-status-button *ngFor="let item of langItems" [isActive]="item.isActive" [type]="item.lang"
-            [label]="item.ariaLabel" (returnIdentifier)="changeLanguageEvent($event)" [isLoading]="isLoading">
-            <app-text-with-subtext [isLoading]="isLoading" [header]="item.langName" [subtext]="item.welcomeText">
-            </app-text-with-subtext>
-        </app-status-button>
-    </div>
+  <div class="flex flex-wrap items-center justify-start gap-2">
+    <app-status-button
+      *ngFor="let item of langItems"
+      [isActive]="item.isActive"
+      [type]="item.lang"
+      [label]="item.ariaLabel"
+      (returnIdentifier)="changeLanguageEvent($event)"
+      [isLoading]="isLoading"
+    >
+      <app-text-with-subtext
+        [isLoading]="isLoading"
+        [header]="item.langName"
+        [subtext]="item.welcomeText"
+      >
+      </app-text-with-subtext>
+    </app-status-button>
+  </div>
 </app-simple-panel>

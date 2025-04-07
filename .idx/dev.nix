@@ -17,6 +17,7 @@
     extensions = [
       "angular.ng-template"
       "bradlc.vscode-tailwindcss"
+      "esbenp.prettier-vscode"
     ];
     workspace = {
       # Runs when a workspace is first created with this `dev.nix` file
@@ -32,7 +33,7 @@
       enable = true;
       previews = {
         web = {
-          command = ["npm" "run" "start" "--" "--port" "$PORT" "--host" "0.0.0.0" "--disable-host-check"];
+          command = [ "npm" "run" "start" "--" "--port" "$PORT" "--host" "0.0.0.0" "--disable-host-check" ];
           manager = "web";
         };
       };
