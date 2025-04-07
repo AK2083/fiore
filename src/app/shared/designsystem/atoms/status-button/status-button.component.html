@@ -1,7 +1,7 @@
 <div (click)="emitEvent()" role="button" tabindex="0" (keydown)="onKeyDown($event)" [attr.aria-label]="label"
     [attr.aria-pressed]="isActive"
     [ngClass]="{'border-x-lime-600': isActive && !isLoading, 'border-x-slate-600': !isActive}"
-    class="relative bg-slate-900 w-12 md:w-44 h-12 rounded border-y-1 border-x-4 hover:border-x-orange-600 cursor-pointer border-y-slate-700">
+    class="relative bg-slate-300 dark:bg-slate-900 w-12 md:w-44 h-12 rounded border-y-1 border-x-4 hover:border-x-orange-600 cursor-pointer border-y-slate-600 dark:border-y-slate-700">
 
     <ng-content></ng-content>
 
