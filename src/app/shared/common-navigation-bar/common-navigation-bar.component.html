@@ -28,6 +28,22 @@
       <div class="relative ml-3">
         <div class="hidden md:block">
           <app-icon-button
+            *ngIf="isDarkModeOn"
+            (pressButton)="toggleTheme()"
+            [srText]="iconSRSupport$ | async"
+          >
+            <app-sun></app-sun>
+          </app-icon-button>
+
+          <app-icon-button
+            *ngIf="!isDarkModeOn"
+            (pressButton)="toggleTheme()"
+            [srText]="iconSRSupport$ | async"
+          >
+            <app-moon></app-moon>
+          </app-icon-button>
+
+          <app-icon-button
             (pressButton)="openLanguageMenu()"
             [srText]="iconSRSupport$ | async"
           >

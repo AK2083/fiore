@@ -9,6 +9,8 @@ import { IconButtonComponent } from '../designsystem/atoms/icon-button/icon-butt
 import { LanguageChooserComponent } from '../../translation/language-chooser/language-chooser.component';
 import { GlobeComponent } from '../designsystem/icons/globe/globe.component';
 import { BurgerComponent } from '../designsystem/icons/burger/burger.component';
+import { SunComponent } from '../designsystem/icons/sun/sun.component';
+import { MoonComponent } from '../designsystem/icons/moon/moon.component';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -21,19 +23,22 @@ import { BurgerComponent } from '../designsystem/icons/burger/burger.component';
     IconButtonComponent,
     GlobeComponent,
     BurgerComponent,
-    DrawerComponent
+    DrawerComponent,
+    SunComponent,
+    MoonComponent,
   ],
   templateUrl: './common-navigation-bar.component.html',
 })
 export class CommonNavigationBarComponent {
   isMobileMenuOpen = false;
   isLanguageMenuOpen = false;
+  isDarkModeOn = true;
 
   routeItems = [
     {
-      name: "Home",
-      route: "/home",
-      isActive: true
+      name: 'Home',
+      route: '/home',
+      isActive: true,
     },
   ];
 
@@ -41,6 +46,7 @@ export class CommonNavigationBarComponent {
 
   constructor(public translate: TranslationService) {
     this.iconSRSupport$ = this.translate.getIconSRSupport();
+    this.isDarkModeOn = document.documentElement.classList.contains('dark');
   }
 
   openLanguageMenu() {
@@ -49,6 +55,13 @@ export class CommonNavigationBarComponent {
 
   openMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toggleTheme() {
+    this.isDarkModeOn = !this.isDarkModeOn;
+
+    if (this.isDarkModeOn) document.documentElement.classList.add('dark');
+    else document.documentElement.classList.remove('dark');
   }
 
   closeMenu() {
