@@ -93,7 +93,7 @@ export class CommonNavigationBarComponent implements OnInit {
   }
 
   @HostListener('window:resize', ['$event'])
-  onDocumentClick() {
+  onWindowResize() {
     if (window.innerWidth < 768) {
       this.isLanguageMenuOpen = false;
     }

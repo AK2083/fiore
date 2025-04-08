@@ -4,7 +4,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
   selector: 'app-drawer',
   imports: [],
   templateUrl: './drawer.component.html',
-  styles: ``
 })
 export class DrawerComponent {
   @Output() pressButton = new EventEmitter<boolean>();
