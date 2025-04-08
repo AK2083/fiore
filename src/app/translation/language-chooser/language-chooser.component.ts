@@ -4,13 +4,16 @@ import { HeaderComponent } from '../../shared/designsystem/atoms/header/header.c
 import { GlobeComponent } from '../../shared/designsystem/icons/globe/globe.component';
 import { StatusButtonComponent } from '../../shared/designsystem/atoms/status-button/status-button.component';
 import { AsyncPipe, NgFor } from '@angular/common';
-import { LanguageNames, TranslationService } from '../../shared/services/translation.service';
-import { Observable } from 'rxjs';
+import {
+  LanguageNames,
+  TranslationService,
+} from '../../shared/services/translation.service';
+import { Observable, of } from 'rxjs';
 import { TextWithSubtextComponent } from '../../shared/designsystem/molecules/text-with-subtext/text-with-subtext.component';
 
 export interface LanguageModel {
   langName: string;
-  ariaLabel: string,
+  ariaLabel: string;
   lang: string;
   welcomeText: string;
   isActive: boolean;
@@ -19,7 +22,7 @@ export interface LanguageModel {
 enum Language {
   DE = 'de',
   EN = 'en',
-  ES = 'es'
+  ES = 'es',
 }
 
 @Component({
@@ -31,27 +34,27 @@ enum Language {
     HeaderComponent,
     GlobeComponent,
     StatusButtonComponent,
-    TextWithSubtextComponent
+    TextWithSubtextComponent,
   ],
   templateUrl: './language-chooser.component.html',
-  styles: ``
+  styles: ``,
 })
 export class LanguageChooserComponent implements OnInit {
   langItems: LanguageModel[] = [];
   language = Language;
-
   isLoading = true;
+  menuTitle$: Observable<string> = of();
+  iconSRSupport$: Observable<string> = of();
 
-  menuTitle$: Observable<string>;
-  iconSRSupport$: Observable<string>;
-
-  constructor(public translate: TranslationService) { 
-    this.menuTitle$ = this.translate.getTranslationTitle(); 
-    this.iconSRSupport$ = this.translate.getIconSRSupport();
-  }
+  constructor(public translate: TranslationService) {}
 
   ngOnInit() {
-    const lang = this.translate.getCurrentLanguage() || this.translate.getDefaultLanguage();
+    this.menuTitle$ = this.translate.getTranslationTitle();
+    this.iconSRSupport$ = this.translate.getIconSRSupport();
+
+    const lang =
+      this.translate.getCurrentLanguage() ||
+      this.translate.getDefaultLanguage();
     this.loadLanguageItems(lang);
   }
 
@@ -69,29 +72,29 @@ export class LanguageChooserComponent implements OnInit {
             ariaLabel: names.de.ariaLabel,
             lang: this.language.DE,
             welcomeText: names.de.welcomeText,
-            isActive: lng === this.language.DE
+            isActive: lng === this.language.DE,
           },
           {
             langName: names.en.langName,
             ariaLabel: names.en.ariaLabel,
             lang: this.language.EN,
             welcomeText: names.en.welcomeText,
-            isActive: lng === this.language.EN
+            isActive: lng === this.language.EN,
           },
           {
             langName: names.es.langName,
             ariaLabel: names.es.ariaLabel,
             lang: this.language.ES,
             welcomeText: names.es.welcomeText,
-            isActive: lng === this.language.ES
-          }
+            isActive: lng === this.language.ES,
+          },
         ];
 
-        this.isLoading = false
+        this.isLoading = false;
       },
       error: (error) => {
         console.error('Error loading language names:', error);
-      }
+      },
     });
   }
 }
