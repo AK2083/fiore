@@ -46,7 +46,12 @@ export class CommonNavigationBarComponent {
 
   constructor(public translate: TranslationService) {
     this.iconSRSupport$ = this.translate.getIconSRSupport();
-    this.isDarkModeOn = document.documentElement.classList.contains('dark');
+
+    this.isDarkModeOn =
+      this.getLocalStorage('fioreTheme') === 'dark' ||
+      document.documentElement.classList.contains('dark');
+
+    if (this.isDarkModeOn) document.documentElement.classList.add('dark');
   }
 
   openLanguageMenu() {
@@ -59,9 +64,26 @@ export class CommonNavigationBarComponent {
 
   toggleTheme() {
     this.isDarkModeOn = !this.isDarkModeOn;
+    document.documentElement.classList.toggle('dark');
+    this.setLocalStorage('fioreTheme', this.isDarkModeOn ? 'dark' : 'light');
+  }
 
-    if (this.isDarkModeOn) document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
+  setLocalStorage(key: string, value: string) {
+    try {
+      localStorage.setItem(key, value);
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  getLocalStorage(key: string): string | null {
+    try {
+      return localStorage.getItem(key);
+    } catch (e) {
+      console.error(e);
+    }
+
+    return null;
   }
 
   closeMenu() {
