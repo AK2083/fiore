@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-simple-panel',
   imports: [],
   templateUrl: './simple-panel.component.html',
-  styles: ``
+  styles: ``,
 })
-export class SimplePanelComponent {
-
-}
+export class SimplePanelComponent {}

@@ -1,9 +1,9 @@
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { TranslationService } from '../services/translation.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { DrawerComponent } from '../designsystem/molecules/drawer/drawer.component';
 import { IconButtonComponent } from '../designsystem/atoms/icon-button/icon-button.component';
 import { LanguageChooserComponent } from '../../translation/language-chooser/language-chooser.component';
@@ -29,7 +29,7 @@ import { MoonComponent } from '../designsystem/icons/moon/moon.component';
   ],
   templateUrl: './common-navigation-bar.component.html',
 })
-export class CommonNavigationBarComponent {
+export class CommonNavigationBarComponent implements OnInit {
   isMobileMenuOpen = false;
   isLanguageMenuOpen = false;
   isDarkModeOn = true;
@@ -42,9 +42,11 @@ export class CommonNavigationBarComponent {
     },
   ];
 
-  iconSRSupport$: Observable<string>;
+  iconSRSupport$: Observable<string> = of();
 
-  constructor(public translate: TranslationService) {
+  constructor(public translate: TranslationService) {}
+
+  ngOnInit(): void {
     this.iconSRSupport$ = this.translate.getIconSRSupport();
 
     this.isDarkModeOn =
