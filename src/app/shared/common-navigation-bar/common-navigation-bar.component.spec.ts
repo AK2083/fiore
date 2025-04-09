@@ -6,48 +6,16 @@ import {
 } from '../services/translation.service';
 import { of } from 'rxjs';
 import { provideRouter } from '@angular/router';
+import { TranslationServiceMock } from '../services/mocks/translation-service-mock.service';
 
 describe('CommonNavigationBarComponent', () => {
   let component: CommonNavigationBarComponent;
   let fixture: ComponentFixture<CommonNavigationBarComponent>;
   let mockLocalStorage: { [key: string]: string } = {};
-  let mockTranslationService: jasmine.SpyObj<TranslationService>;
+  let mockTranslationService: TranslationServiceMock;
 
   beforeEach(async () => {
-    mockTranslationService = jasmine.createSpyObj('TranslationService', [
-      'getTranslationTitle',
-      'getIconSRSupport',
-      'getCurrentLanguage',
-      'getDefaultLanguage',
-      'getLanguageNames',
-      'setSelectedLanguage',
-    ]);
-
-    mockTranslationService.getTranslationTitle.and.returnValue(
-      of('Choose Language'),
-    );
-    mockTranslationService.getIconSRSupport.and.returnValue(of('Globe Icon'));
-    mockTranslationService.getCurrentLanguage.and.returnValue('en');
-    mockTranslationService.getDefaultLanguage.and.returnValue('en');
-    mockTranslationService.getLanguageNames.and.returnValue(
-      of({
-        de: {
-          langName: 'Deutsch',
-          ariaLabel: 'Deutsch wählen',
-          welcomeText: 'Willkommen',
-        },
-        en: {
-          langName: 'English',
-          ariaLabel: 'Select English',
-          welcomeText: 'Welcome',
-        },
-        es: {
-          langName: 'Español',
-          ariaLabel: 'Seleccionar Español',
-          welcomeText: 'Bienvenido',
-        },
-      } as LanguageNames),
-    );
+    mockTranslationService = new TranslationServiceMock();
 
     await TestBed.configureTestingModule({
       imports: [CommonNavigationBarComponent],
