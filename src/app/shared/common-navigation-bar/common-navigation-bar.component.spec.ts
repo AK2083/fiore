@@ -1,24 +1,21 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CommonNavigationBarComponent } from './common-navigation-bar.component';
-import {
-  LanguageNames,
-  TranslationService,
-} from '../services/translation.service';
-import { of } from 'rxjs';
+import { TranslationService } from '../services/translation.service';
 import { provideRouter } from '@angular/router';
 import { TranslationServiceMock } from '../services/mocks/translation-service-mock.service';
+import { DashboardComponent } from '../designsystem/icons/dashboard/dashboard.component';
 
 describe('CommonNavigationBarComponent', () => {
   let component: CommonNavigationBarComponent;
   let fixture: ComponentFixture<CommonNavigationBarComponent>;
-  let mockLocalStorage: { [key: string]: string } = {};
+  const mockLocalStorage: Record<string, string> = {};
   let mockTranslationService: TranslationServiceMock;
 
   beforeEach(async () => {
     mockTranslationService = new TranslationServiceMock();
 
     await TestBed.configureTestingModule({
-      imports: [CommonNavigationBarComponent],
+      imports: [CommonNavigationBarComponent, DashboardComponent],
       providers: [
         provideRouter([]),
         { provide: TranslationService, useValue: mockTranslationService },
@@ -83,10 +80,19 @@ describe('CommonNavigationBarComponent', () => {
     expect(component.isMobileMenuOpen).toBeFalse();
   });
 
-  it('should render a route item', () => {
+  it('should render the "Home" icon component', () => {
+    component.routeItems = [
+      {
+        name: 'Home',
+        route: '/home',
+        isActive: true,
+        routeIcon: DashboardComponent,
+      },
+    ];
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('a')?.textContent).toContain('Home');
+    const homeIcon = compiled.querySelector('app-dashboard'); // Passe den Selektor an den tatsächlichen Tag deiner HomeIconComponent an
+    expect(homeIcon).toBeTruthy();
   });
 
   it('should set and get local storage item', () => {

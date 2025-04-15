@@ -45,7 +45,6 @@ export class CommonNavigationBarComponent implements OnInit {
 
   routeItems = [
     {
-      id: 1,
       name: 'Home',
       route: '/home',
       isActive: true,
