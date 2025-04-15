@@ -1,4 +1,10 @@
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import {
+  AsyncPipe,
+  NgComponentOutlet,
+  NgFor,
+  NgIf,
+  NgStyle,
+} from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
@@ -11,6 +17,7 @@ import { GlobeComponent } from '../designsystem/icons/globe/globe.component';
 import { BurgerComponent } from '../designsystem/icons/burger/burger.component';
 import { SunComponent } from '../designsystem/icons/sun/sun.component';
 import { MoonComponent } from '../designsystem/icons/moon/moon.component';
+import { DashboardComponent } from '../designsystem/icons/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -26,6 +33,8 @@ import { MoonComponent } from '../designsystem/icons/moon/moon.component';
     DrawerComponent,
     SunComponent,
     MoonComponent,
+    NgComponentOutlet,
+    NgStyle,
   ],
   templateUrl: './common-navigation-bar.component.html',
 })
@@ -36,9 +45,11 @@ export class CommonNavigationBarComponent implements OnInit {
 
   routeItems = [
     {
+      id: 1,
       name: 'Home',
       route: '/home',
       isActive: true,
+      routeIcon: DashboardComponent,
     },
   ];
 
