@@ -1,5 +1,20 @@
 # Changelog
 
+# [0.3.0](https://github.com/AK2083/fiore/compare/0.2.1...0.3.0) (2025-04-15)
+
+
+### Bug Fixes
+
+* **fiore:** change pointer ([8e9e427](https://github.com/AK2083/fiore/commit/8e9e427c07b311aa6ec4b8b13a8c6c56f9b95009))
+* **fiore:** close mobile menu by escape key ([77add79](https://github.com/AK2083/fiore/commit/77add79c771e46cc4db13d047a2a2b5d6b353183))
+* **fiore:** fix drawer behaviour on resize ([072a5b8](https://github.com/AK2083/fiore/commit/072a5b8709767bb34b6917735b4a3ea55cba9e72))
+* **fiore:** fix wrong start status on language button ([5a22e3f](https://github.com/AK2083/fiore/commit/5a22e3f80f39ad6917fa0b5b78abb8ff67fe8c4d))
+
+
+### Features
+
+* **fiore:** add theme switch ([24d0b16](https://github.com/AK2083/fiore/commit/24d0b16ccf759ea1b4860b2859abc6059bbc4daa))
+
 ## [0.2.2](https://github.com/AK2083/fiore/compare/0.2.1...0.2.2) (2025-04-01)
 
 
