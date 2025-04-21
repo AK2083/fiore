@@ -16,6 +16,14 @@
         "aria": {
             "translationLabel": "Cambiar idioma a",
             "iconLabel": "Mostrar traducción"
+        },
+        "register": {
+            "title": "Crear una cuenta",
+            "mail": "correo electrónico",
+            "password": "contraseña",
+            "confirmation": "Creame una cuenta",
+            "question": "Ya tienes una cuenta?",
+            "exclamation": "Luego quiero iniciar sesión!!!"
         }
     }
 }

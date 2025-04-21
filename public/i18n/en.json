@@ -16,6 +16,14 @@
         "aria": {
             "translationLabel": "Change language to",
             "iconLabel": "Show Translation"
+        },
+        "register": {
+            "title": "Create Account",
+            "mail": "E-Mail",
+            "password": "Password",
+            "confirmation": "Please, register me",
+            "question": "Do you already have an account?",
+            "exclamation": "Then I want to log in!!!"
         }
     }
 }
