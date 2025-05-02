@@ -1,9 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PaddingDirective } from '../../directives/padding.directive';
 
 @Component({
   selector: 'app-simple-panel',
-  imports: [],
+  imports: [PaddingDirective],
   templateUrl: './simple-panel.component.html',
-  styles: ``,
+  styles: ``
 })
-export class SimplePanelComponent {}
+export class SimplePanelComponent {
+  @Input() paddingSize: 'small' | 'medium' | 'large' = 'medium';
+}
