@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { SimplePanelComponent } from '../../shared/designsystem/atoms/simple-panel/simple-panel.component';
-import { HeaderComponent } from '../../shared/designsystem/atoms/header/header.component';
-import { GlobeComponent } from '../../shared/designsystem/icons/globe/globe.component';
-import { StatusButtonComponent } from '../../shared/designsystem/atoms/status-button/status-button.component';
+import { SimplePanelComponent } from '../../../shared/designsystem/atoms/simple-panel/simple-panel.component';
+import { HeaderComponent } from '../../../shared/designsystem/atoms/header/header.component';
+import { GlobeComponent } from '../../../shared/designsystem/icons/globe/globe.component';
+import { StatusButtonComponent } from '../../../shared/designsystem/atoms/status-button/status-button.component';
 import { AsyncPipe, NgFor } from '@angular/common';
 import {
   LanguageNames,
   TranslationService,
-} from '../../shared/services/translation.service';
+} from '../../../shared/services/translation.service';
 import { Observable, of } from 'rxjs';
-import { TextWithSubtextComponent } from '../../shared/designsystem/molecules/text-with-subtext/text-with-subtext.component';
+import { TextWithSubtextComponent } from '../../../shared/designsystem/molecules/text-with-subtext/text-with-subtext.component';
 
 export interface LanguageModel {
   langName: string;
