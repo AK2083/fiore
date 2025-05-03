@@ -1,7 +1,8 @@
+<app-header [textSize]="'small'" [title]="menuTitle$ | async" [isLoading]="isLoading">
+  <app-globe></app-globe>
+</app-header>
+
 <app-simple-panel [paddingSize]="'small'">
-  <app-header [textSize]="'small'" [title]="menuTitle$ | async" [isLoading]="isLoading">
-    <app-globe></app-globe>
-  </app-header>
 
   <div class="flex flex-wrap items-center justify-start gap-2">
     <app-status-button

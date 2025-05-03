@@ -8,16 +8,16 @@ import {
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { TranslationService } from '../services/translation.service';
+import { TranslationService } from '../../shared/services/translation.service';
 import { Observable, of } from 'rxjs';
-import { DrawerComponent } from '../designsystem/molecules/drawer/drawer.component';
-import { IconButtonComponent } from '../designsystem/atoms/icon-button/icon-button.component';
-import { LanguageChooserComponent } from '../../translation/language-chooser/language-chooser.component';
-import { GlobeComponent } from '../designsystem/icons/globe/globe.component';
-import { BurgerComponent } from '../designsystem/icons/burger/burger.component';
-import { SunComponent } from '../designsystem/icons/sun/sun.component';
-import { MoonComponent } from '../designsystem/icons/moon/moon.component';
-import { DashboardComponent } from '../designsystem/icons/dashboard/dashboard.component';
+import { DrawerComponent } from '../../shared/designsystem/molecules/drawer/drawer.component';
+import { IconButtonComponent } from '../../shared/designsystem/atoms/icon-button/icon-button.component';
+import { LanguageChooserComponent } from '../translation/language-chooser/language-chooser.component';
+import { GlobeComponent } from '../../shared/designsystem/icons/globe/globe.component';
+import { BurgerComponent } from '../../shared/designsystem/icons/burger/burger.component';
+import { SunComponent } from '../../shared/designsystem/icons/sun/sun.component';
+import { MoonComponent } from '../../shared/designsystem/icons/moon/moon.component';
+import { DashboardComponent } from '../../shared/designsystem/icons/dashboard/dashboard.component';
 
 @Component({
   selector: 'app-common-navigation-bar',

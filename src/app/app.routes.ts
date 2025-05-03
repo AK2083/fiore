@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { AuthUserComponent } from './pages/auth-user/auth-user.component';
+import { AuthUserComponent } from './pages/authentication/auth-user/auth-user.component';
 
 export const routes: Routes = [
     { path: 'auth', component: AuthUserComponent },

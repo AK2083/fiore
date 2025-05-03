@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
-import { HeaderComponent } from '../../shared/designsystem/atoms/header/header.component';
-import { SimplePanelComponent } from '../../shared/designsystem/atoms/simple-panel/simple-panel.component';
+import { HeaderComponent } from '../../../shared/designsystem/atoms/header/header.component';
+import { SimplePanelComponent } from '../../../shared/designsystem/atoms/simple-panel/simple-panel.component';
 import { NgClass, NgIf } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 
