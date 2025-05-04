@@ -23,7 +23,17 @@
             "password": "Password",
             "confirmation": "Please, register me",
             "question": "Do you already have an account?",
-            "exclamation": "Then I want to log in!!!"
+            "exclamation": "Then I want to log in!!!",
+            "error": {
+                "mail": {
+                    "required": "E-Mail Address is required",
+                    "wrong": "E-Mail address is unfortunately incorrect"
+                },
+                "password": {
+                    "required": "Password is required",
+                    "wrong": "Password is unfortunately incorrect"
+                }
+            }
         }
     }
 }

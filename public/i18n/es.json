@@ -23,7 +23,17 @@
             "password": "contraseña",
             "confirmation": "Creame una cuenta",
             "question": "Ya tienes una cuenta?",
-            "exclamation": "Luego quiero iniciar sesión!!!"
+            "exclamation": "Luego quiero iniciar sesión!!!",
+            "error": {
+                "mail": {
+                    "required": "La dirección de correo electrónico aún es necesaria",
+                    "wrong": "La dirección de correo electrónico lamentablemente es incorrecta"
+                },
+                "password": {
+                    "required": "Se requiere contraseña",
+                    "wrong": "Lamentablemente la dirección de contraseña es incorrecta"
+                }
+            }
         }
     }
 }

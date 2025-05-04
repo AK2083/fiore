@@ -23,7 +23,17 @@
             "password": "Passwort",
             "confirmation": "Erstell mir einen Account",
             "question": "Schon einen Account?",
-            "exclamation": "Dann log mich ein!!!"
+            "exclamation": "Dann log mich ein!!!",
+            "error": {
+                "mail": {
+                    "required": "E-Mail Adresse brauche ich noch",
+                    "wrong": "E-Mail Adresse ist leider nicht richtig"
+                },
+                "password": {
+                    "required": "Passwort brauche ich noch",
+                    "wrong": "Passwort ist leider nicht richtig"
+                }
+            }
         }
     }
 }
