@@ -3,7 +3,17 @@ import { HeaderComponent } from '../../../shared/designsystem/atoms/header/heade
 import { SimplePanelComponent } from '../../../shared/designsystem/atoms/simple-panel/simple-panel.component';
 import { NgClass, NgIf } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { InputComponent } from '../../../shared/designsystem/atoms/input/input.component';
+import { LettercaseComponent } from '../../../shared/designsystem/icons/lettercase/lettercase.component';
+import { LockComponent } from '../../../shared/designsystem/icons/lock/lock.component';
+import { EyeOpenComponent } from '../../../shared/designsystem/icons/eye-open/eye-open.component';
+import { EyeCloseComponent } from '../../../shared/designsystem/icons/eye-close/eye-close.component';
 
 @Component({
   selector: 'app-auth-user',
@@ -14,6 +24,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
     TranslatePipe,
     HeaderComponent,
     SimplePanelComponent,
+    InputComponent,
+    LettercaseComponent,
+    EyeOpenComponent,
+    EyeCloseComponent,
+    LockComponent
   ],
   templateUrl: './auth-user.component.html',
   styles: ``,
@@ -25,16 +40,30 @@ export class AuthUserComponent {
 
   myForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    password: new FormControl('', [Validators.required]),
   });
 
   onSubmit() {
     if (this.myForm.valid) {
       console.log('Formular ist gültig!', this.myForm.value);
-      // Hier kannst du die Formulardaten verarbeiten (z.B. an einen Service senden)
     } else {
       console.log('Formular ist ungültig!');
-      // Hier kannst du Fehlermeldungen anzeigen oder dem Benutzer Feedback geben
     }
+  }
+
+  isEMailFocused(isFocused: boolean) {
+    this.selectedEmailField = isFocused;
+  }
+
+  isPasswordFocused(isFocused: boolean) {
+    this.selectedPasswordField = isFocused;
+  }
+
+  get emailControl(): FormControl {
+    return this.myForm.get('email') as FormControl;
+  }
+
+  get pwdControl(): FormControl {
+    return this.myForm.get('password') as FormControl;
   }
 }
