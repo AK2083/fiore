@@ -1,13 +1,28 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
+import {
+  AfterContentInit,
+  Component,
+  ContentChild,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
-  imports: [ReactiveFormsModule],
+  imports: [NgIf, NgTemplateOutlet, ReactiveFormsModule],
   templateUrl: './input.component.html',
-  styles: ``,
+  styleUrls: ['./input.component.css']
 })
 export class InputComponent {
+  @ContentChild('prefix', { read: TemplateRef })
+  prefixContent!: TemplateRef<any>;
+  @ContentChild('suffix', { read: TemplateRef })
+  suffixContent!: TemplateRef<any>;
+
   @Input({ required: true }) control!: FormControl<string>;
 
   @Input() placeholder = '';
@@ -17,7 +32,15 @@ export class InputComponent {
 
   @Output() handleFocused = new EventEmitter<boolean>();
 
+  hasProjectedContent = false;
+  hasSuffixContent = false;
+
   handleInputEvent(isFocused: boolean) {
     this.handleFocused.emit(isFocused);
+  }
+
+  ngAfterContentInit() {
+    this.hasProjectedContent = !!this.prefixContent;
+    this.hasSuffixContent = !!this.suffixContent;
   }
 }

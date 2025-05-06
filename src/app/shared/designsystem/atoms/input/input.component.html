@@ -1,11 +1,26 @@
-<input
-  (focus)="handleInputEvent(true)"
-  (blur)="handleInputEvent(false)"
-  [placeholder]="placeholder"
-  [type]="type"
-  [name]="name"
-  [id]="id"
-  autocomplete="email"
-  [formControl]="control"
-  class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-/>
+<div
+  class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white"
+>
+  <div *ngIf="hasProjectedContent" class="rounded bg-slate-100 p-2">
+    <ng-container *ngTemplateOutlet="prefixContent"></ng-container>
+  </div>
+
+  <input
+    (focus)="handleInputEvent(true)"
+    (blur)="handleInputEvent(false)"
+    [placeholder]="placeholder"
+    [type]="type"
+    [name]="name"
+    [id]="id"
+    autocomplete="email"
+    [formControl]="control"
+    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+  />
+
+  <div
+    *ngIf="hasSuffixContent"
+    class="cursor-pointer rounded bg-slate-100 p-2"
+  >
+    <ng-container *ngTemplateOutlet="suffixContent"></ng-container>
+  </div>
+</div>
