@@ -14,6 +14,7 @@ import { LettercaseComponent } from '../../../shared/designsystem/icons/letterca
 import { LockComponent } from '../../../shared/designsystem/icons/lock/lock.component';
 import { EyeOpenComponent } from '../../../shared/designsystem/icons/eye-open/eye-open.component';
 import { EyeCloseComponent } from '../../../shared/designsystem/icons/eye-close/eye-close.component';
+import { LabelComponent } from '../../../shared/designsystem/atoms/label/label.component';
 
 @Component({
   selector: 'app-auth-user',
@@ -28,7 +29,8 @@ import { EyeCloseComponent } from '../../../shared/designsystem/icons/eye-close/
     LettercaseComponent,
     EyeOpenComponent,
     EyeCloseComponent,
-    LockComponent
+    LockComponent,
+    LabelComponent
   ],
   templateUrl: './auth-user.component.html',
   styles: ``,

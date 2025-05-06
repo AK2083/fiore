@@ -9,12 +9,10 @@
     <app-simple-panel [paddingSize]="'large'">
       <form class="space-y-6" [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div>
-          <label
-            for="email"
-            class="text-sm/6 font-medium text-gray-900 dark:text-white"
-          >
-            {{ "app.register.mail" | translate }}
-          </label>
+          <app-label
+            [labelFor]="'email'"
+            [content]="'app.register.mail' | translate"
+          ></app-label>
           <div
             [ngClass]="{ 'border-indigo-600': selectedEmailField }"
             class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white"
@@ -47,12 +45,10 @@
         </div>
 
         <div>
-          <label
-            for="password"
-            class="text-sm/6 font-medium text-gray-900 dark:text-white"
-          >
-            {{ "app.register.password" | translate }}
-          </label>
+          <app-label
+            [labelFor]="'password'"
+            [content]="'app.register.password' | translate"
+          ></app-label>
           <div
             [ngClass]="{ 'border-indigo-600': selectedPasswordField }"
             class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white"
