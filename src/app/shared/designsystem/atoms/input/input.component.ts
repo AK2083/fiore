@@ -1,4 +1,4 @@
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
   AfterContentInit,
   Component,
@@ -13,7 +13,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-input',
-  imports: [NgIf, NgTemplateOutlet, ReactiveFormsModule],
+  imports: [NgIf, NgClass, NgTemplateOutlet, ReactiveFormsModule],
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css']
 })
@@ -32,15 +32,17 @@ export class InputComponent {
 
   @Output() handleFocused = new EventEmitter<boolean>();
 
-  hasProjectedContent = false;
-  hasSuffixContent = false;
+  isFocused = false;
+  hasPrefixedContent = false;
+  hasSuffixedContent = false;
 
   handleInputEvent(isFocused: boolean) {
+    this.isFocused = isFocused;
     this.handleFocused.emit(isFocused);
   }
 
   ngAfterContentInit() {
-    this.hasProjectedContent = !!this.prefixContent;
-    this.hasSuffixContent = !!this.suffixContent;
+    this.hasPrefixedContent = !!this.prefixContent;
+    this.hasSuffixedContent = !!this.suffixContent;
   }
 }
