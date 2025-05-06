@@ -13,24 +13,21 @@
             [labelFor]="'email'"
             [content]="'app.register.mail' | translate"
           ></app-label>
-          <div
-            [ngClass]="{ 'border-indigo-600': selectedEmailField }"
-            class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white"
-          >
-            <div class="rounded bg-slate-100 p-2">
-              <app-lettercase></app-lettercase>
-            </div>
 
-            <app-input
-              class="w-full"
-              [control]="emailControl"
-              [placeholder]="'sheldon@cooper.de' | translate"
-              [type]="'email'"
-              [name]="'email'"
-              [id]="'email'"
-              (handleFocused)="isEMailFocused($event)"
-            ></app-input>
-          </div>
+          <app-input
+            class="w-full"
+            [control]="emailControl"
+            [placeholder]="'sheldon@cooper.de' | translate"
+            [type]="'email'"
+            [name]="'email'"
+            [id]="'email'"
+            (handleFocused)="isEMailFocused($event)"
+          >
+            <ng-template #prefix>
+              <app-lettercase></app-lettercase>
+            </ng-template>
+          </app-input>
+
           <div
             class="mt-2 text-sm text-red-600"
             *ngIf="emailControl?.invalid && emailControl?.touched"
@@ -49,31 +46,25 @@
             [labelFor]="'password'"
             [content]="'app.register.password' | translate"
           ></app-label>
-          <div
-            [ngClass]="{ 'border-indigo-600': selectedPasswordField }"
-            class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white"
+          <app-input
+            class="w-full"
+            [control]="pwdControl"
+            [placeholder]="'Passwort eingeben'"
+            [type]="isPasswordVisible ? 'text' : 'password'"
+            [name]="'password'"
+            [id]="'password'"
+            (handleFocused)="isPasswordFocused($event)"
           >
-            <div class="rounded bg-slate-100 p-2">
+            <ng-template #prefix>
               <app-lock></app-lock>
-            </div>
-
-            <app-input
-              class="w-full"
-              [control]="pwdControl"
-              [placeholder]="''"
-              [type]="isPasswordVisible ? 'text' : 'password'"
-              [name]="'password'"
-              [id]="'password'"
-              (handleFocused)="isPasswordFocused($event)"
-            ></app-input>
-            <div
-              class="cursor-pointer rounded bg-slate-100 p-2"
-              (click)="isPasswordVisible = !isPasswordVisible"
-            >
-              <app-eye-close *ngIf="!isPasswordVisible"></app-eye-close>
-              <app-eye-open *ngIf="isPasswordVisible"></app-eye-open>
-            </div>
-          </div>
+            </ng-template>
+            <ng-template #suffix *ngIf="!isPasswordVisible">
+              <app-eye-close (click)="isPasswordVisible = !isPasswordVisible"></app-eye-close>
+            </ng-template>
+            <ng-template #suffix *ngIf="isPasswordVisible">
+              <app-eye-open (click)="isPasswordVisible = !isPasswordVisible"></app-eye-open>
+            </ng-template>
+          </app-input>
           <div
             class="mt-2 text-sm text-red-600"
             *ngIf="pwdControl?.invalid && pwdControl?.touched"
