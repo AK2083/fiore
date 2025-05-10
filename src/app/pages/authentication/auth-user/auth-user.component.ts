@@ -15,6 +15,7 @@ import { LockComponent } from '../../../shared/designsystem/icons/lock/lock.comp
 import { EyeOpenComponent } from '../../../shared/designsystem/icons/eye-open/eye-open.component';
 import { EyeCloseComponent } from '../../../shared/designsystem/icons/eye-close/eye-close.component';
 import { LabelComponent } from '../../../shared/designsystem/atoms/label/label.component';
+import { LabeledInputComponent } from '../../../shared/designsystem/molecules/labeled-input/labeled-input.component';
 
 @Component({
   selector: 'app-auth-user',
@@ -30,7 +31,8 @@ import { LabelComponent } from '../../../shared/designsystem/atoms/label/label.c
     EyeOpenComponent,
     EyeCloseComponent,
     LockComponent,
-    LabelComponent
+    LabelComponent,
+    LabeledInputComponent,
   ],
   templateUrl: './auth-user.component.html',
   styles: ``,

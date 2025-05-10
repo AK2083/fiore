@@ -1,0 +1,28 @@
+<div>
+  <app-label [labelFor]="id" [content]="label"></app-label>
+
+  <app-input
+    class="w-full"
+    [control]="control"
+    [placeholder]="placeholder"
+    [type]="type"
+    [name]="name"
+    [id]="id"
+    [prefixTemplate]="prefixContent"
+    [suffixTemplate]="suffixContent"
+    (handleFocused)="isFocused($event)"
+  >
+  </app-input>
+
+  <div
+    class="mt-2 text-sm text-red-600"
+    *ngIf="control?.invalid && control?.touched"
+  >
+    <p *ngIf="control?.errors?.['required']">
+      {{ requiredError }}
+    </p>
+    <p *ngIf="control?.errors?.['email']">
+      {{ invalidError }}
+    </p>
+  </div>
+</div>
