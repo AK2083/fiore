@@ -7,82 +7,56 @@
     ></app-header>
 
     <app-simple-panel [paddingSize]="'large'">
-      <form class="space-y-6" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
         <div>
-          <app-label
-            [labelFor]="'email'"
-            [content]="'app.register.mail' | translate"
-          ></app-label>
-
-          <app-input
-            class="w-full"
-            [control]="emailControl"
-            [placeholder]="'sheldon@cooper.de' | translate"
-            [type]="'email'"
+          <app-labeled-input
+            [label]="'app.register.mail' | translate"
             [name]="'email'"
             [id]="'email'"
-            (handleFocused)="isEMailFocused($event)"
+            [control]="emailControl"
+            [type]="'email'"
+            [placeholder]="'sheldon@cooper.de'"
+            [requiredError]="'app.register.error.mail.required' | translate"
+            [invalidError]="'app.register.error.mail.wrong' | translate"
           >
             <ng-template #prefix>
               <app-lettercase></app-lettercase>
             </ng-template>
-          </app-input>
-
-          <div
-            class="mt-2 text-sm text-red-600"
-            *ngIf="emailControl?.invalid && emailControl?.touched"
-          >
-            <p *ngIf="emailControl?.errors?.['required']">
-              {{ "app.register.error.mail.required" | translate }}
-            </p>
-            <p *ngIf="emailControl?.errors?.['email']">
-              {{ "app.register.error.mail.wrong" | translate }}
-            </p>
-          </div>
+          </app-labeled-input>
         </div>
 
-        <div>
-          <app-label
-            [labelFor]="'password'"
-            [content]="'app.register.password' | translate"
-          ></app-label>
-          <app-input
-            class="w-full"
+        <div class="my-5">
+          <app-labeled-input
+            [label]="'app.register.password' | translate"
+            [name]="'password'"
+            [id]="'password'"
             [control]="pwdControl"
             [placeholder]="'Passwort eingeben'"
             [type]="isPasswordVisible ? 'text' : 'password'"
-            [name]="'password'"
-            [id]="'password'"
-            (handleFocused)="isPasswordFocused($event)"
+            [requiredError]="'app.register.error.password.required' | translate"
+            [invalidError]="'app.register.error.password.wrong' | translate"
           >
             <ng-template #prefix>
               <app-lock></app-lock>
             </ng-template>
             <ng-template #suffix *ngIf="!isPasswordVisible">
-              <app-eye-close (click)="isPasswordVisible = !isPasswordVisible"></app-eye-close>
+              <app-eye-close
+                (click)="isPasswordVisible = !isPasswordVisible"
+              ></app-eye-close>
             </ng-template>
             <ng-template #suffix *ngIf="isPasswordVisible">
-              <app-eye-open (click)="isPasswordVisible = !isPasswordVisible"></app-eye-open>
+              <app-eye-open
+                (click)="isPasswordVisible = !isPasswordVisible"
+              ></app-eye-open>
             </ng-template>
-          </app-input>
-          <div
-            class="mt-2 text-sm text-red-600"
-            *ngIf="pwdControl?.invalid && pwdControl?.touched"
-          >
-            <p *ngIf="pwdControl?.errors?.['required']">
-              {{ "app.register.error.password.required" | translate }}
-            </p>
-            <p *ngIf="pwdControl?.errors?.['password']">
-              {{ "app.register.error.password.wrong" | translate }}
-            </p>
-          </div>
+          </app-labeled-input>
         </div>
 
         <div>
           <button
             [disabled]="myForm.invalid"
             type="submit"
-            class="flex w-full cursor-pointer justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-default disabled:bg-gray-200 disabled:text-gray-400"
+            class="mt-5 flex w-full cursor-pointer justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-default disabled:bg-gray-200 disabled:text-gray-400"
           >
             {{ "app.register.confirmation" | translate }}
           </button>

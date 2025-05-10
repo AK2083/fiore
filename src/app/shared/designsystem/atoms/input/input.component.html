@@ -1,9 +1,11 @@
 <div
-  [ngClass]="{'outline-2 outline-offset-2 outline-solid outline-orange-400': isFocused}"
-  class="mt-2 border-1 flex items-center gap-2 rounded-md border-gray-300 bg-white"
+  [ngClass]="{
+    'outline-2 outline-offset-2 outline-orange-400 outline-solid': isFocused,
+  }"
+  class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white"
 >
-  <div *ngIf="hasPrefixedContent" class="rounded bg-slate-100 p-2">
-    <ng-container *ngTemplateOutlet="prefixContent"></ng-container>
+  <div *ngIf="prefixTemplate" class="rounded bg-slate-100 p-2">
+    <ng-container [ngTemplateOutlet]="prefixTemplate"></ng-container>
   </div>
 
   <input
@@ -18,10 +20,7 @@
     class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
   />
 
-  <div
-    *ngIf="hasSuffixedContent"
-    class="cursor-pointer rounded bg-slate-100 p-2"
-  >
-    <ng-container *ngTemplateOutlet="suffixContent"></ng-container>
+  <div *ngIf="suffixTemplate" class="cursor-pointer rounded bg-slate-100 p-2">
+    <ng-container [ngTemplateOutlet]="suffixTemplate"></ng-container>
   </div>
 </div>

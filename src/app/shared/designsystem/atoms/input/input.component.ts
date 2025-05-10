@@ -15,13 +15,11 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   selector: 'app-input',
   imports: [NgIf, NgClass, NgTemplateOutlet, ReactiveFormsModule],
   templateUrl: './input.component.html',
-  styleUrls: ['./input.component.css']
+  styleUrls: ['./input.component.css'],
 })
 export class InputComponent {
-  @ContentChild('prefix', { read: TemplateRef })
-  prefixContent!: TemplateRef<any>;
-  @ContentChild('suffix', { read: TemplateRef })
-  suffixContent!: TemplateRef<any>;
+  @Input() prefixTemplate!: TemplateRef<any>;
+  @Input() suffixTemplate!: TemplateRef<any>;
 
   @Input({ required: true }) control!: FormControl<string>;
 
@@ -33,16 +31,9 @@ export class InputComponent {
   @Output() handleFocused = new EventEmitter<boolean>();
 
   isFocused = false;
-  hasPrefixedContent = false;
-  hasSuffixedContent = false;
 
   handleInputEvent(isFocused: boolean) {
     this.isFocused = isFocused;
     this.handleFocused.emit(isFocused);
-  }
-
-  ngAfterContentInit() {
-    this.hasPrefixedContent = !!this.prefixContent;
-    this.hasSuffixedContent = !!this.suffixContent;
   }
 }
