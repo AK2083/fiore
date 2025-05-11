@@ -3,7 +3,11 @@
   [title]="'app.register.title' | translate"
   [subtitle]="'app.register.subtitle' | translate"
   [isLoading]="false"
-></app-header>
+>
+  <div class="mr-1 size-12 text-slate-700">
+    <app-register></app-register>
+  </div>
+</app-header>
 
 <app-simple-panel [paddingSize]="'large'">
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">

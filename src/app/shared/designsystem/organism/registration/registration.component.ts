@@ -9,6 +9,7 @@ import { EyeOpenComponent } from '../../icons/eye-open/eye-open.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { RegisterComponent } from '../../icons/register/register.component';
 
 @Component({
   selector: 'app-registration',
@@ -23,6 +24,7 @@ import { NgIf } from '@angular/common';
     LockComponent,
     EyeCloseComponent,
     EyeOpenComponent,
+    RegisterComponent
   ],
   templateUrl: './registration.component.html',
   styles: ``,

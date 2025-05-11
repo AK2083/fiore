@@ -18,6 +18,7 @@ import { BurgerComponent } from '../../shared/designsystem/icons/burger/burger.c
 import { SunComponent } from '../../shared/designsystem/icons/sun/sun.component';
 import { MoonComponent } from '../../shared/designsystem/icons/moon/moon.component';
 import { DashboardComponent } from '../../shared/designsystem/icons/dashboard/dashboard.component';
+import { RegisterComponent } from '../../shared/designsystem/icons/register/register.component';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -34,6 +35,7 @@ import { DashboardComponent } from '../../shared/designsystem/icons/dashboard/da
     SunComponent,
     MoonComponent,
     NgComponentOutlet,
+    RegisterComponent,
     NgStyle,
   ],
   templateUrl: './common-navigation-bar.component.html',
@@ -48,7 +50,7 @@ export class CommonNavigationBarComponent implements OnInit {
       name: 'Auth',
       route: '/auth',
       isActive: true,
-      routeIcon: DashboardComponent,
+      routeIcon: RegisterComponent,
     },
   ];
 
