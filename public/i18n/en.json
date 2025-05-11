@@ -19,6 +19,7 @@
         },
         "register": {
             "title": "Create Account",
+            "subtitle": "Here you create an account to register.",
             "mail": "E-Mail",
             "password": "Password",
             "confirmation": "Please, register me",

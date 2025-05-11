@@ -1,6 +1,6 @@
 <div class="relative mb-3 w-full overflow-hidden rounded">
   <div
-    class="absolute inset-0 z-0 hidden rounded bg-conic-80 from-orange-600 via-slate-300 to-slate-400 dark:from-orange-600 dark:via-slate-700 dark:to-slate-800 md:block"
+    class="absolute inset-0 z-0 hidden rounded bg-conic-80 from-orange-600 via-slate-300 to-slate-400 md:block dark:from-orange-600 dark:via-slate-700 dark:to-slate-800"
   ></div>
 
   <div
@@ -8,7 +8,20 @@
   >
     <ng-container *ngIf="!isLoading; else loadingAnimation">
       <ng-content></ng-content>
-      <h1 [appTextSize]="textSize" class="pl-2 text-slate-800 dark:text-white">{{ title }}</h1>
+      <div>
+        <h1
+          [appTextSize]="textSize"
+          class="pl-2 text-slate-800 dark:text-white"
+        >
+          {{ title }}
+        </h1>
+        <h2
+          [appTextSize]="textSize"
+          class="pl-2 text-xs text-slate-800 dark:text-slate-500"
+        >
+          {{ subtitle }}
+        </h2>
+      </div>
     </ng-container>
 
     <ng-template #loadingAnimation>
