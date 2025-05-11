@@ -11,5 +11,6 @@ import { TextSizeDirective } from '../../directives/text-size.directive';
 export class HeaderComponent {
   @Input() textSize: 'small' | 'medium' | 'large' = 'medium';
   @Input() title: string | null = null;
+  @Input() subtitle: string | null = null;
   @Input() isLoading = true;
 }

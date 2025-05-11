@@ -19,6 +19,7 @@
         },
         "register": {
             "title": "Crear una cuenta",
+            "subtitle": "Aquí creas una cuenta para registrarte.",
             "mail": "correo electrónico",
             "password": "contraseña",
             "confirmation": "Creame una cuenta",
