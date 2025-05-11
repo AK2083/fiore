@@ -21,7 +21,10 @@
               class="absolute top-4 inline-flex items-center justify-center gap-2 rounded-sm border-2 border-slate-300 bg-slate-200 px-3 py-1 text-sm font-medium transition-transform duration-200 hover:scale-110 active:scale-95 dark:border-slate-700 dark:bg-amber-700 dark:text-white"
               aria-current="page"
               routerLinkActive="border-white dark:border-amber-900"
-              ><ng-container *ngComponentOutlet="item.routeIcon"></ng-container>
+              >
+              <div class="size-6">
+                <ng-container *ngComponentOutlet="item.routeIcon"></ng-container>
+              </div>
             </a>
           </div>
         </div>
