@@ -7,7 +7,12 @@ import { LockComponent } from '../../icons/lock/lock.component';
 import { EyeCloseComponent } from '../../icons/eye-close/eye-close.component';
 import { EyeOpenComponent } from '../../icons/eye-open/eye-open.component';
 import { TranslatePipe } from '@ngx-translate/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { RegisterComponent } from '../../icons/register/register.component';
 
@@ -24,7 +29,7 @@ import { RegisterComponent } from '../../icons/register/register.component';
     LockComponent,
     EyeCloseComponent,
     EyeOpenComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   templateUrl: './registration.component.html',
   styles: ``,
@@ -38,6 +43,28 @@ export class RegistrationComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
+
+  allRulesValid = false;
+
+  rules = {
+    minLength: false,
+    hasUpperCase: false,
+    hasNumber: false,
+    hasSpecialChar: false,
+  };
+
+  constructor() {
+    this.pwdControl.valueChanges.subscribe((value) => {
+      this.rules.minLength = value?.length >= 8;
+      this.rules.hasUpperCase = /[A-Z]/.test(value);
+      this.rules.hasNumber = /\d/.test(value);
+      this.rules.hasSpecialChar = /[\^°"@!%*?&§\/()=?`´+*~'#,.-;:_<>|]/.test(
+        value,
+      );
+
+      this.allRulesValid = Object.values(this.rules).every(Boolean);
+    });
+  }
 
   onSubmit() {
     if (this.registrationForm.valid) {
