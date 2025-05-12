@@ -28,7 +28,7 @@
       </app-labeled-input>
     </div>
 
-    <div class="my-5">
+    <div>
       <app-labeled-input
         [label]="'app.register.password' | translate"
         [name]="'password'"
@@ -53,6 +53,34 @@
           ></app-eye-open>
         </ng-template>
       </app-labeled-input>
+      <div class="ml-4">
+        <ul class="mt-1 list-disc text-sm">
+          <li
+            [class.text-green-600]="rules.minLength"
+            [class.text-slate-500]="!rules.minLength"
+          >
+            sollte min. 8 Zeichen lang sein
+          </li>
+          <li
+            [class.text-green-600]="rules.hasUpperCase"
+            [class.text-slate-500]="!rules.hasUpperCase"
+          >
+            beinhaltet große und kleine Buchstaben
+          </li>
+          <li
+            [class.text-green-600]="rules.hasNumber"
+            [class.text-slate-500]="!rules.hasNumber"
+          >
+            beinhaltet Zahlen
+          </li>
+          <li
+            [class.text-green-600]="rules.hasSpecialChar"
+            [class.text-slate-500]="!rules.hasSpecialChar"
+          >
+            hat Sonderzeichen (möglichst keine sprachabhängigen)
+          </li>
+        </ul>
+      </div>
     </div>
 
     <div>
@@ -67,7 +95,7 @@
   </form>
 </app-simple-panel>
 
-<p class="mt-10 text-center text-sm/6 text-gray-500">
+<p class="mt-5 text-center text-sm/6 text-gray-500">
   {{ "app.register.question" | translate }}
   <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">
     {{ "app.register.exclamation" | translate }}

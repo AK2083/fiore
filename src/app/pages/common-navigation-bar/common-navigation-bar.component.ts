@@ -17,7 +17,6 @@ import { GlobeComponent } from '../../shared/designsystem/icons/globe/globe.comp
 import { BurgerComponent } from '../../shared/designsystem/icons/burger/burger.component';
 import { SunComponent } from '../../shared/designsystem/icons/sun/sun.component';
 import { MoonComponent } from '../../shared/designsystem/icons/moon/moon.component';
-import { DashboardComponent } from '../../shared/designsystem/icons/dashboard/dashboard.component';
 import { RegisterComponent } from '../../shared/designsystem/icons/register/register.component';
 
 @Component({

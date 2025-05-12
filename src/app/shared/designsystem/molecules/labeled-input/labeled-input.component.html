@@ -16,7 +16,7 @@
 
   <div
     class="mt-2 text-sm text-red-600"
-    *ngIf="control?.invalid && control?.touched"
+    *ngIf="control?.invalid && control?.touched; else emptyError"
   >
     <p *ngIf="control?.errors?.['required']">
       {{ requiredError }}
@@ -25,4 +25,5 @@
       {{ invalidError }}
     </p>
   </div>
+  <ng-template #emptyError><div class="mt-2 h-5 w-full"></div></ng-template>
 </div>
