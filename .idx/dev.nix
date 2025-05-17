@@ -7,10 +7,13 @@
   packages = [
     pkgs.nodejs_20
     pkgs.chromium
+    pkgs.envsubst
   ];
   # Sets environment variables in the workspace
   env = {
     CHROME_BIN = "${pkgs.chromium}/bin/chromium";
+    SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnaHpmbGhnc2pqZnRzaWp4ZXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcxMTg1ODMsImV4cCI6MjA2MjY5NDU4M30.VZKMMmPQNaN7FFFh9EqailT6gLIFmRzxSjpTgVJmnMI";
+    SUPABASE_URL = "https://hghzflhgsjjftsijxeqy.supabase.co";
   };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
