@@ -21,9 +21,11 @@
               class="absolute top-4 inline-flex items-center justify-center gap-2 rounded-sm border-2 border-slate-300 bg-slate-200 px-3 py-1 text-sm font-medium transition-transform duration-200 hover:scale-110 active:scale-95 dark:border-slate-700 dark:bg-amber-700 dark:text-white"
               aria-current="page"
               routerLinkActive="border-white dark:border-amber-900"
-              >
+            >
               <div class="size-6">
-                <ng-container *ngComponentOutlet="item.routeIcon"></ng-container>
+                <ng-container
+                  *ngComponentOutlet="item.routeIcon"
+                ></ng-container>
               </div>
             </a>
           </div>
@@ -38,7 +40,9 @@
             (pressButton)="toggleTheme()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-sun></app-sun>
+            <div class="size-6">
+              <app-sun></app-sun>
+            </div>
           </app-icon-button>
 
           <app-icon-button
@@ -46,14 +50,18 @@
             (pressButton)="toggleTheme()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-moon></app-moon>
+            <div class="size-6">
+              <app-moon></app-moon>
+            </div>
           </app-icon-button>
 
           <app-icon-button
             (pressButton)="openLanguageMenu()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-globe></app-globe>
+            <div class="size-6">
+              <app-globe></app-globe>
+            </div>
           </app-icon-button>
         </div>
 
@@ -77,7 +85,9 @@
           (pressButton)="openMobileMenu()"
           [srText]="iconSRSupport$ | async"
         >
-          <app-burger></app-burger>
+          <div class="block size-6">
+            <app-burger></app-burger>
+          </div>
         </app-icon-button>
       </div>
     </div>

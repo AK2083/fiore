@@ -23,7 +23,9 @@
         [invalidError]="'app.register.error.mail.wrong' | translate"
       >
         <ng-template #prefix>
-          <app-lettercase></app-lettercase>
+          <div class="size-5 text-slate-400">
+            <app-lettercase></app-lettercase>
+          </div>
         </ng-template>
       </app-labeled-input>
     </div>
@@ -40,17 +42,23 @@
         [invalidError]="'app.register.error.password.wrong' | translate"
       >
         <ng-template #prefix>
-          <app-lock></app-lock>
+          <div class="size-5 text-slate-400">
+            <app-lock></app-lock>
+          </div>
         </ng-template>
         <ng-template #suffix *ngIf="!isPasswordVisible">
-          <app-eye-close
-            (click)="isPasswordVisible = !isPasswordVisible"
-          ></app-eye-close>
+          <div class="size-5 cursor-pointer text-slate-400">
+            <app-eye-close
+              (click)="isPasswordVisible = !isPasswordVisible"
+            ></app-eye-close>
+          </div>
         </ng-template>
         <ng-template #suffix *ngIf="isPasswordVisible">
-          <app-eye-open
-            (click)="isPasswordVisible = !isPasswordVisible"
-          ></app-eye-open>
+          <div class="size-5 cursor-pointer text-slate-400">
+            <app-eye-open
+              (click)="isPasswordVisible = !isPasswordVisible"
+            ></app-eye-open>
+          </div>
         </ng-template>
       </app-labeled-input>
       <div class="ml-4">
