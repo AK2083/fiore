@@ -59,7 +59,7 @@ export class RegistrationComponent {
       this.rules.minLength = value?.length >= 8;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
       this.rules.hasNumber = /\d/.test(value);
-      this.rules.hasSpecialChar = /[\^°"@!%*?&§\/()=?`´+*~'#,.-;:_<>|]/.test(
+      this.rules.hasSpecialChar = /[\^°"@!%*?&§/()=?`´+*~'#,.-;:_<>|]/.test(
         value,
       );
 

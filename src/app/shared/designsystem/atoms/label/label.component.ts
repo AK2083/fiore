@@ -10,6 +10,6 @@ import {
   styles: ``,
 })
 export class LabelComponent {
-  @Input() labelFor: string = '';
-  @Input() content: string = '';
+  @Input() labelFor = '';
+  @Input() content = '';
 }
