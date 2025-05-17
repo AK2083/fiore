@@ -1,9 +1,6 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
-  AfterContentInit,
   Component,
-  ContentChild,
-  ElementRef,
   EventEmitter,
   Input,
   Output,
