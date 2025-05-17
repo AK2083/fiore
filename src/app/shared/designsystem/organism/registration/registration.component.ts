@@ -15,6 +15,7 @@ import {
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { RegisterComponent } from '../../icons/register/register.component';
+import { SupabaseService } from '../../../services/supabase.service';
 
 @Component({
   selector: 'app-registration',
@@ -53,7 +54,7 @@ export class RegistrationComponent {
     hasSpecialChar: false,
   };
 
-  constructor() {
+  constructor(private spbsService: SupabaseService) {
     this.pwdControl.valueChanges.subscribe((value) => {
       this.rules.minLength = value?.length >= 8;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
@@ -72,6 +73,11 @@ export class RegistrationComponent {
     } else {
       console.log('Formular ist ungültig!');
     }
+
+    const mail = this.emailControl.value;
+    const pwd = this.pwdControl.value;
+
+    this.spbsService.signUpNewUser(mail, pwd);
   }
 
   isEMailFocused(isFocused: boolean) {

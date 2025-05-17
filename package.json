@@ -9,7 +9,8 @@
     "test": "ng test --code-coverage",
     "release": "release-it",
     "lint": "ng lint",
-    "prettier": "npx prettier --write \"**/*.html\""
+    "prettier": "npx prettier --write \"**/*.html\"",
+    "substSec": "envsubst < src/environments/environment.development.ts.template > src/environments/environment.development.ts"
   },
   "private": true,
   "dependencies": {
