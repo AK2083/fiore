@@ -10,8 +10,9 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   styles: ``
 })
 export class IconComponent implements OnChanges {
-  @Input() name = "";
-  @Input() size = 6;
+  @Input({ required: true }) name = "";
+  @Input({ required: true }) size = 6;
+  @Input({ required: true }) color = "slate-400";
 
   public iconPath: SafeUrl = "";
 
@@ -34,7 +35,15 @@ export class IconComponent implements OnChanges {
       });
   }
 
+  get iconClasses(): string {
+    return `${this.iconSize} ${this.iconColor}`;
+  }
+
   get iconSize(): string {
     return `size-${this.size}`;
+  }
+
+  get iconColor(): string {
+    return `text-${this.color}`
   }
 }

@@ -22,7 +22,7 @@
               [routerLink]="[item.route]"
               routerLinkActive="border-white dark:border-amber-900"
             >
-              <app-icon [name]="item.iconName" [size]="6"></app-icon>
+              <app-icon [name]="item.iconName" [size]="6" [color]="'slate-200'"></app-icon>
             </a>
           </div>
         </div>
@@ -36,7 +36,7 @@
             (pressButton)="toggleTheme()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-icon [name]="'sun'"></app-icon>
+            <app-icon [name]="'sun'" [size]="6" [color]="'slate-400'"></app-icon>
           </app-icon-button>
 
           <app-icon-button
@@ -44,14 +44,14 @@
             (pressButton)="toggleTheme()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-icon [name]="'moon'"></app-icon>
+            <app-icon [name]="'moon'" [size]="6" [color]="'slate-400'"></app-icon>
           </app-icon-button>
 
           <app-icon-button
             (pressButton)="openLanguageMenu()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-icon [name]="'globe'"></app-icon>
+            <app-icon [name]="'globe'" [size]="6" [color]="'slate-400'"></app-icon>
           </app-icon-button>
         </div>
 
@@ -75,7 +75,7 @@
           (pressButton)="openMobileMenu()"
           [srText]="iconSRSupport$ | async"
         >
-          <app-icon [name]="'burger'"></app-icon>
+          <app-icon [name]="'burger'" [size]="6" [color]="'slate-400'"></app-icon>
         </app-icon-button>
       </div>
     </div>
