@@ -2,10 +2,6 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from '../../atoms/header/header.component';
 import { SimplePanelComponent } from '../../atoms/simple-panel/simple-panel.component';
 import { LabeledInputComponent } from '../../molecules/labeled-input/labeled-input.component';
-import { LettercaseComponent } from '../../icons/lettercase/lettercase.component';
-import { LockComponent } from '../../icons/lock/lock.component';
-import { EyeCloseComponent } from '../../icons/eye-close/eye-close.component';
-import { EyeOpenComponent } from '../../icons/eye-open/eye-open.component';
 import { TranslatePipe } from '@ngx-translate/core';
 import {
   FormControl,
@@ -14,8 +10,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { RegisterComponent } from '../../icons/register/register.component';
 import { SupabaseService } from '../../../services/supabase.service';
+import { IconComponent } from '../../atoms/icon/icon.component';
 
 @Component({
   selector: 'app-registration',
@@ -26,11 +22,7 @@ import { SupabaseService } from '../../../services/supabase.service';
     HeaderComponent,
     SimplePanelComponent,
     LabeledInputComponent,
-    LettercaseComponent,
-    LockComponent,
-    EyeCloseComponent,
-    EyeOpenComponent,
-    RegisterComponent,
+    IconComponent
   ],
   templateUrl: './registration.component.html',
   styles: ``,
