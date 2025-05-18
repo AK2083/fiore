@@ -13,6 +13,7 @@
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div>
       <app-labeled-input
+        [focus]="true"
         [label]="'app.register.mail' | translate"
         [name]="'email'"
         [id]="'email'"

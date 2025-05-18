@@ -24,6 +24,7 @@ export class LabeledInputComponent {
   @ContentChild('suffix', { read: TemplateRef })
   suffixContent!: TemplateRef<IconComponent>;
 
+  @Input() focus = false;
   @Input() label = '';
   @Input() placeholder = '';
   @Input() type = '';
