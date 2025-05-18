@@ -8,10 +8,11 @@ import {
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { IconComponent } from '../icon/icon.component';
+import { AutofocusDirective } from '../../directives/autofocus.directive';
 
 @Component({
   selector: 'app-input',
-  imports: [NgIf, NgClass, NgTemplateOutlet, ReactiveFormsModule],
+  imports: [NgIf, NgClass, NgTemplateOutlet, ReactiveFormsModule, AutofocusDirective],
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.css'],
 })
@@ -21,6 +22,7 @@ export class InputComponent {
 
   @Input({ required: true }) control!: FormControl<string>;
 
+  @Input() focus = false;
   @Input() placeholder = '';
   @Input() type = '';
   @Input() name = '';

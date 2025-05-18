@@ -14,7 +14,7 @@ import {
 export class TextSizeDirective implements OnInit, OnChanges {
   @Input('appTextSize') padding: 'small' | 'medium' | 'large' = 'medium';
 
-  private paddingClasses = {
+  private textSizeClasses = {
     small: 'text-lg',
     medium: 'text-xl',
     large: 'text-2xl',
@@ -26,22 +26,22 @@ export class TextSizeDirective implements OnInit, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    this.applyPaddingClass();
+    this.applyTextSizeClass();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['padding']) {
-      this.applyPaddingClass();
+      this.applyTextSizeClass();
     }
   }
 
-  private applyPaddingClass(): void {
-    Object.values(this.paddingClasses).forEach((clazz) => {
+  private applyTextSizeClass(): void {
+    Object.values(this.textSizeClasses).forEach((clazz) => {
       this.renderer.removeClass(this.el.nativeElement, clazz);
     });
     this.renderer.addClass(
       this.el.nativeElement,
-      this.paddingClasses[this.padding] || this.paddingClasses['medium'],
+      this.textSizeClasses[this.padding] || this.textSizeClasses['medium'],
     );
   }
 }

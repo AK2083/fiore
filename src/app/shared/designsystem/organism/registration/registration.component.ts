@@ -22,7 +22,7 @@ import { IconComponent } from '../../atoms/icon/icon.component';
     HeaderComponent,
     SimplePanelComponent,
     LabeledInputComponent,
-    IconComponent
+    IconComponent,
   ],
   templateUrl: './registration.component.html',
   styles: ``,
