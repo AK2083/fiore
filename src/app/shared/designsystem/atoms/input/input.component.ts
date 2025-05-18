@@ -7,6 +7,7 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-input',
@@ -15,8 +16,8 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./input.component.css'],
 })
 export class InputComponent {
-  @Input() prefixTemplate!: TemplateRef<any>;
-  @Input() suffixTemplate!: TemplateRef<any>;
+  @Input() prefixTemplate!: TemplateRef<IconComponent>;
+  @Input() suffixTemplate!: TemplateRef<IconComponent>;
 
   @Input({ required: true }) control!: FormControl<string>;
 

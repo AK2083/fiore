@@ -1,6 +1,5 @@
 import {
   AsyncPipe,
-  NgComponentOutlet,
   NgFor,
   NgIf,
   NgStyle,
@@ -13,11 +12,7 @@ import { Observable, of } from 'rxjs';
 import { DrawerComponent } from '../../shared/designsystem/molecules/drawer/drawer.component';
 import { IconButtonComponent } from '../../shared/designsystem/atoms/icon-button/icon-button.component';
 import { LanguageChooserComponent } from '../translation/language-chooser/language-chooser.component';
-import { GlobeComponent } from '../../shared/designsystem/icons/globe/globe.component';
-import { BurgerComponent } from '../../shared/designsystem/icons/burger/burger.component';
-import { SunComponent } from '../../shared/designsystem/icons/sun/sun.component';
-import { MoonComponent } from '../../shared/designsystem/icons/moon/moon.component';
-import { RegisterComponent } from '../../shared/designsystem/icons/register/register.component';
+import { IconComponent } from '../../shared/designsystem/atoms/icon/icon.component';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -28,13 +23,8 @@ import { RegisterComponent } from '../../shared/designsystem/icons/register/regi
     RouterLink,
     LanguageChooserComponent,
     IconButtonComponent,
-    GlobeComponent,
-    BurgerComponent,
     DrawerComponent,
-    SunComponent,
-    MoonComponent,
-    NgComponentOutlet,
-    RegisterComponent,
+    IconComponent,
     NgStyle,
   ],
   templateUrl: './common-navigation-bar.component.html',
@@ -49,7 +39,7 @@ export class CommonNavigationBarComponent implements OnInit {
       name: 'Auth',
       route: '/auth',
       isActive: true,
-      routeIcon: RegisterComponent,
+      iconName: 'register',
     },
   ];
 
