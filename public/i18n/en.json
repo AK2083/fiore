@@ -25,6 +25,12 @@
             "confirmation": "Please, register me",
             "question": "Do you already have an account?",
             "exclamation": "Then I want to log in!!!",
+            "passwordRules": {
+                "minLength": "Your password should have a minimum length of {{pwdLength}} characters",
+                "ucChars": "That includes capital and small letters",
+                "number": "Your password contains numbers",
+                "specialChars": "It has special characters (preferably no language-dependent ones)"
+            },
             "error": {
                 "mail": {
                     "required": "E-Mail Address is required",

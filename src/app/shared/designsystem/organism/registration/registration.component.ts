@@ -37,6 +37,7 @@ export class RegistrationComponent {
     password: new FormControl('', [Validators.required]),
   });
 
+  MINPWDLENGTH = 8;
   allRulesValid = false;
 
   rules = {
@@ -48,7 +49,7 @@ export class RegistrationComponent {
 
   constructor(private spbsService: SupabaseService) {
     this.pwdControl.valueChanges.subscribe((value) => {
-      this.rules.minLength = value?.length >= 8;
+      this.rules.minLength = value?.length >= this.MINPWDLENGTH;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
       this.rules.hasNumber = /\d/.test(value);
       this.rules.hasSpecialChar = /[\^°"@!%*?&§/()=?`´+*~'#,.-;:_<>|]/.test(

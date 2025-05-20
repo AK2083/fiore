@@ -25,6 +25,12 @@
             "confirmation": "Creame una cuenta",
             "question": "Ya tienes una cuenta?",
             "exclamation": "Luego quiero iniciar sesión!!!",
+            "passwordRules": {
+                "minLength": "Su contraseña debe tener una longitud mínima de {{pwdLength}} caracteres",
+                "ucChars": "Incluye letras mayúsculas y minúsculas",
+                "number": "Tu contraseña contiene números",
+                "specialChars": "Tiene caracteres especiales (preferiblemente ninguno que dependa del idioma)"
+            },
             "error": {
                 "mail": {
                     "required": "La dirección de correo electrónico aún es necesaria",
