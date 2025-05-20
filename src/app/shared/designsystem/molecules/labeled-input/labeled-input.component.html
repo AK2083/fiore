@@ -1,5 +1,5 @@
 <div>
-  <app-label [labelFor]="id" [content]="label"></app-label>
+  <app-label [labelFor]="id" [content]="label" (click)="isFocused(true)"></app-label>
 
   <app-input
     class="w-full"

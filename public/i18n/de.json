@@ -25,6 +25,13 @@
             "confirmation": "Erstell mir einen Account",
             "question": "Schon einen Account?",
             "exclamation": "Dann log mich ein!!!",
+            "passwordRules": {
+                "minLength": "Dein Passwort sollte eine min. eine Länge von {{pwdLength}} Zeichen haben",
+                "ucChars": "Es beinhaltet große und kleine Buchstaben",
+                "number": "Dein Passwort beinhaltet Zahlen",
+                "specialChars": "Es hat Sonderzeichen (möglichst keine sprachabhängigen)"
+
+            },
             "error": {
                 "mail": {
                     "required": "E-Mail Adresse brauche ich noch",

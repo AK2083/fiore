@@ -5,7 +5,12 @@
   [isLoading]="false"
 >
   <div class="mr-1 size-12 text-slate-700">
-    <app-icon [name]="'register'" [size]="12" [lightcolor]="'slate-400'" [darkcolor]="'slate-600'"></app-icon>
+    <app-icon
+      [name]="'register'"
+      [size]="12"
+      [lightcolor]="'slate-400'"
+      [darkcolor]="'slate-600'"
+    ></app-icon>
   </div>
 </app-header>
 
@@ -13,7 +18,7 @@
   <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
     <div>
       <app-labeled-input
-        [focus]="true"
+        [focus]="false"
         [label]="'app.register.mail' | translate"
         [name]="'email'"
         [id]="'email'"
@@ -24,7 +29,12 @@
         [invalidError]="'app.register.error.mail.wrong' | translate"
       >
         <ng-template #prefix>
-          <app-icon [name]="'lettercase'" [lightcolor]="'slate-300'" [darkcolor]="'slate-400'" [size]="6"></app-icon>
+          <app-icon
+            [name]="'lettercase'"
+            [lightcolor]="'slate-300'"
+            [darkcolor]="'slate-400'"
+            [size]="6"
+          ></app-icon>
         </ng-template>
       </app-labeled-input>
     </div>
@@ -41,12 +51,18 @@
         [invalidError]="'app.register.error.password.wrong' | translate"
       >
         <ng-template #prefix>
-          <app-icon [name]="'lock'" [lightcolor]="'slate-300'" [darkcolor]="'slate-400'" [size]="6"></app-icon>
+          <app-icon
+            [name]="'lock'"
+            [lightcolor]="'slate-300'"
+            [darkcolor]="'slate-400'"
+            [size]="6"
+          ></app-icon>
         </ng-template>
         <ng-template #suffix *ngIf="!isPasswordVisible">
           <app-icon
             [name]="'eyeClose'"
-            [lightcolor]="'slate-300'" [darkcolor]="'slate-400'"
+            [lightcolor]="'slate-300'"
+            [darkcolor]="'slate-400'"
             [size]="6"
             class="cursor-pointer"
             (click)="isPasswordVisible = !isPasswordVisible"
@@ -55,7 +71,8 @@
         <ng-template #suffix *ngIf="isPasswordVisible">
           <app-icon
             [name]="'eyeOpen'"
-            [lightcolor]="'slate-300'" [darkcolor]="'slate-400'"
+            [lightcolor]="'slate-300'"
+            [darkcolor]="'slate-400'"
             [size]="6"
             class="cursor-pointer"
             (click)="isPasswordVisible = !isPasswordVisible"
@@ -68,25 +85,25 @@
             [class.text-green-600]="rules.minLength"
             [class.text-slate-500]="!rules.minLength"
           >
-            sollte min. 8 Zeichen lang sein
+            {{ "app.register.passwordRules.minLength" | translate: { pwdLength: MINPWDLENGTH } }}
           </li>
           <li
             [class.text-green-600]="rules.hasUpperCase"
             [class.text-slate-500]="!rules.hasUpperCase"
           >
-            beinhaltet große und kleine Buchstaben
+          {{ "app.register.passwordRules.ucChars" | translate }}
           </li>
           <li
             [class.text-green-600]="rules.hasNumber"
             [class.text-slate-500]="!rules.hasNumber"
           >
-            beinhaltet Zahlen
+          {{ "app.register.passwordRules.number" | translate }}
           </li>
           <li
             [class.text-green-600]="rules.hasSpecialChar"
             [class.text-slate-500]="!rules.hasSpecialChar"
           >
-            hat Sonderzeichen (möglichst keine sprachabhängigen)
+          {{ "app.register.passwordRules.specialChars" | translate }}
           </li>
         </ul>
       </div>
