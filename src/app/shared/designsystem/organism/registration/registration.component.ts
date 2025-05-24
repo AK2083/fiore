@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { SupabaseService } from '../../../services/supabase.service';
 import { IconComponent } from '../../atoms/icon/icon.component';
 
@@ -17,6 +17,7 @@ import { IconComponent } from '../../atoms/icon/icon.component';
   selector: 'app-registration',
   imports: [
     NgIf,
+    NgClass,
     ReactiveFormsModule,
     TranslatePipe,
     HeaderComponent,
@@ -31,6 +32,7 @@ export class RegistrationComponent {
   isPasswordVisible = false;
   selectedEmailField = false;
   selectedPasswordField = false;
+  isLoading = false;
 
   registrationForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -61,9 +63,8 @@ export class RegistrationComponent {
   }
 
   onSubmit() {
-    if (this.registrationForm.valid) {
-      console.log('Formular ist gültig!', this.registrationForm.value);
-    } else {
+    this.isLoading = true;
+    if (!this.registrationForm.valid) {
       console.log('Formular ist ungültig!');
     }
 
@@ -71,6 +72,7 @@ export class RegistrationComponent {
     const pwd = this.pwdControl.value;
 
     this.spbsService.signUpNewUser(mail, pwd);
+    this.isLoading = false;
   }
 
   isEMailFocused(isFocused: boolean) {
