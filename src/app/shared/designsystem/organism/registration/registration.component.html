@@ -1,17 +1,13 @@
-<app-header
-  [textSize]="'medium'"
-  [title]="'app.register.title' | translate"
-  [subtitle]="'app.register.subtitle' | translate"
-  [isLoading]="false"
->
-  <div class="mr-1 size-12 text-slate-700">
-    <app-icon
-      [name]="'register'"
-      [size]="12"
-      [lightcolor]="'slate-400'"
-      [darkcolor]="'slate-600'"
-    ></app-icon>
-  </div>
+<app-header>
+  <app-register
+    icon
+    styleClass="size-12 text-slate-300 dark:text-slate-700"
+  ></app-register>
+  <app-title title [message]="'app.register.title' | translate"></app-title>
+  <app-subtitle
+    subtitle
+    [message]="'app.register.subtitle' | translate"
+  ></app-subtitle>
 </app-header>
 
 <app-simple-panel [paddingSize]="'large'">
@@ -29,12 +25,9 @@
         [invalidError]="'app.register.error.mail.wrong' | translate"
       >
         <ng-template #prefix>
-          <app-icon
-            [name]="'lettercase'"
-            [lightcolor]="'slate-300'"
-            [darkcolor]="'slate-400'"
-            [size]="6"
-          ></app-icon>
+          <app-lettercase
+            styleClass="size-6 text-slate-300 dark:text-slate-500"
+          ></app-lettercase>
         </ng-template>
       </app-labeled-input>
     </div>
@@ -51,32 +44,21 @@
         [invalidError]="'app.register.error.password.wrong' | translate"
       >
         <ng-template #prefix>
-          <app-icon
-            [name]="'lock'"
-            [lightcolor]="'slate-300'"
-            [darkcolor]="'slate-400'"
-            [size]="6"
-          ></app-icon>
+          <app-lock
+            styleClass="size-6 text-slate-300 dark:text-slate-500"
+          ></app-lock>
         </ng-template>
         <ng-template #suffix *ngIf="!isPasswordVisible">
-          <app-icon
-            [name]="'eyeClose'"
-            [lightcolor]="'slate-300'"
-            [darkcolor]="'slate-400'"
-            [size]="6"
-            class="cursor-pointer"
+          <app-eye-close
             (click)="isPasswordVisible = !isPasswordVisible"
-          ></app-icon>
+            styleClass="size-6 text-slate-300 dark:text-slate-500 cursor-pointer"
+          ></app-eye-close>
         </ng-template>
         <ng-template #suffix *ngIf="isPasswordVisible">
-          <app-icon
-            [name]="'eyeOpen'"
-            [lightcolor]="'slate-300'"
-            [darkcolor]="'slate-400'"
-            [size]="6"
-            class="cursor-pointer"
+          <app-eye-open
             (click)="isPasswordVisible = !isPasswordVisible"
-          ></app-icon>
+            styleClass="size-6 text-slate-300 dark:text-slate-500 cursor-pointer"
+          ></app-eye-open>
         </ng-template>
       </app-labeled-input>
       <div class="ml-4">
@@ -116,31 +98,16 @@
       <button
         [disabled]="!allRulesValid"
         type="submit"
-        class="mt-5 h-10 flex w-full cursor-pointer justify-center items-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-default disabled:bg-gray-200 disabled:text-gray-400"
+        class="mt-5 flex h-10 w-full cursor-pointer items-center justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:cursor-default disabled:bg-gray-200 disabled:text-gray-400"
       >
-        <svg
-          [ngClass]="{'hidden': !isLoading}"
-          class="h-5 w-5 animate-spin text-indigo-200"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          ></circle>
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          ></path>
-        </svg>
-        <span [ngClass]="{'hidden': isLoading}">{{ "app.register.confirmation" | translate }}</span>
+      <app-circle [ngClass]="{ hidden: !isLoading }" styleClass="h-5 w-5 animate-spin text-indigo-200"></app-circle>
+        
+        <span [ngClass]="{ hidden: isLoading }">{{
+          "app.register.confirmation" | translate
+        }}</span>
       </button>
+
+      <app-alert></app-alert>
     </div>
   </form>
 </app-simple-panel>

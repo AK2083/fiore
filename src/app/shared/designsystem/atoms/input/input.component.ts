@@ -7,7 +7,6 @@ import {
   TemplateRef,
 } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { IconComponent } from '../icon/icon.component';
 import { AutofocusDirective } from '../../directives/autofocus.directive';
 
 @Component({
@@ -17,8 +16,8 @@ import { AutofocusDirective } from '../../directives/autofocus.directive';
   styleUrls: ['./input.component.css'],
 })
 export class InputComponent {
-  @Input() prefixTemplate!: TemplateRef<IconComponent>;
-  @Input() suffixTemplate!: TemplateRef<IconComponent>;
+  @Input() prefixTemplate!: TemplateRef<any>;
+  @Input() suffixTemplate!: TemplateRef<any>;
 
   @Input({ required: true }) control!: FormControl<string>;
 

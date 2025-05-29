@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from '../../atoms/header/header.component';
+import { HeaderComponent } from '../../molecules/header/header.component';
 import { SimplePanelComponent } from '../../atoms/simple-panel/simple-panel.component';
 import { LabeledInputComponent } from '../../molecules/labeled-input/labeled-input.component';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -11,7 +11,17 @@ import {
 } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { SupabaseService } from '../../../services/supabase.service';
-import { IconComponent } from '../../atoms/icon/icon.component';
+import { CommonError, ErrorService } from '../../../services/error.service';
+import { AlertComponent } from '../../molecules/alert/alert.component';
+import { SubtitleComponent } from '../../atoms/subtitle/subtitle.component';
+import { TitleComponent } from '../../atoms/title/title.component';
+import { RegisterComponent } from '../../atoms/icons/register.component';
+import { LettercaseComponent } from '../../atoms/icons/lettercase.component';
+import { LockComponent } from '../../atoms/icons/lock.component';
+import { EyeOpenComponent } from '../../atoms/icons/eye-open.component';
+import { EyeCloseComponent } from '../../atoms/icons/eye-close.component';
+import { CircleComponent } from '../../atoms/icons/circle.component';
+
 
 @Component({
   selector: 'app-registration',
@@ -23,8 +33,16 @@ import { IconComponent } from '../../atoms/icon/icon.component';
     HeaderComponent,
     SimplePanelComponent,
     LabeledInputComponent,
-    IconComponent,
-  ],
+    AlertComponent,
+    TitleComponent,
+    SubtitleComponent,
+    RegisterComponent,
+    LettercaseComponent,
+    LockComponent,
+    EyeOpenComponent,
+    EyeCloseComponent,
+    CircleComponent
+],
   templateUrl: './registration.component.html',
   styles: ``,
 })
@@ -41,6 +59,7 @@ export class RegistrationComponent {
 
   MINPWDLENGTH = 8;
   allRulesValid = false;
+  errors: CommonError | null = null;
 
   rules = {
     minLength: false,
@@ -49,7 +68,7 @@ export class RegistrationComponent {
     hasSpecialChar: false,
   };
 
-  constructor(private spbsService: SupabaseService) {
+  constructor(private error: ErrorService,private spbsService: SupabaseService) {
     this.pwdControl.valueChanges.subscribe((value) => {
       this.rules.minLength = value?.length >= this.MINPWDLENGTH;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
@@ -72,6 +91,7 @@ export class RegistrationComponent {
     const pwd = this.pwdControl.value;
 
     this.spbsService.signUpNewUser(mail, pwd);
+    
     this.isLoading = false;
   }
 

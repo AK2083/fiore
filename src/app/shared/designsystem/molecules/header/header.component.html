@@ -1,0 +1,19 @@
+<div class="relative mb-3 w-full overflow-hidden rounded">
+  <div
+    class="absolute inset-0 z-0 hidden rounded bg-conic-80 from-orange-600 via-slate-300 to-slate-400 md:block dark:from-orange-600 dark:via-slate-700 dark:to-slate-800"
+  ></div>
+
+  <div
+    class="relative z-0 m-[1px] flex rounded text-slate-800 md:bg-slate-200 md:p-2 dark:text-slate-400 dark:md:bg-slate-900"
+  >
+    <div class="flex flex-row items-end">
+      <div class="flex-shrink-0 mr-2">
+        <ng-content select="[icon]"></ng-content>
+      </div>
+      <div class="flex h-full flex-col justify-end mb-1">
+        <ng-content select="[title]"></ng-content>
+        <ng-content select="[subtitle]"></ng-content>
+      </div>
+    </div>
+  </div>
+</div>

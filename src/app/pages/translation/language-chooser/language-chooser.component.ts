@@ -9,7 +9,7 @@ import {
 } from '../../../shared/services/translation.service';
 import { Observable, of } from 'rxjs';
 import { TextWithSubtextComponent } from '../../../shared/designsystem/molecules/text-with-subtext/text-with-subtext.component';
-import { IconComponent } from '../../../shared/designsystem/atoms/icon/icon.component';
+import { GlobeComponent } from '../../../shared/designsystem/atoms/icons/globe.component';
 
 export interface LanguageModel {
   langName: string;
@@ -32,7 +32,7 @@ enum Language {
     NgFor,
     SimplePanelComponent,
     HeaderComponent,
-    IconComponent,
+    GlobeComponent,
     StatusButtonComponent,
     TextWithSubtextComponent,
   ],

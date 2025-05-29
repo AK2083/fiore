@@ -1,5 +1,6 @@
 import {
   AsyncPipe,
+  NgComponentOutlet,
   NgFor,
   NgIf,
   NgStyle,
@@ -12,7 +13,11 @@ import { Observable, of } from 'rxjs';
 import { DrawerComponent } from '../../shared/designsystem/molecules/drawer/drawer.component';
 import { IconButtonComponent } from '../../shared/designsystem/atoms/icon-button/icon-button.component';
 import { LanguageChooserComponent } from '../translation/language-chooser/language-chooser.component';
-import { IconComponent } from '../../shared/designsystem/atoms/icon/icon.component';
+import { GlobeComponent } from '../../shared/designsystem/atoms/icons/globe.component';
+import { MoonComponent } from '../../shared/designsystem/atoms/icons/moon.component';
+import { SunComponent } from '../../shared/designsystem/atoms/icons/sun.component';
+import { BurgerComponent } from '../../shared/designsystem/atoms/icons/burger.component';
+import { RegisterComponent } from '../../shared/designsystem/atoms/icons/register.component';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -24,8 +29,12 @@ import { IconComponent } from '../../shared/designsystem/atoms/icon/icon.compone
     LanguageChooserComponent,
     IconButtonComponent,
     DrawerComponent,
-    IconComponent,
+    GlobeComponent,
+    MoonComponent,
+    SunComponent,
+    BurgerComponent,
     NgStyle,
+    NgComponentOutlet,
   ],
   templateUrl: './common-navigation-bar.component.html',
 })
@@ -39,11 +48,14 @@ export class CommonNavigationBarComponent implements OnInit {
       name: 'Auth',
       route: '/auth',
       isActive: true,
-      iconName: 'register',
+      icon: RegisterComponent,
     },
   ];
 
   iconSRSupport$: Observable<string> = of();
+  iconInputs: { [key: string]: any } = {
+    'styleClass': "size-6"
+  };
 
   constructor(public translate: TranslationService) {}
 
