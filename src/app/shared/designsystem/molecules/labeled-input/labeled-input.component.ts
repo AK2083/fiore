@@ -10,7 +10,6 @@ import {
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../../atoms/label/label.component';
 import { InputComponent } from '../../atoms/input/input.component';
-import { IconComponent } from '../../atoms/icon/icon.component';
 
 @Component({
   selector: 'app-labeled-input',
@@ -20,9 +19,9 @@ import { IconComponent } from '../../atoms/icon/icon.component';
 })
 export class LabeledInputComponent {
   @ContentChild('prefix', { read: TemplateRef })
-  prefixContent!: TemplateRef<IconComponent>;
+  prefixContent!: TemplateRef<any>;
   @ContentChild('suffix', { read: TemplateRef })
-  suffixContent!: TemplateRef<IconComponent>;
+  suffixContent!: TemplateRef<any>;
 
   @Input() focus = false;
   @Input() label = '';

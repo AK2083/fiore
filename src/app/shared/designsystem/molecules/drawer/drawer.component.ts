@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { IconComponent } from '../../atoms/icon/icon.component';
+import { CrossComponent } from '../../atoms/icons/cross.component';
 
 @Component({
   selector: 'app-drawer',
-  imports: [IconComponent],
+  imports: [CrossComponent],
   templateUrl: './drawer.component.html',
 })
 export class DrawerComponent {

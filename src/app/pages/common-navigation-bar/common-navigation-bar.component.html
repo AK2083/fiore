@@ -22,7 +22,9 @@
               [routerLink]="[item.route]"
               routerLinkActive="border-white dark:border-amber-900"
             >
-              <app-icon [name]="item.iconName" [size]="6" [lightcolor]="'slate-200'" [darkcolor]="'slate-200'"></app-icon>
+              <ng-container
+                *ngComponentOutlet="item.icon; inputs: iconInputs"
+              ></ng-container>
             </a>
           </div>
         </div>
@@ -36,7 +38,7 @@
             (pressButton)="toggleTheme()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-icon [name]="'sun'" [size]="6" [lightcolor]="'slate-400'" [darkcolor]="'slate-400'"></app-icon>
+            <app-sun styleClass="size-6 text-slate-400"></app-sun>
           </app-icon-button>
 
           <app-icon-button
@@ -44,14 +46,14 @@
             (pressButton)="toggleTheme()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-icon [name]="'moon'" [size]="6" [lightcolor]="'slate-400'" [darkcolor]="'slate-400'"></app-icon>
+            <app-moon styleClass="size-6 text-slate-400"></app-moon>
           </app-icon-button>
 
           <app-icon-button
             (pressButton)="openLanguageMenu()"
             [srText]="iconSRSupport$ | async"
           >
-            <app-icon [name]="'globe'" [size]="6" [lightcolor]="'slate-400'" [darkcolor]="'slate-400'"></app-icon>
+            <app-globe styleClass="size-6 text-slate-400"></app-globe>
           </app-icon-button>
         </div>
 
@@ -75,7 +77,7 @@
           (pressButton)="openMobileMenu()"
           [srText]="iconSRSupport$ | async"
         >
-          <app-icon [name]="'burger'" [size]="6" [lightcolor]="'slate-400'" [darkcolor]="'slate-400'"></app-icon>
+          <app-burger styleClass="size-6 text-slate-400"></app-burger>
         </app-icon-button>
       </div>
     </div>

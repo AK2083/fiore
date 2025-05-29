@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
+import { ErrorService, ErrorType } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,8 @@ import { environment } from '../../../environments/environment';
 export class SupabaseService {
   private supabase: SupabaseClient;
 
-  constructor() { 
+
+  constructor(private errorService: ErrorService) { 
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   }
 
@@ -17,13 +19,14 @@ export class SupabaseService {
     const { data, error } = await this.supabase.auth.signUp({
       email: mail,
       password: pwd,
-      options: {
-        emailRedirectTo: 'https://example.com/welcome',
-      },
     })
 
     if (error)
-      console.error('Konnte nicht registriert werden: ', error);
+      this.errorService.errors.push({
+          type: ErrorType.error,
+          userMessage: "Ein kritischer Fehler ist aufgetreten.",
+          additionalMessage: "Bitte überprüfen Sie die Logs.",
+        });
     else
       console.log('Konnte erfolreich registriert werden als: ' + data.user);
   }
