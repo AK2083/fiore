@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { CommonNavigationBarComponent } from './pages/common-navigation-bar/common-navigation-bar.component';
+import { CommonNavigationBarComponent } from './core/components/common-navigation-bar/common-navigation-bar.component';
 
 @Component({
   selector: 'app-root',

@@ -1,5 +1,0 @@
-@import "tailwindcss";
-
-.subtitle {
-    @apply h-full text-xs text-slate-800 dark:text-slate-500;
-}

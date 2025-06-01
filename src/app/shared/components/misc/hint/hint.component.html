@@ -1,0 +1,22 @@
+<div
+  [ngClass]="{
+    dangerWrapper: severity === 'danger',
+    warningWrapper: severity === 'warning',
+    infoWrapper: severity === 'info',
+  }"
+>
+  <app-cross-circle
+    *ngIf="severity == 'danger'"
+    class="dangerIcon"
+  ></app-cross-circle>
+  
+  <span
+    [ngClass]="{
+      dangerMessage: severity === 'danger',
+      warningMessage: severity === 'warning',
+      infoMessage: severity === 'info',
+    }"
+  >
+    {{ message }}
+  </span>
+</div>
