@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { HeaderComponent } from '@shared/components/misc/header/header.component';
 import { SimplePanelComponent } from '@shared/components/misc/simple-panel/simple-panel.component';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -10,7 +10,7 @@ import {
 } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';
-import { CommonError, ErrorService } from '@core/services/error/error.service';
+import { ErrorService } from '@core/services/error/error.service';
 import { RegisterComponent } from '@shared/components/misc/icons/register.component';
 import { LettercaseComponent } from '@shared/components/misc/icons/lettercase.component';
 import { LockComponent } from '@shared/components/misc/icons/lock.component';
@@ -55,7 +55,7 @@ export class RegistrationComponent {
 
   MINPWDLENGTH = 8;
   allRulesValid = false;
-  errors: CommonError | null = null;
+  currentError = computed(() => this.errorService.getLatestError());
 
   rules = {
     minLength: false,
@@ -64,12 +64,12 @@ export class RegistrationComponent {
     hasSpecialChar: false,
   };
 
-  constructor(private error: ErrorService,private spbsService: SupabaseService) {
+  constructor(private errorService: ErrorService, private spbsService: SupabaseService) {
     this.pwdControl.valueChanges.subscribe((value) => {
       this.rules.minLength = value?.length >= this.MINPWDLENGTH;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
       this.rules.hasNumber = /\d/.test(value);
-      this.rules.hasSpecialChar = /[\^°"@!%*?&§/()=?`´+*~'#,.-;:_<>|]/.test(
+      this.rules.hasSpecialChar = /^[\^°"@!%*?&§/()=?`´+*~'#,.\-;:_<>|]+$/.test(
         value,
       );
 
@@ -77,8 +77,10 @@ export class RegistrationComponent {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     this.isLoading = true;
+    this.errorService.clearErrors();
+
     if (!this.registrationForm.valid) {
       console.log('Formular ist ungültig!');
     }
@@ -87,7 +89,6 @@ export class RegistrationComponent {
     const pwd = this.pwdControl.value;
 
     this.spbsService.signUpNewUser(mail, pwd);
-    
     this.isLoading = false;
   }
 

@@ -128,7 +128,7 @@
             }}</span>
           </button>
 
-          <app-hint severity="danger" message="großer fehler"></app-hint>
+          <app-hint *ngIf="currentError()?.userMessage" severity="danger" [message]="currentError()!.userMessage"></app-hint>
         </div>
       </form>
     </ng-template>

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal, WritableSignal } from '@angular/core';
 
 export enum ErrorType {
   "error",
@@ -27,11 +27,18 @@ export type CommonError = {
   providedIn: 'root'
 })
 export class ErrorService {
-  errors: CommonError[] = [];
+  errors: WritableSignal<CommonError[]> = signal([]);
 
-  constructor() { }
+  addError(error: CommonError): void {
+    this.errors.update(currentErrors => [...currentErrors, error]);
+  }
 
-  addError() {
-    
+  clearErrors(): void {
+    this.errors.set([]);
+  }
+
+  getLatestError(): CommonError | null {
+    const currentErrors = this.errors();
+    return currentErrors.length > 0 ? currentErrors[currentErrors.length - 1] : null;
   }
 }
