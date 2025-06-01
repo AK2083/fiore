@@ -9,25 +9,26 @@ import { ErrorService, ErrorType } from '@core/services/error/error.service';
 export class SupabaseService {
   private supabase: SupabaseClient;
 
-
   constructor(private errorService: ErrorService) { 
     this.supabase = createClient(environment.supabaseUrl, environment.supabaseKey);
   }
 
-  async signUpNewUser(mail: string, pwd: string) {
-    console.log('Registriere mich');
+  async signUpNewUser(mail: string, pwd: string): Promise<boolean> {    
     const { data, error } = await this.supabase.auth.signUp({
       email: mail,
       password: pwd,
     })
-
-    if (error)
-      this.errorService.errors.push({
+    
+    if (error != null || error != undefined) {
+      this.errorService.addError({
           type: ErrorType.error,
-          userMessage: "Ein kritischer Fehler ist aufgetreten.",
+          userMessage: "Ein kritischer Fehler ist aufgetreten: " + error.message,
           additionalMessage: "Bitte überprüfen Sie die Logs.",
-        });
-    else
-      console.log('Konnte erfolreich registriert werden als: ' + data.user);
+      });
+
+      return false;
+    }
+    
+    return true;
   }
 }
