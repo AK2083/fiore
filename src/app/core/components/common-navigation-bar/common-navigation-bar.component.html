@@ -1,0 +1,107 @@
+<nav
+  class="border-b-4 border-slate-300 bg-slate-200 dark:border-y-slate-700 dark:bg-slate-800"
+>
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <div class="flex items-center">
+        <!-- Title -->
+        <div class="shrink-0">
+          <span class="text-2xl font-semibold dark:text-white"
+            >Fi<span class="text-orange-600">o</span>re</span
+          >
+        </div>
+
+        <!-- Routes -->
+        <div class="hidden md:block">
+          <div class="relative ml-10 flex items-baseline space-x-4">
+            <a
+              *ngFor="let item of routeItems; let i = index"
+              [ngStyle]="{ left: (i + 2) * 4 + 'rem' }"
+              class="absolute top-4 inline-flex items-center justify-center gap-2 rounded-sm border-2 border-slate-300 bg-slate-200 px-3 py-1 text-sm font-medium transition-transform duration-200 hover:scale-110 active:scale-95 dark:border-slate-700 dark:bg-amber-700 dark:text-white"
+              aria-current="page"
+              [routerLink]="[item.route]"
+              routerLinkActive="border-white dark:border-amber-900"
+            >
+              <ng-container
+                *ngComponentOutlet="item.icon; inputs: iconInputs"
+              ></ng-container>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Language Menu -->
+      <div class="relative ml-3">
+        <div class="hidden md:block">
+          <app-icon-button
+            [iconTemplate]="themeIcon"
+            (pressButton)="toggleTheme()"
+            [srText]="iconSRSupport$ | async"
+          >
+            <ng-template #themeIcon>
+              <app-moon
+                *ngIf="!isDarkModeOn"
+                styleClass="size-6 text-slate-400"
+              ></app-moon>
+              <app-sun
+                *ngIf="isDarkModeOn"
+                styleClass="size-6 text-slate-400"
+              ></app-sun>
+            </ng-template>
+          </app-icon-button>
+
+          <app-icon-button
+            [iconTemplate]="languageIcon"
+            (pressButton)="openLanguageMenu()"
+            [srText]="iconSRSupport$ | async"
+          >
+            <ng-template #languageIcon>
+              <app-globe styleClass="size-6 text-slate-400"></app-globe>
+            </ng-template>
+          </app-icon-button>
+        </div>
+
+        <!-- Language Drawer -->
+        <div
+          *ngIf="isLanguageMenuOpen"
+          class="relative z-10"
+          aria-labelledby="slide-over-title"
+          role="dialog"
+          aria-modal="true"
+        >
+          <app-drawer (pressButton)="openLanguageMenu()">
+            <app-language-chooser></app-language-chooser>
+          </app-drawer>
+        </div>
+      </div>
+
+      <!-- Burger Icon for Mobile Menu -->
+      <div class="-mr-2 flex md:hidden">
+        <app-icon-button
+          [iconTemplate]="mobileIcon"
+          (pressButton)="openMobileMenu()"
+          [srText]="iconSRSupport$ | async"
+        >
+          <ng-template #mobileIcon>
+            <app-burger styleClass="size-6 text-slate-400"></app-burger>
+          </ng-template>
+        </app-icon-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="md:hidden" id="mobile-menu" *ngIf="isMobileMenuOpen">
+    <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
+      <a
+        *ngFor="let item of routeItems"
+        [routerLink]="[item.route]"
+        class="block rounded-md px-3 py-2 text-base font-medium text-slate-800 hover:bg-slate-400 hover:text-slate-200 dark:text-slate-300 dark:hover:bg-gray-700"
+        aria-current="page"
+        routerLinkActive="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white"
+        >{{ item.name }}</a
+      >
+    </div>
+    <app-language-chooser></app-language-chooser>
+  </div>
+</nav>

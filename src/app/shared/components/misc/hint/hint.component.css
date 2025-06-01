@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+.dangerIcon {
+    @apply size-5 text-red-200 dark:text-red-400;
+}
+
+.dangerMessage {
+    @apply ml-2 text-sm font-medium text-red-800;
+}
+
+.dangerWrapper {
+    @apply mt-2 flex rounded-md bg-red-50 p-3;
+}
+
+.warningIcon {
+    @apply size-5 text-orange-200 dark:text-orange-400;
+}
+
+.warningMessage {
+    @apply ml-2 text-sm font-medium text-orange-800;
+}
+
+.warningWrapper {
+    @apply mt-2 flex rounded-md bg-orange-50 p-3;
+}
+
+.infoIcon {
+    @apply size-5 text-lime-200 dark:text-lime-400;
+}
+
+.infoMessage {
+    @apply ml-2 text-sm font-medium text-lime-800;
+}
+
+.infoWrapper {
+    @apply mt-2 flex rounded-md bg-lime-50 p-3;
+}

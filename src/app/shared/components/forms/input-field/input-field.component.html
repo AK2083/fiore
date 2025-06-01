@@ -1,0 +1,50 @@
+<div>
+  <label
+    [for]="id"
+    class="cursor-pointer text-sm/6 font-medium text-gray-900 dark:text-white"
+  >
+    {{ label }}
+  </label>
+
+  <div
+    [ngClass]="{
+      'outline-2 outline-offset-2 outline-orange-400 outline-solid': focus,
+    }"
+    class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white"
+  >
+    <div *ngIf="prefixIconTemplate" class="rounded bg-slate-100 p-2">
+      <ng-container [ngTemplateOutlet]="prefixIconTemplate"></ng-container>
+    </div>
+
+    <input
+      appAutofocus
+      [isAutoFocusActive]="focus"
+      (focus)="handleInputEvent(true)"
+      (blur)="handleInputEvent(false)"
+      [placeholder]="placeholder"
+      [type]="type"
+      [name]="name"
+      [id]="id"
+      autocomplete="email"
+      [formControl]="control"
+      class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+    />
+    
+    <div *ngIf="suffixIconTemplate" class="rounded bg-slate-100 p-2">
+      <ng-container [ngTemplateOutlet]="suffixIconTemplate"></ng-container>
+    </div>
+  </div>
+
+  <div
+    class="mt-2 text-sm text-red-600"
+    *ngIf="control?.invalid && control?.touched; else emptyError"
+  >
+    <p *ngIf="control?.errors?.['required']">
+      {{ requiredError }}
+    </p>
+    <p *ngIf="control?.errors?.['email']">
+      {{ invalidError }}
+    </p>
+  </div>
+  <ng-template #emptyError><div class="mt-2 h-5 w-full"></div></ng-template>
+</div>
