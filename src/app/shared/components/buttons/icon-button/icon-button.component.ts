@@ -1,14 +1,20 @@
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  TemplateRef,
+} from '@angular/core';
 
 @Component({
   selector: 'app-icon-button',
   imports: [NgTemplateOutlet, NgIf],
   templateUrl: './icon-button.component.html',
-  styles: ``
+  styles: ``,
 })
 export class IconButtonComponent {
-  @Input() iconTemplate?: TemplateRef<any>;
+  @Input() iconTemplate?: TemplateRef<unknown>;
 
   @Input() srText: string | null = null;
   @Output() pressButton = new EventEmitter<boolean>();

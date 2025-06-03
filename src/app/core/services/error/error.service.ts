@@ -6,9 +6,7 @@ export enum ErrorType {
   "information"
 }
 
-type ErrorIcon = {
-  [key in ErrorType]: string;
-};
+type ErrorIcon = Record<ErrorType, string>;
 
 export const ErrorIcons: ErrorIcon = {
   [ErrorType.error]: "icon_error_kreuz", // Beispiel: Spezifischere Icon-Namen
@@ -16,7 +14,7 @@ export const ErrorIcons: ErrorIcon = {
   [ErrorType.information]: "icon_info_i"
 };
 
-export type CommonError = {
+export interface CommonError {
   type: ErrorType,
   userMessage: string,
   additionalMessage: string,

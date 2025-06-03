@@ -5,9 +5,9 @@ import { Component, Input, TemplateRef } from '@angular/core';
   selector: 'app-simple-panel',
   imports: [NgIf, NgClass, NgTemplateOutlet],
   templateUrl: './simple-panel.component.html',
-  styles: ``
+  styles: ``,
 })
 export class SimplePanelComponent {
-  @Input() styleClass = "";
-  @Input() contentTemplate?: TemplateRef<any>;
+  @Input() styleClass = '';
+  @Input() contentTemplate?: TemplateRef<unknown>;
 }

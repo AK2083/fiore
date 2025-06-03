@@ -22,8 +22,8 @@ import { AutofocusDirective } from '@core/directives/autofocus/autofocus.directi
   styles: ``,
 })
 export class InputFieldComponent {
-  @Input() prefixIconTemplate?: TemplateRef<any>;
-  @Input() suffixIconTemplate?: TemplateRef<any>;
+  @Input() prefixIconTemplate?: TemplateRef<unknown>;
+  @Input() suffixIconTemplate?: TemplateRef<unknown>;
 
   @Input() focus = false;
   @Input() label = '';

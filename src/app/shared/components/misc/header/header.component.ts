@@ -5,10 +5,10 @@ import { Component, Input, TemplateRef } from '@angular/core';
   selector: 'app-header',
   imports: [NgIf, NgTemplateOutlet],
   templateUrl: './header.component.html',
-  styles: ''
+  styles: '',
 })
 export class HeaderComponent {
-  @Input() iconTemplate?: TemplateRef<any>;
-  @Input({required: true}) titleTemplate: TemplateRef<any> | undefined;
-  @Input() subtitleTemplate?: TemplateRef<any>;
+  @Input() iconTemplate?: TemplateRef<unknown>;
+  @Input({ required: true }) titleTemplate: TemplateRef<unknown> | undefined;
+  @Input() subtitleTemplate?: TemplateRef<unknown>;
 }
