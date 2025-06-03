@@ -53,8 +53,8 @@ export class CommonNavigationBarComponent implements OnInit {
   ];
 
   iconSRSupport$: Observable<string> = of();
-  iconInputs: { [key: string]: any } = {
-    'styleClass': "size-6"
+  iconInputs: Record<string, unknown> = {
+    styleClass: 'size-6',
   };
 
   constructor(public translate: TranslationService) {}
