@@ -91,6 +91,30 @@ export class TranslationService {
     return this.getTranslationOf(_('app.aria.iconLabel'));
   }
 
+  public getRegisterSuccessful() {
+    return this.getTranslationOf(_('app.register.success'));
+  }
+
+  public getPWResetProcessed() {
+    return this.getTranslationOf(_('app.register.reset'));
+  }
+
+  public getLinkExpired() {
+    return this.getTranslationOf(_('app.register.linkExpired'));
+  }
+
+  public getTimeout() {
+    return this.getTranslationOf(_('app.register.error.timeout'));
+  }
+
+  public getFailed() {
+    return this.getTranslationOf(_('app.register.error.failed'));
+  }
+
+  public getAuthError(errMssg: string) {
+    return this.getTranslationOf(_(`app.auth.error.${errMssg}`));
+  }
+
   public getDefaultLanguage() {
     return this.translate.defaultLang;
   }

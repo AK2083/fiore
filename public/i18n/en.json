@@ -31,7 +31,12 @@
                 "number": "Your password contains numbers",
                 "specialChars": "It has special characters (preferably no language-dependent ones)"
             },
+            "success": "Your registration has been successfully confirmed!",
+            "reset": "Password reset link is being processed.",
+            "linkExpired": "The link has already expired.",
             "error": {
+                "timeout": "Registration took too long. Please try again later.",
+                "failed": "Registration failed. Please check your details or try again.",
                 "mail": {
                     "required": "E-Mail Address is required",
                     "wrong": "E-Mail address is unfortunately incorrect"
