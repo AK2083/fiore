@@ -32,7 +32,13 @@
                 "specialChars": "Es hat Sonderzeichen (möglichst keine sprachabhängigen)"
 
             },
+            "success": "Ihre Registrierung wurde erfolgreich bestätigt!",
+            "reset": "Passwort-Reset-Link verarbeitet.",
+            "linkExpired": "Der Link ist bereits abgelaufen.",
+            "authError": "Fehler bei der Authentifizierung: {{errMssg}}",
             "error": {
+                "timeout": "Die Registrierung hat zu lange gedauert. Bitte versuchen Sie es später erneut.",
+                "failed": "Die Registrierung ist fehlgeschlagen. Bitte überprüfen Sie Ihre Daten oder versuchen Sie es erneut.",
                 "mail": {
                     "required": "E-Mail Adresse brauche ich noch",
                     "wrong": "E-Mail Adresse ist leider nicht richtig"

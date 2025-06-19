@@ -31,7 +31,12 @@
                 "number": "Tu contraseña contiene números",
                 "specialChars": "Tiene caracteres especiales (preferiblemente ninguno que dependa del idioma)"
             },
+            "success": "¡Su registro ha sido confirmado exitosamente!",
+            "reset": "Se está procesando el enlace de restablecimiento de contraseña.",
+            "linkExpired": "El enlace ya ha expirado.",
             "error": {
+                "timeout": "El registro tardó demasiado. Inténtalo de nuevo más tarde.",
+                "failed": "Error en el registro. Por favor, revise sus datos o inténtelo de nuevo.",
                 "mail": {
                     "required": "La dirección de correo electrónico aún es necesaria",
                     "wrong": "La dirección de correo electrónico lamentablemente es incorrecta"
