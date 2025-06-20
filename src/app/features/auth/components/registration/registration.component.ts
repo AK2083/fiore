@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { HeaderComponent } from '@shared/components/misc/header/header.component';
 import { SimplePanelComponent } from '@shared/components/misc/simple-panel/simple-panel.component';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import {
   FormControl,
   FormGroup,
@@ -117,7 +117,7 @@ export class RegistrationComponent {
       signUpCompleted = true; 
       this.showInfo.set('Wurde erfolgreich versendet.');
   
-    } catch (error: any) {
+    } catch {
       signUpCompleted = true;
     } finally {
       if (timeoutId) {
@@ -128,16 +128,6 @@ export class RegistrationComponent {
           this.isLoading.update(() => false);
       }
     }
-  }
-
-  setFailedMessage(error: any) {
-    this.translate.getFailed().subscribe((translatedMessage: string) => {
-      this.errorService.addError({
-        type: ErrorType.error,
-        userMessage: translatedMessage,
-        additionalMessage: error.message,
-      });
-    });
   }
 
   setTimeoutMessage() {

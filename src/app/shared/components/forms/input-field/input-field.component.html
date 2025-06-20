@@ -10,9 +10,12 @@
     [ngClass]="{
       'outline-2 outline-offset-2 outline-orange-400 outline-solid': focus,
     }"
-    class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 dark:border-slate-800 dark:bg-slate-700 bg-white"
+    class="mt-2 flex items-center gap-2 rounded-md border-1 border-gray-300 bg-white dark:border-slate-800 dark:bg-slate-700"
   >
-    <div *ngIf="prefixIconTemplate" class="rounded bg-slate-100 dark:border-slate-200 border-r-1 dark:bg-slate-800 p-2">
+    <div
+      *ngIf="prefixIconTemplate"
+      class="rounded border-r-1 bg-slate-100 p-2 dark:border-slate-200 dark:bg-slate-800"
+    >
       <ng-container [ngTemplateOutlet]="prefixIconTemplate"></ng-container>
     </div>
 
@@ -27,10 +30,13 @@
       [id]="id"
       autocomplete="email"
       [formControl]="control"
-      class="block w-full rounded-md dark:bg-slate-700 bg-white px-3 py-1.5 text-base dark:text-slate-100 text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
+      class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6 dark:bg-slate-700 dark:text-slate-100"
     />
-    
-    <div *ngIf="suffixIconTemplate" class="rounded bg-slate-100 dark:border-slate-200 border-l-1 dark:bg-slate-800 p-2">
+
+    <div
+      *ngIf="suffixIconTemplate"
+      class="rounded border-l-1 bg-slate-100 p-2 dark:border-slate-200 dark:bg-slate-800"
+    >
       <ng-container [ngTemplateOutlet]="suffixIconTemplate"></ng-container>
     </div>
   </div>

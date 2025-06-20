@@ -50,7 +50,7 @@ export class SupabaseService {
   }
 
   async setSession(accessToken: string, refreshToken: string) {
-    const { data, error } = await this.supabase.auth.setSession({
+    const { error } = await this.supabase.auth.setSession({
       access_token: accessToken,
       refresh_token: refreshToken,
     });
