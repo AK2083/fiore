@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';
 import { TranslationService } from '@features/translation/services/translation/translation.service';
 import { HintComponent } from '@shared/components/misc/hint/hint.component';
+import { AuthError } from '@supabase/supabase-js';
 import { Observable, of } from 'rxjs';
 
 @Component({
@@ -26,8 +27,9 @@ export class CallbackComponent implements OnInit {
   async ngOnInit() {
     try {
       this.setParameter();
-    } catch (error: any) {
-      this.setCommonError(error);
+    } catch (error) {
+      if (error instanceof AuthError)
+        this.setCommonError(error);
     } finally {
       this.setClearHistory();
     }
@@ -73,7 +75,7 @@ export class CallbackComponent implements OnInit {
     this.severity = severity;
   }
 
-  setCommonError(error: any) {
+  setCommonError(error: AuthError) {
     this.setHint(this.translate.getAuthError(error.message), 'danger');
   }
 
@@ -88,7 +90,6 @@ export class CallbackComponent implements OnInit {
 
   setRegisterSuccessful() {
     this.setHint(this.translate.getRegisterSuccessful(), 'info');
-    //this.redirect('/dashboard');
   }
 
   redirect(redirectTo: string) {

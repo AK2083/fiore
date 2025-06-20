@@ -7,12 +7,21 @@
     class="relative z-0 m-[1px] flex rounded text-slate-800 md:bg-slate-200 md:p-2 dark:text-slate-400 dark:md:bg-slate-900"
   >
     <div class="flex flex-row items-end">
-      <div class="flex-shrink-0 mr-2">
-        <ng-container *ngIf="iconTemplate" [ngTemplateOutlet]="iconTemplate"></ng-container>
+      <div class="mr-2 flex-shrink-0">
+        <ng-container
+          *ngIf="iconTemplate"
+          [ngTemplateOutlet]="iconTemplate"
+        ></ng-container>
       </div>
-      <div class="flex h-full flex-col justify-end mb-1">
-        <ng-container *ngIf="titleTemplate" [ngTemplateOutlet]="titleTemplate!"></ng-container>
-        <ng-container *ngIf="subtitleTemplate" [ngTemplateOutlet]="subtitleTemplate"></ng-container>
+      <div class="mb-1 flex h-full flex-col justify-end">
+        <ng-container
+          *ngIf="titleTemplate"
+          [ngTemplateOutlet]="titleTemplate!"
+        ></ng-container>
+        <ng-container
+          *ngIf="subtitleTemplate"
+          [ngTemplateOutlet]="subtitleTemplate"
+        ></ng-container>
       </div>
     </div>
   </div>
