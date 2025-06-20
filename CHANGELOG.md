@@ -1,5 +1,7 @@
 # Changelog
 
+## [0.4.1](https://github.com/AK2083/fiore/compare/0.4.0...0.4.1) (2025-06-20)
+
 # [0.4.0](https://github.com/AK2083/fiore/compare/0.2.1...0.4.0) (2025-06-20)
 
 
