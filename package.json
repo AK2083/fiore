@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
     "release": "release-it",
-    "lint": "ng lint",
+    "lint": "ng lint --fix",
     "prettier": "npx prettier --write \"**/*.html\"",
     "substSec": "envsubst < src/environments/environment.development.ts.template > src/environments/environment.development.ts"
   },
