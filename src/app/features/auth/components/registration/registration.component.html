@@ -8,12 +8,12 @@
     </ng-template>
     <ng-template #title>
       <h1 class="text-xl text-slate-700 dark:text-slate-100">
-        {{ "app.register.title" | translate }}
+        {{ translations.title() }}
       </h1>
     </ng-template>
     <ng-template #subtitle>
       <h2 class="text-xs text-slate-500 dark:text-slate-400">
-        {{ "app.register.subtitle" | translate }}
+        {{ translations.subtitle() }}
       </h2>
     </ng-template>
 
@@ -35,14 +35,14 @@
 
           <app-input-field
             [focus]="true"
-            [label]="'app.register.mail' | translate"
+            [label]="translations.mail()"
             [name]="'email'"
             [id]="'email'"
             [control]="emailControl"
             [type]="'email'"
             [placeholder]="'sheldon@cooper.de'"
-            [requiredError]="'app.register.error.mail.required' | translate"
-            [invalidError]="'app.register.error.mail.wrong' | translate"
+            [requiredError]="translations.mailRequired()"
+            [invalidError]="translations.mailWrong()"
             (handleFocused)="isEMailFocused($event)"
             [prefixIconTemplate]="iconEmail"
           ></app-input-field>
@@ -71,14 +71,14 @@
           </ng-template>
 
           <app-input-field
-            [label]="'app.register.password' | translate"
+            [label]="translations.password()"
             [name]="'password'"
             [id]="'password'"
             [control]="pwdControl"
             [placeholder]="'Passwort eingeben'"
             [type]="isPasswordVisible ? 'text' : 'password'"
-            [requiredError]="'app.register.error.password.required' | translate"
-            [invalidError]="'app.register.error.password.wrong' | translate"
+            [requiredError]="translations.passwordRequired()"
+            [invalidError]="translations.passwordRequired()"
             [prefixIconTemplate]="iconPassword"
             [suffixIconTemplate]="suffixIcon"
           ></app-input-field>
@@ -90,27 +90,26 @@
                 [class.text-slate-500]="!rules.minLength"
               >
                 {{
-                  "app.register.passwordRules.minLength"
-                    | translate: { pwdLength: MINPWDLENGTH }
+                  translations.passwordMinLength()
                 }}
               </li>
               <li
                 [class.text-green-600]="rules.hasUpperCase"
                 [class.text-slate-500]="!rules.hasUpperCase"
               >
-                {{ "app.register.passwordRules.ucChars" | translate }}
+                {{ translations.passwordUppercase() }}
               </li>
               <li
                 [class.text-green-600]="rules.hasNumber"
                 [class.text-slate-500]="!rules.hasNumber"
               >
-                {{ "app.register.passwordRules.number" | translate }}
+                {{ translations.passwordNumber() }}
               </li>
               <li
                 [class.text-green-600]="rules.hasSpecialChar"
                 [class.text-slate-500]="!rules.hasSpecialChar"
               >
-                {{ "app.register.passwordRules.specialChars" | translate }}
+                {{ translations.passwordSpecialChars() }}
               </li>
             </ul>
           </div>
@@ -128,7 +127,7 @@
             ></app-circle>
 
             <span [ngClass]="{ hidden: isLoading() }">{{
-              "app.register.confirmation" | translate
+              translations.confirmation()
             }}</span>
           </button>
 
@@ -150,9 +149,9 @@
     </app-simple-panel>
 
     <p class="mt-5 text-center text-sm/6 text-gray-500">
-      {{ "app.register.question" | translate }}
+      {{ translations.question() }}
       <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">
-        {{ "app.register.exclamation" | translate }}
+        {{ translations.exclamation() }}
       </a>
     </p>
   </div>

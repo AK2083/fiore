@@ -107,10 +107,6 @@ export class TranslationService {
     return this.getTranslationOf(_('app.register.error.timeout'));
   }
 
-  public getFailed() {
-    return this.getTranslationOf(_('app.register.error.failed'));
-  }
-
   public getAuthError(errMssg: string) {
     return this.getTranslationOf(_(`app.auth.error.${errMssg}`));
   }
