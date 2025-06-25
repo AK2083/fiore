@@ -1,7 +1,6 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { HeaderComponent } from '@shared/components/misc/header/header.component';
 import { SimplePanelComponent } from '@shared/components/misc/simple-panel/simple-panel.component';
-import { TranslatePipe } from '@ngx-translate/core';
 import {
   FormControl,
   FormGroup,
@@ -19,7 +18,8 @@ import { EyeCloseComponent } from '@shared/components/misc/icons/eye-close.compo
 import { CircleComponent } from '@shared/components/misc/icons/circle.component';
 import { InputFieldComponent } from '@shared/components/forms/input-field/input-field.component';
 import { HintComponent } from '@shared/components/misc/hint/hint.component';
-import { TranslationService } from '@features/translation/services/translation/translation.service';
+import { TranslationService } from '@features/auth/services/localize/translation.service';
+import { registerTranslation } from '@features/auth/models/register.translation';
 
 @Component({
   selector: 'app-registration',
@@ -27,7 +27,6 @@ import { TranslationService } from '@features/translation/services/translation/t
     NgIf,
     NgClass,
     ReactiveFormsModule,
-    TranslatePipe,
     HeaderComponent,
     SimplePanelComponent,
     HintComponent,
@@ -43,19 +42,47 @@ import { TranslationService } from '@features/translation/services/translation/t
   styles: ``,
 })
 export class RegistrationComponent {
+  private errorService = inject(ErrorService);
+  private spbsService = inject(SupabaseService);
+  private translationService = inject(TranslationService);
+
+  MINPWDLENGTH = 8;
+
+  translations = {
+    title: this.translationService.registerTitle(),
+    subtitle: this.translationService.registerSubtitle(),
+    mail: this.translationService.registerMailLabel(),
+    password: this.translationService.registerPasswordLabel(),
+    confirmation: this.translationService.registerConfirmation(),
+    success: this.translationService.registerSuccess(),
+    reset: this.translationService.registerReset(),
+    linkExpired: this.translationService.registerLinkExpired(),
+    timeout: this.translationService.registerErrorTimeout(),
+    failed: this.translationService.registerErrorFailed(),
+    mailRequired: this.translationService.registerMailRequired(),
+    mailWrong: this.translationService.registerMailWrong(),
+    passwordRequired: this.translationService.registerPasswordRequired(),
+    passwordWrong: this.translationService.registerPasswordWrong(),
+    passwordNumber: this.translationService.registerPasswordNumber(),
+    passwordSpecialChars: this.translationService.registerPasswordSpecialChars(),
+    passwordUppercase: this.translationService.registerPasswordUppercase(),
+    passwordMinLength: this.translationService.registerPasswordMinLength(this.MINPWDLENGTH),
+    question: this.translationService.registerQuestion(),
+    exclamation: this.translationService.registerExclamation(),
+  } as registerTranslation;
+
   isPasswordVisible = false;
   selectedEmailField = false;
   selectedPasswordField = false;
   isLoading = signal(false);
   showInfo = signal('');
   signUpCompleted = false;
-  
+
   registrationForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
   });
 
-  MINPWDLENGTH = 8;
   allRulesValid = false;
   currentError = computed(() => this.errorService.getLatestError());
 
@@ -66,11 +93,7 @@ export class RegistrationComponent {
     hasSpecialChar: false,
   };
 
-  constructor(
-    private errorService: ErrorService,
-    private spbsService: SupabaseService,
-    private translate: TranslationService,
-  ) {
+  constructor() {
     this.pwdControl.valueChanges.subscribe((value) => {
       this.rules.minLength = value?.length >= this.MINPWDLENGTH;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
@@ -94,14 +117,14 @@ export class RegistrationComponent {
   }
 
   async signUpWithLoading() {
-    console.log("signup");
-    this.showInfo.update(() => "");
+    console.log('signup');
+    this.showInfo.update(() => '');
     this.isLoading.update(() => true);
     this.errorService.clearErrors();
-  
+
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let signUpCompleted = false;
-  
+
     try {
       timeoutId = setTimeout(() => {
         if (!signUpCompleted) {
@@ -109,14 +132,13 @@ export class RegistrationComponent {
           this.isLoading.update(() => false);
         }
       }, 10000);
-  
+
       await this.spbsService.signUpNewUser(
         this.emailControl.value,
-        this.pwdControl.value
+        this.pwdControl.value,
       );
-      signUpCompleted = true; 
+      signUpCompleted = true;
       this.showInfo.set('Wurde erfolgreich versendet.');
-  
     } catch {
       signUpCompleted = true;
     } finally {
@@ -125,18 +147,16 @@ export class RegistrationComponent {
       }
 
       if (this.isLoading()) {
-          this.isLoading.update(() => false);
+        this.isLoading.update(() => false);
       }
     }
   }
 
-  setTimeoutMessage() {
-    this.translate.getTimeout().subscribe((translatedMessage: string) => {
-      this.errorService.addError({
-        type: ErrorType.error,
-        userMessage: translatedMessage,
-        additionalMessage: '',
-      });
+  setTimeoutMessage() {    
+    this.errorService.addError({
+      type: ErrorType.error,
+      userMessage: this.translationService.registerErrorTimeout()(),
+      additionalMessage: '',
     });
   }
 
