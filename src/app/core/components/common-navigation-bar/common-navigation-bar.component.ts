@@ -1,15 +1,7 @@
-import {
-  AsyncPipe,
-  NgComponentOutlet,
-  NgFor,
-  NgIf,
-  NgStyle,
-} from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { NgComponentOutlet, NgFor, NgIf, NgStyle } from '@angular/common';
+import { Component, HostListener, OnInit, signal, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { TranslationService } from '@features/translation/services/translation/translation.service';
-import { Observable, of } from 'rxjs';
 import { DrawerComponent } from '@shared/components/misc/drawer/drawer.component';
 import { IconButtonComponent } from '@shared/components/buttons/icon-button/icon-button.component';
 import { LanguageChooserComponent } from '@features/translation/components/language-chooser/language-chooser.component';
@@ -18,13 +10,13 @@ import { MoonComponent } from '@shared/components/misc/icons/moon.component';
 import { SunComponent } from '@shared/components/misc/icons/sun.component';
 import { BurgerComponent } from '@shared/components/misc/icons/burger.component';
 import { RegisterComponent } from '@shared/components/misc/icons/register.component';
+import { TranslationService } from '@core/services/translation/translation.service';
 
 @Component({
   selector: 'app-common-navigation-bar',
   imports: [
     NgIf,
     NgFor,
-    AsyncPipe,
     RouterLink,
     LanguageChooserComponent,
     IconButtonComponent,
@@ -52,7 +44,7 @@ export class CommonNavigationBarComponent implements OnInit {
     },
   ];
 
-  iconSRSupport$: Observable<string> = of();
+  iconSRSupport: Signal<string> = signal('');
   iconInputs: Record<string, unknown> = {
     styleClass: 'size-6',
   };
@@ -60,7 +52,7 @@ export class CommonNavigationBarComponent implements OnInit {
   constructor(public translate: TranslationService) {}
 
   ngOnInit(): void {
-    this.iconSRSupport$ = this.translate.getIconSRSupport();
+    this.iconSRSupport = this.translate.iconLabel();
 
     this.isDarkModeOn =
       this.getLocalStorage('fioreTheme') === 'dark' ||

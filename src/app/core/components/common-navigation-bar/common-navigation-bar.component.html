@@ -36,7 +36,7 @@
           <app-icon-button
             [iconTemplate]="themeIcon"
             (pressButton)="toggleTheme()"
-            [srText]="iconSRSupport$ | async"
+            [srText]="iconSRSupport()"
           >
             <ng-template #themeIcon>
               <app-moon
@@ -53,7 +53,7 @@
           <app-icon-button
             [iconTemplate]="languageIcon"
             (pressButton)="openLanguageMenu()"
-            [srText]="iconSRSupport$ | async"
+            [srText]="iconSRSupport()"
           >
             <ng-template #languageIcon>
               <app-globe styleClass="size-6 text-slate-400"></app-globe>
@@ -80,7 +80,7 @@
         <app-icon-button
           [iconTemplate]="mobileIcon"
           (pressButton)="openMobileMenu()"
-          [srText]="iconSRSupport$ | async"
+          [srText]="iconSRSupport()"
         >
           <ng-template #mobileIcon>
             <app-burger styleClass="size-6 text-slate-400"></app-burger>
