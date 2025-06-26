@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslationService } from '@features/auth/services/localize/translation.service';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';
@@ -9,18 +9,15 @@ import { AuthError } from '@supabase/supabase-js';
   selector: 'app-callback',
   imports: [HintComponent],
   templateUrl: './callback.component.html',
-  styles: ``,
 })
 export class CallbackComponent implements OnInit {
+  private supabase = inject(SupabaseService);
+  private translate = inject(TranslationService);
+  private router = inject(Router);
+
   message: Signal<string> = signal('');
   severity: 'danger' | 'warning' | 'info' = 'info';
   params: URLSearchParams = new URLSearchParams();
-
-  constructor(
-    private supabase: SupabaseService,
-    private translate: TranslationService,
-    private router: Router,
-  ) {}
 
   async ngOnInit() {
     try {
@@ -76,20 +73,20 @@ export class CallbackComponent implements OnInit {
   }
 
   setCommonError(error: AuthError) {
-    this.setHint(this.translate.registerAuthError(error.message), 'danger');
+    this.setHint(this.translate.authError(error.message), 'danger');
   }
 
   setLinkExpired() {
-    this.setHint(this.translate.registerLinkExpired(), 'danger');
+    this.setHint(this.translate.linkExpired(), 'danger');
   }
 
   setPasswordResetProcessed() {
-    this.setHint(this.translate.registerReset(), 'info');
+    this.setHint(this.translate.processReset(), 'info');
     this.redirect('/reset-password-form');
   }
 
   setRegisterSuccessful() {
-    this.setHint(this.translate.registerSuccess(), 'info');
+    this.setHint(this.translate.successReport(), 'info');
   }
 
   redirect(redirectTo: string) {

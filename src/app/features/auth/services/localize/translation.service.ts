@@ -5,89 +5,89 @@ import { TranslationWrapperService } from '@core/services/translation/translatio
 export class TranslationService {
   private translate = inject(TranslationWrapperService);
 
-  registerTitle(): Signal<string> {
+  title(): Signal<string> {
     return this.translate.t('app.register.title');
   }
 
-  registerSubtitle(): Signal<string> {
+  subtitle(): Signal<string> {
     return this.translate.t('app.register.subtitle');
   }
 
-  registerMailLabel(): Signal<string> {
+  mailLabel(): Signal<string> {
     return this.translate.t('app.register.mail');
   }
 
-  registerPasswordLabel(): Signal<string> {
+  passwordLabel(): Signal<string> {
     return this.translate.t('app.register.password');
   }
 
-  registerConfirmation(): Signal<string> {
+  formConfirmation(): Signal<string> {
     return this.translate.t('app.register.confirmation');
   }
 
-  registerSuccess(): Signal<string> {
+  successReport(): Signal<string> {
     return this.translate.t('app.register.success');
   }
 
-  registerReset(): Signal<string> {
+  processReset(): Signal<string> {
     return this.translate.t('app.register.reset');
   }
 
-  registerLinkExpired(): Signal<string> {
+  linkExpired(): Signal<string> {
     return this.translate.t('app.register.linkExpired');
   }
 
-  registerErrorTimeout(): Signal<string> {
+  errorTimeout(): Signal<string> {
     return this.translate.t('app.register.error.timeout');
   }
 
-  registerMailRequired(): Signal<string> {
+  mailRequired(): Signal<string> {
     return this.translate.t('app.register.error.mail.required');
   }
 
-  registerMailWrong(): Signal<string> {
+  mailWrong(): Signal<string> {
     return this.translate.t('app.register.error.mail.wrong');
   }
 
-  registerPasswordRequired(): Signal<string> {
+  passwordRequired(): Signal<string> {
     return this.translate.t('app.register.error.password.required');
   }
 
-  registerPasswordWrong(): Signal<string> {
+  passwordWrong(): Signal<string> {
     return this.translate.t('app.register.error.password.wrong');
   }
 
-  registerPasswordNumber(): Signal<string> {
+  passwordRuleNumber(): Signal<string> {
     return this.translate.t('app.register.passwordRules.number');
   }
 
-  registerPasswordSpecialChars(): Signal<string> {
+  passwordRuleSpecialChars(): Signal<string> {
     return this.translate.t('app.register.passwordRules.specialChars');
   }
 
-  registerPasswordUppercase(): Signal<string> {
+  passwordRuleUppercase(): Signal<string> {
     return this.translate.t('app.register.passwordRules.ucChars');
   }
 
-  registerPasswordMinLength(minLength: number): Signal<string> {
+  passwordRuleMinLength(minLength: number): Signal<string> {
     return this.translate.t('app.register.passwordRules.minLength', {
       pwdLength: minLength,
     });
   }
 
-  registerQuestion(): Signal<string> {
+  accountQuestion(): Signal<string> {
     return this.translate.t('app.register.question');
   }
 
-  registerExclamation(): Signal<string> {
+  signInExclamation(): Signal<string> {
     return this.translate.t('app.register.exclamation');
   }
 
-  registerErrorFailed(): Signal<string> {
+  errorFailed(): Signal<string> {
     return this.translate.t('app.register.error.failed');
   }
 
-  registerAuthError(errMssg: string) {
+  authError(errMssg: string) {
     return this.translate.t('app.register.authError', {
       errMssg: errMssg,
     });

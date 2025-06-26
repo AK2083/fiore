@@ -39,7 +39,6 @@ import { registerTranslation } from '@features/auth/models/register.translation'
     InputFieldComponent,
   ],
   templateUrl: './registration.component.html',
-  styles: ``,
 })
 export class RegistrationComponent {
   private errorService = inject(ErrorService);
@@ -49,26 +48,28 @@ export class RegistrationComponent {
   MINPWDLENGTH = 8;
 
   translations = {
-    title: this.translationService.registerTitle(),
-    subtitle: this.translationService.registerSubtitle(),
-    mail: this.translationService.registerMailLabel(),
-    password: this.translationService.registerPasswordLabel(),
-    confirmation: this.translationService.registerConfirmation(),
-    success: this.translationService.registerSuccess(),
-    reset: this.translationService.registerReset(),
-    linkExpired: this.translationService.registerLinkExpired(),
-    timeout: this.translationService.registerErrorTimeout(),
-    failed: this.translationService.registerErrorFailed(),
-    mailRequired: this.translationService.registerMailRequired(),
-    mailWrong: this.translationService.registerMailWrong(),
-    passwordRequired: this.translationService.registerPasswordRequired(),
-    passwordWrong: this.translationService.registerPasswordWrong(),
-    passwordNumber: this.translationService.registerPasswordNumber(),
-    passwordSpecialChars: this.translationService.registerPasswordSpecialChars(),
-    passwordUppercase: this.translationService.registerPasswordUppercase(),
-    passwordMinLength: this.translationService.registerPasswordMinLength(this.MINPWDLENGTH),
-    question: this.translationService.registerQuestion(),
-    exclamation: this.translationService.registerExclamation(),
+    title: this.translationService.title(),
+    subtitle: this.translationService.subtitle(),
+    mail: this.translationService.mailLabel(),
+    password: this.translationService.passwordLabel(),
+    confirmation: this.translationService.formConfirmation(),
+    success: this.translationService.successReport(),
+    reset: this.translationService.processReset(),
+    linkExpired: this.translationService.linkExpired(),
+    timeout: this.translationService.errorTimeout(),
+    failed: this.translationService.errorFailed(),
+    mailRequired: this.translationService.mailRequired(),
+    mailWrong: this.translationService.mailWrong(),
+    passwordRequired: this.translationService.passwordRequired(),
+    passwordWrong: this.translationService.passwordWrong(),
+    passwordNumber: this.translationService.passwordRuleNumber(),
+    passwordSpecialChars: this.translationService.passwordRuleSpecialChars(),
+    passwordUppercase: this.translationService.passwordRuleUppercase(),
+    passwordMinLength: this.translationService.passwordRuleMinLength(
+      this.MINPWDLENGTH,
+    ),
+    question: this.translationService.accountQuestion(),
+    exclamation: this.translationService.signInExclamation(),
   } as registerTranslation;
 
   isPasswordVisible = false;
@@ -152,10 +153,10 @@ export class RegistrationComponent {
     }
   }
 
-  setTimeoutMessage() {    
+  setTimeoutMessage() {
     this.errorService.addError({
       type: ErrorType.error,
-      userMessage: this.translationService.registerErrorTimeout()(),
+      userMessage: this.translationService.errorTimeout()(),
       additionalMessage: '',
     });
   }
