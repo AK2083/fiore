@@ -48,7 +48,7 @@ export class TranslationService {
   registerMailWrong(): Signal<string> {
     return this.translate.t('app.register.error.mail.wrong');
   }
-  
+
   registerPasswordRequired(): Signal<string> {
     return this.translate.t('app.register.error.password.required');
   }
@@ -70,7 +70,9 @@ export class TranslationService {
   }
 
   registerPasswordMinLength(minLength: number): Signal<string> {
-    return this.translate.t('app.register.passwordRules.minLength', { pwdLength: minLength });
+    return this.translate.t('app.register.passwordRules.minLength', {
+      pwdLength: minLength,
+    });
   }
 
   registerQuestion(): Signal<string> {
@@ -83,5 +85,11 @@ export class TranslationService {
 
   registerErrorFailed(): Signal<string> {
     return this.translate.t('app.register.error.failed');
+  }
+
+  registerAuthError(errMssg: string) {
+    return this.translate.t('app.register.authError', {
+      errMssg: errMssg,
+    });
   }
 }

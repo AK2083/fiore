@@ -1,20 +1,18 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslationService } from '@features/auth/services/localize/translation.service';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';
-import { TranslationService } from '@features/translation/services/translation/translation.service';
 import { HintComponent } from '@shared/components/misc/hint/hint.component';
 import { AuthError } from '@supabase/supabase-js';
-import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-callback',
-  imports: [HintComponent, AsyncPipe],
+  imports: [HintComponent],
   templateUrl: './callback.component.html',
   styles: ``,
 })
 export class CallbackComponent implements OnInit {
-  message$: Observable<string> = of();
+  message: Signal<string> = signal('');
   severity: 'danger' | 'warning' | 'info' = 'info';
   params: URLSearchParams = new URLSearchParams();
 
@@ -28,8 +26,7 @@ export class CallbackComponent implements OnInit {
     try {
       this.setParameter();
     } catch (error) {
-      if (error instanceof AuthError)
-        this.setCommonError(error);
+      if (error instanceof AuthError) this.setCommonError(error);
     } finally {
       this.setClearHistory();
     }
@@ -40,7 +37,10 @@ export class CallbackComponent implements OnInit {
     this.params = new URLSearchParams(hash);
 
     if (this.params.get('access_token') && this.params.get('refresh_token')) {
-      this.supabase.setSession(this.params.get('access_token') ?? "", this.params.get('refresh_token') ?? "");
+      this.supabase.setSession(
+        this.params.get('access_token') ?? '',
+        this.params.get('refresh_token') ?? '',
+      );
       this.redirectByType();
     } else {
       this.setLinkExpired();
@@ -48,7 +48,7 @@ export class CallbackComponent implements OnInit {
   }
 
   redirectByType() {
-    switch(this.params.get('type')) {
+    switch (this.params.get('type')) {
       case 'signup':
       case 'email_otp':
         this.setRegisterSuccessful();
@@ -59,7 +59,7 @@ export class CallbackComponent implements OnInit {
       default:
         this.redirect('/auth');
         break;
-    } 
+    }
   }
 
   setClearHistory() {
@@ -70,26 +70,26 @@ export class CallbackComponent implements OnInit {
     );
   }
 
-  setHint(message: Observable<string>, severity: 'danger' | 'warning' | 'info') {
-    this.message$ = message;
+  setHint(message: Signal<string>, severity: 'danger' | 'warning' | 'info') {
+    this.message = message;
     this.severity = severity;
   }
 
   setCommonError(error: AuthError) {
-    this.setHint(this.translate.getAuthError(error.message), 'danger');
+    this.setHint(this.translate.registerAuthError(error.message), 'danger');
   }
 
   setLinkExpired() {
-    this.setHint(this.translate.getLinkExpired(), 'danger');
+    this.setHint(this.translate.registerLinkExpired(), 'danger');
   }
 
   setPasswordResetProcessed() {
-    this.setHint(this.translate.getPWResetProcessed(), 'info');
+    this.setHint(this.translate.registerReset(), 'info');
     this.redirect('/reset-password-form');
   }
 
   setRegisterSuccessful() {
-    this.setHint(this.translate.getRegisterSuccessful(), 'info');
+    this.setHint(this.translate.registerSuccess(), 'info');
   }
 
   redirect(redirectTo: string) {
