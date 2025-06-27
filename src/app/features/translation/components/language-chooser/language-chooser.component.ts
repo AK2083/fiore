@@ -1,21 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { SimplePanelComponent } from '@shared/components/misc/simple-panel/simple-panel.component';
 import { StatusButtonComponent } from '@shared/components/buttons/status-button/status-button.component';
 import { NgFor, UpperCasePipe } from '@angular/common';
-import {
-  LanguageNames,
-  TranslationService,
-} from '@features/translation/services/translation/translation.service';
-import { Observable, of } from 'rxjs';
 import { GlobeComponent } from '@shared/components/misc/icons/globe.component';
 import { HeaderComponent } from '@shared/components/misc/header/header.component';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslationService } from '@features/translation/services/localize/translation.service';
+import { Translations } from '@features/translation/models/language.chooser.translation';
 
 export interface LanguageModel {
-  langName: string;
-  ariaLabel: string;
+  langName: Signal<string>;
+  ariaLabel: Signal<string>;
   lang: string;
-  welcomeText: string;
+  welcomeText: Signal<string>;
   isActive: boolean;
 }
 
@@ -30,28 +26,33 @@ enum Language {
   imports: [
     NgFor,
     SimplePanelComponent,
-    TranslatePipe,
     HeaderComponent,
     GlobeComponent,
     StatusButtonComponent,
-    UpperCasePipe
+    UpperCasePipe,
   ],
   templateUrl: './language-chooser.component.html',
   styles: ``,
 })
 export class LanguageChooserComponent implements OnInit {
-  langItems: LanguageModel[] = [];
+  private translate = inject(TranslationService);
+
+  langItems = signal<LanguageModel[]>([]);
   language = Language;
   isLoading = true;
-  menuTitle$: Observable<string> = of();
-  iconSRSupport$: Observable<string> = of();
 
-  constructor(public translate: TranslationService) {}
+  translations = {
+    title: this.translate.title(),
+    nameGerman: this.translate.nameGerman(),
+    nameEnglish: this.translate.nameEnglish(),
+    nameSpanish: this.translate.nameSpanish(),
+    ariaTranslationLabel: this.translate.ariaTranslationLabel(),
+    welcomeTextGerman: this.translate.welcomeTextGerman(),
+    welcomeTextEnglish: this.translate.welcomeTextEnglish(),
+    welcomeTextSpanish: this.translate.welcomeTextSpanish(),
+  } as Translations
 
   ngOnInit() {
-    this.menuTitle$ = this.translate.getTranslationTitle();
-    this.iconSRSupport$ = this.translate.getIconSRSupport();
-
     const lang =
       this.translate.getCurrentLanguage() ||
       this.translate.getDefaultLanguage();
@@ -64,37 +65,30 @@ export class LanguageChooserComponent implements OnInit {
   }
 
   loadLanguageItems(lng: string) {
-    this.translate.getLanguageNames().subscribe({
-      next: (names: LanguageNames) => {
-        this.langItems = [
-          {
-            langName: names.de.langName,
-            ariaLabel: names.de.ariaLabel,
-            lang: this.language.DE,
-            welcomeText: names.de.welcomeText,
-            isActive: lng === this.language.DE,
-          },
-          {
-            langName: names.en.langName,
-            ariaLabel: names.en.ariaLabel,
-            lang: this.language.EN,
-            welcomeText: names.en.welcomeText,
-            isActive: lng === this.language.EN,
-          },
-          {
-            langName: names.es.langName,
-            ariaLabel: names.es.ariaLabel,
-            lang: this.language.ES,
-            welcomeText: names.es.welcomeText,
-            isActive: lng === this.language.ES,
-          },
-        ];
+    this.langItems.set([
+      {
+        langName: this.translate.nameGerman(),
+        ariaLabel: this.translate.ariaTranslationLabel(),
+        lang: this.language.DE,
+        welcomeText: this.translate.welcomeTextGerman(),
+        isActive: lng === this.language.DE,
+      },
+      {
+        langName: this.translate.nameEnglish(),
+        ariaLabel: this.translate.ariaTranslationLabel(),
+        lang: this.language.EN,
+        welcomeText: this.translate.welcomeTextGerman(),
+        isActive: lng === this.language.EN,
+      },
+      {
+        langName: this.translate.nameSpanish(),
+        ariaLabel: this.translate.ariaTranslationLabel(),
+        lang: this.language.ES,
+        welcomeText: this.translate.welcomeTextSpanish(),
+        isActive: lng === this.language.ES,
+      },
+    ]);
 
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Error loading language names:', error);
-      },
-    });
+    this.isLoading = false;
   }
 }

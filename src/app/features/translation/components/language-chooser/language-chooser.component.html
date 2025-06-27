@@ -5,7 +5,7 @@
     ></app-globe>
   </ng-template>
   <ng-template #title>
-    <h1 class="text-xl text-white">{{ "app.title" | translate }}</h1>
+    <h1 class="text-xl text-white">{{ translations.title() }}</h1>
   </ng-template>
 </app-header>
 
@@ -13,10 +13,10 @@
   <ng-template #content>
     <div class="flex flex-wrap items-center justify-start gap-2">
       <app-status-button
-        *ngFor="let item of langItems"
+        *ngFor="let item of langItems()"
         [isActive]="item.isActive"
         [type]="item.lang"
-        [label]="item.ariaLabel"
+        [label]="item.ariaLabel()"
         (returnIdentifier)="changeLanguageEvent($event)"
         [isLoading]="isLoading"
         [titleTemplate]="btnTitle"
@@ -24,12 +24,12 @@
       >
         <ng-template #btnTitle>
           <div class="hidden pl-3 text-slate-800 md:block dark:text-slate-200">
-            {{ item.langName }}
+            {{ item.langName() }}
           </div>
           <div
             class="flex h-full w-full items-center justify-center text-slate-800 md:hidden dark:text-slate-200"
           >
-            {{ item.langName.slice(0, 2) | uppercase }}
+            {{ item.langName().slice(0, 2) | uppercase }}
           </div>
         </ng-template>
 
@@ -37,7 +37,7 @@
           <div
             class="hidden pl-3 text-sm text-slate-500 md:block dark:text-slate-400"
           >
-            {{ item.welcomeText }}
+            {{ item.welcomeText() }}
           </div>
         </ng-template>
       </app-status-button>
