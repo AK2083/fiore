@@ -1,6 +1,6 @@
 import { Signal } from "@angular/core";
 
-export type registerTranslation = {
+export type RegisterTranslation = {
     title: Signal<string>;
     subtitle: Signal<string>;
     mail: Signal<string>;
