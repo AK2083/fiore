@@ -1,5 +1,5 @@
 import { Signal } from "@angular/core";
 
-export type CallbackTranslation = {
+export interface CallbackTranslation {
     message: Signal<string>,
 }

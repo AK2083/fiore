@@ -1,6 +1,6 @@
 import { Signal } from "@angular/core";
 
-export type RegisterTranslation = {
+export interface RegisterTranslation {
     title: Signal<string>;
     subtitle: Signal<string>;
     mail: Signal<string>;
@@ -21,4 +21,4 @@ export type RegisterTranslation = {
     passwordMinLength: Signal<string>;
     question: Signal<string>;
     exclamation: Signal<string>;
-  };
+  }

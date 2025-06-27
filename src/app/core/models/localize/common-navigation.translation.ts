@@ -1,5 +1,5 @@
 import { Signal } from "@angular/core";
 
-export type NavigationTranslation = {
+export interface NavigationTranslation {
     srIconLabel: Signal<string>,
 }
