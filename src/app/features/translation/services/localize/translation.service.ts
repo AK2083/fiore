@@ -1,5 +1,5 @@
 import { inject, Injectable, Signal } from '@angular/core';
-import { TranslationWrapperService } from '@core/services/translation/translation.wrapper.service';
+import { TranslationWrapperService } from '@core/services/localize/translation.wrapper.service';
 import { APP_TRANSLATION_KEYS } from '@features/translation/services/localize/translation.keys';
 
 @Injectable({

@@ -19,7 +19,7 @@ import { CircleComponent } from '@shared/components/misc/icons/circle.component'
 import { InputFieldComponent } from '@shared/components/forms/input-field/input-field.component';
 import { HintComponent } from '@shared/components/misc/hint/hint.component';
 import { TranslationService } from '@features/auth/services/localize/translation.service';
-import { registerTranslation } from '@features/auth/models/register.translation';
+import { RegisterTranslation } from '@features/auth/models/localize/register.translation';
 
 @Component({
   selector: 'app-registration',
@@ -70,7 +70,7 @@ export class RegistrationComponent {
     ),
     question: this.translationService.accountQuestion(),
     exclamation: this.translationService.signInExclamation(),
-  } as registerTranslation;
+  } as RegisterTranslation;
 
   isPasswordVisible = false;
   selectedEmailField = false;

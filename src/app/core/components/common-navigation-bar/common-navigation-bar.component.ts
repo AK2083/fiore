@@ -1,7 +1,6 @@
 import { NgComponentOutlet, NgFor, NgIf, NgStyle } from '@angular/common';
-import { Component, HostListener, OnInit, signal, Signal } from '@angular/core';
+import { Component, HostListener, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-
 import { DrawerComponent } from '@shared/components/misc/drawer/drawer.component';
 import { IconButtonComponent } from '@shared/components/buttons/icon-button/icon-button.component';
 import { LanguageChooserComponent } from '@features/translation/components/language-chooser/language-chooser.component';
@@ -10,7 +9,8 @@ import { MoonComponent } from '@shared/components/misc/icons/moon.component';
 import { SunComponent } from '@shared/components/misc/icons/sun.component';
 import { BurgerComponent } from '@shared/components/misc/icons/burger.component';
 import { RegisterComponent } from '@shared/components/misc/icons/register.component';
-import { TranslationService } from '@core/services/translation/translation.service';
+import { TranslationService } from '@core/services/localize/translation.service';
+import { NavigationTranslation } from '@core/models/localize/common-navigation.translation';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -31,6 +31,8 @@ import { TranslationService } from '@core/services/translation/translation.servi
   templateUrl: './common-navigation-bar.component.html',
 })
 export class CommonNavigationBarComponent implements OnInit {
+  private translationService = inject(TranslationService);
+
   isMobileMenuOpen = false;
   isLanguageMenuOpen = false;
   isDarkModeOn = true;
@@ -44,16 +46,15 @@ export class CommonNavigationBarComponent implements OnInit {
     },
   ];
 
-  iconSRSupport: Signal<string> = signal('');
+  translation = {
+    srIconLabel: this.translationService.iconLabel()
+  } as NavigationTranslation
+
   iconInputs: Record<string, unknown> = {
     styleClass: 'size-6',
   };
 
-  constructor(public translate: TranslationService) {}
-
   ngOnInit(): void {
-    this.iconSRSupport = this.translate.iconLabel();
-
     this.isDarkModeOn =
       this.getLocalStorage('fioreTheme') === 'dark' ||
       document.documentElement.classList.contains('dark');
