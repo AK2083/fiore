@@ -1,6 +1,6 @@
 import { Signal } from '@angular/core';
 
-export type Translations = {
+export interface Translations {
   title: Signal<string>;
   nameGerman: Signal<string>;
   nameEnglish: Signal<string>;
@@ -9,4 +9,4 @@ export type Translations = {
   welcomeTextGerman: Signal<string>;
   welcomeTextEnglish: Signal<string>;
   welcomeTextSpanish: Signal<string>;
-};
+}

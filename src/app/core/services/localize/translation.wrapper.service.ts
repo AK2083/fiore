@@ -25,7 +25,7 @@ export class TranslationWrapperService {
     return this.translate.defaultLang;
   }
 
-  t(key: string, params?: Record<string, any>): Signal<string> {
+  t(key: string, params?: Record<string, number | string>): Signal<string> {
     return runInInjectionContext(this.injector, () => {
       // Stelle sicher, dass der initialValue korrekt geholt wird,
       // auch wenn der Observable noch nicht emittiert hat.
