@@ -3,14 +3,15 @@
   "version": "0.4.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "subst-env": "envsubst < src/assets/env.template.js > src/assets/env.js",
+    "prestart": "npm run subst-env",
+    "start": "ng serve --host 0.0.0.0 --port $PORT --disable-host-check",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test --code-coverage",
     "release": "release-it",
     "lint": "ng lint --fix",
-    "prettier": "npx prettier --write \"**/*.html\"",
-    "substSec": "envsubst < src/environments/environment.development.ts.template > src/environments/environment.development.ts"
+    "prettier": "npx prettier --write \"**/*.html\""
   },
   "private": true,
   "dependencies": {
