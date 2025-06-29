@@ -1,35 +1,27 @@
 import { Injectable } from '@angular/core';
+import { LoggingModel } from '@core/models/logging/logging.model';
 import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoggerService {
-  warningFlag = true;
-  debugFlag = true;
-  errorFlag = true;
+  debugFlag = environment.logging === 'debug' && !environment.production;
+  warningFlag = environment.logging === 'warning' || environment.logging === 'debug' || !environment.production;
+  errorFlag = environment.logging === 'error' || environment.logging === 'warning' || environment.logging === 'debug' || !environment.production;
 
-  constructor() {
-    this.debugFlag = 
-      environment.logging === 'debug' && !environment.production;
-    this.warningFlag = 
-      environment.logging === 'warning' || environment.logging === 'debug' || !environment.production;
-    this.errorFlag = 
-      environment.logging === 'error' || environment.logging === 'warning' || environment.logging === 'debug' || !environment.production;
-  }
-
-  error(msg: string, params?: unknown) {
+  error(model: LoggingModel) {
     if (this.errorFlag)
-      console.error(msg, params);
+      console.error(model.scope, model.message, model.params);
   }
 
-  warn(msg: string, params?: unknown) {
+  warn(model: LoggingModel) {
     if (this.warningFlag)
-      console.warn(msg, params);
+      console.warn(model.scope, model.message, model.params);
   }
 
-  log(msg: string, params?: unknown) {
+  log(model: LoggingModel) {
     if (this.debugFlag)
-      console.log(msg, params);
+      console.log(model.scope, model.message, model.params);
   }
 }
