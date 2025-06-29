@@ -20,6 +20,7 @@ import { InputFieldComponent } from '@shared/components/forms/input-field/input-
 import { HintComponent } from '@shared/components/misc/hint/hint.component';
 import { TranslationService } from '@features/auth/services/localize/translation.service';
 import { RegisterTranslation } from '@features/auth/models/localize/register.translation';
+import { LoggerService } from '@core/services/logging/logger.service';
 
 @Component({
   selector: 'app-registration',
@@ -44,6 +45,7 @@ export class RegistrationComponent {
   private errorService = inject(ErrorService);
   private spbsService = inject(SupabaseService);
   private translationService = inject(TranslationService);
+  private loggerService = inject(LoggerService);
 
   MINPWDLENGTH = 8;
 
@@ -94,7 +96,16 @@ export class RegistrationComponent {
     hasSpecialChar: false,
   };
 
+  COMPONENTNAME = '';
+
   constructor() {
+    this.COMPONENTNAME = this.constructor.name;
+
+    this.loggerService.log({
+      scope: this.COMPONENTNAME,
+      message: 'RegistrationComponent initialized',
+    });
+
     this.pwdControl.valueChanges.subscribe((value) => {
       this.rules.minLength = value?.length >= this.MINPWDLENGTH;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
@@ -108,17 +119,20 @@ export class RegistrationComponent {
   }
 
   async onSubmit() {
+    this.logMe('Submit button clicked');
+
     if (!this.registrationForm.valid) {
-      console.log('Formular ist ungültig!');
+      this.logMe('Form is invalid', this.registrationForm.errors);
       this.isLoading.update(() => false);
       return;
     }
 
+    this.logMe('Proceeding with signup');
     await this.signUpWithLoading();
   }
 
   async signUpWithLoading() {
-    console.log('signup');
+    this.logMe('Starting user signup process');
     this.showInfo.update(() => '');
     this.isLoading.update(() => true);
     this.errorService.clearErrors();
@@ -127,46 +141,59 @@ export class RegistrationComponent {
     let signUpCompleted = false;
 
     try {
+      this.logMe('Setting up signup timeout (10 seconds)');
       timeoutId = setTimeout(() => {
         if (!signUpCompleted) {
+          this.warnMe('Signup process timed out');
           this.setTimeoutMessage();
           this.isLoading.update(() => false);
         }
       }, 10000);
 
+      this.logMe(
+        'Calling Supabase service to sign up new user',
+        this.emailControl.value,
+      );
       await this.spbsService.signUpNewUser(
         this.emailControl.value,
         this.pwdControl.value,
       );
       signUpCompleted = true;
       this.showInfo.set('Wurde erfolgreich versendet.');
-    } catch {
+      this.logMe('User signup successful');
+    } catch (error) {
       signUpCompleted = true;
+      this.errorMe('User signup failed', error);
     } finally {
       if (timeoutId) {
         clearTimeout(timeoutId);
+        this.logMe('Cleared signup timeout');
       }
 
       if (this.isLoading()) {
         this.isLoading.update(() => false);
+        this.logMe('Loading indicator set to false');
       }
     }
   }
 
   setTimeoutMessage() {
+    this.errorMe('Timeout message triggered for signup process');
     this.errorService.addError({
       type: ErrorType.error,
       userMessage: this.translationService.errorTimeout()(),
-      additionalMessage: '',
+      additionalMessage: 'Signup process took too long.',
     });
   }
 
   isEMailFocused(isFocused: boolean) {
     this.selectedEmailField = isFocused;
+    this.logMe(`Email field focus changed to: ${isFocused}`);
   }
 
   isPasswordFocused(isFocused: boolean) {
     this.selectedPasswordField = isFocused;
+    this.logMe(`Password field focus changed to: ${isFocused}`);
   }
 
   get emailControl(): FormControl {
@@ -175,5 +202,29 @@ export class RegistrationComponent {
 
   get pwdControl(): FormControl {
     return this.registrationForm.get('password') as FormControl;
+  }
+
+  logMe(message: string, params?: unknown) {
+    this.loggerService.log({
+      scope: this.COMPONENTNAME,
+      message: message,
+      params: params,
+    });
+  }
+
+  warnMe(message: string, params?: unknown) {
+    this.loggerService.warn({
+      scope: this.COMPONENTNAME,
+      message: message,
+      params: params,
+    });
+  }
+
+  errorMe(message: string, params?: unknown) {
+    this.loggerService.error({
+      scope: this.COMPONENTNAME,
+      message: message,
+      params: params,
+    });
   }
 }
