@@ -1,5 +1,18 @@
+// Deklariere window.env, damit TypeScript es kennt
+declare global {
+  interface Window {
+    env: {
+      supabaseUrl: string;
+      supabaseKey: string;
+      loggingLevel?: string;
+      production?: string;
+    };
+  }
+}
+
 export const environment = {
-  production: true,
-  supabaseUrl: 'https://hghzflhgsjjftsijxeqy.supabase.co',
-  supabaseKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhnaHpmbGhnc2pqZnRzaWp4ZXF5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDcxMTg1ODMsImV4cCI6MjA2MjY5NDU4M30.VZKMMmPQNaN7FFFh9EqailT6gLIFmRzxSjpTgVJmnMI',
+  production: false,
+  supabaseUrl: window.env?.supabaseUrl || 'http://localhost:54321', // Fallback für Entwicklung
+  supabaseKey: window.env?.supabaseKey || 'your-dev-anon-key', // Fallback für Entwicklung
+  logging: 'debug',
 };
