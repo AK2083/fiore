@@ -8,6 +8,8 @@ import { TranslationService } from '@features/translation/services/localize/tran
 import { Translations } from '@features/translation/models/localize/language-chooser.translation';
 import { LanguageAbbrevations } from '@features/translation/models/localize/language.abbrevations';
 import { LanguageModel } from '@features/translation/models/localize/language.model';
+import { ScopedLogger } from '@core/helper/logging/scope.logger';
+import { scopedLoggerFactory } from '@core/helper/logging/scope.logger.factory';
 
 @Component({
   selector: 'app-language-chooser',
@@ -20,9 +22,16 @@ import { LanguageModel } from '@features/translation/models/localize/language.mo
     UpperCasePipe,
   ],
   templateUrl: './language-chooser.component.html',
+  providers: [
+    {
+      provide: ScopedLogger,
+      useFactory: () => scopedLoggerFactory(LanguageChooserComponent),
+    },
+  ],
 })
 export class LanguageChooserComponent implements OnInit {
   private translationService = inject(TranslationService);
+  private loggerService = inject(ScopedLogger);
 
   langItems = signal<LanguageModel[]>([]);
   language = LanguageAbbrevations;
@@ -37,45 +46,52 @@ export class LanguageChooserComponent implements OnInit {
     welcomeTextGerman: this.translationService.welcomeTextGerman(),
     welcomeTextEnglish: this.translationService.welcomeTextEnglish(),
     welcomeTextSpanish: this.translationService.welcomeTextSpanish(),
-  } as Translations
+  } as Translations;
 
   ngOnInit() {
     const lang =
       this.translationService.getCurrentLanguage() ||
       this.translationService.getDefaultLanguage();
+
+    this.loggerService.log('Initializing with language', lang);
+
     this.loadLanguageItems(lang);
   }
 
   changeLanguageEvent(langType: string) {
+    this.loggerService.log('User selected new language', langType);
     this.translationService.setSelectedLanguage(langType);
     this.loadLanguageItems(langType);
   }
 
   loadLanguageItems(lng: string) {
+    this.loggerService.log('Loading language items for', lng);
+
     this.langItems.set([
       {
-        langName: this.translationService.nameGerman(),
-        ariaLabel: this.translationService.ariaTranslationLabel(),
+        langName: this.translations.nameGerman,
+        ariaLabel: this.translations.ariaTranslationLabel,
         lang: this.language.DE,
-        welcomeText: this.translationService.welcomeTextGerman(),
+        welcomeText: this.translations.welcomeTextGerman,
         isActive: lng === this.language.DE,
       },
       {
-        langName: this.translationService.nameEnglish(),
-        ariaLabel: this.translationService.ariaTranslationLabel(),
+        langName: this.translations.nameEnglish,
+        ariaLabel: this.translations.ariaTranslationLabel,
         lang: this.language.EN,
-        welcomeText: this.translationService.welcomeTextGerman(),
+        welcomeText: this.translations.welcomeTextEnglish,
         isActive: lng === this.language.EN,
       },
       {
-        langName: this.translationService.nameSpanish(),
-        ariaLabel: this.translationService.ariaTranslationLabel(),
+        langName: this.translations.nameSpanish,
+        ariaLabel: this.translations.ariaTranslationLabel,
         lang: this.language.ES,
-        welcomeText: this.translationService.welcomeTextSpanish(),
+        welcomeText: this.translations.welcomeTextSpanish,
         isActive: lng === this.language.ES,
       },
     ]);
 
     this.isLoading = false;
+    this.loggerService.log('Language items loaded and state updated');
   }
 }

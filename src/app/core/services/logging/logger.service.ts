@@ -18,15 +18,29 @@ export class LoggerService {
     !environment.production;
 
   error(model: LoggingModel) {
-    if (this.errorFlag) console.error(model.scope, model.message, model.params);
+    if (this.errorFlag)
+      console.error(
+        model.scope,
+        model.message,
+        model.params !== undefined ? model.params : [],
+      );
   }
 
   warn(model: LoggingModel) {
     if (this.warningFlag)
-      console.warn(model.scope, model.message, model.params);
+      console.warn(
+        model.scope,
+        model.message,
+        model.params !== undefined ? model.params : [],
+      );
   }
 
   log(model: LoggingModel) {
-    if (this.debugFlag) console.log(model.scope, model.message, model.params);
+    if (this.debugFlag)
+      console.log(
+        model.scope,
+        model.message,
+        model.params !== undefined ? model.params : [],
+      );
   }
 }
