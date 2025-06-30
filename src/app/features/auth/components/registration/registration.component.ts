@@ -103,13 +103,7 @@ export class RegistrationComponent {
     hasSpecialChar: false,
   };
 
-  COMPONENTNAME = '';
-
   constructor() {
-    this.COMPONENTNAME = this.constructor.name;
-
-    this.loggerService.log('RegistrationComponent initialized');
-
     this.pwdControl.valueChanges.subscribe((value) => {
       this.rules.minLength = value?.length >= this.MINPWDLENGTH;
       this.rules.hasUpperCase = /[A-Z]/.test(value);
@@ -143,16 +137,20 @@ export class RegistrationComponent {
 
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
     let signUpCompleted = false;
+    const timeoutInSeconds = 10;
 
     try {
-      this.loggerService.log('Setting up signup timeout (10 seconds)');
+      this.loggerService.log(
+        'Setting up signup timeout: ',
+        `${timeoutInSeconds} seconds`,
+      );
       timeoutId = setTimeout(() => {
         if (!signUpCompleted) {
           this.loggerService.warn('Signup process timed out');
           this.setTimeoutMessage();
           this.isLoading.update(() => false);
         }
-      }, 10000);
+      }, timeoutInSeconds * 1000);
 
       this.loggerService.log(
         'Calling Supabase service to sign up new user',
@@ -192,12 +190,12 @@ export class RegistrationComponent {
 
   isEMailFocused(isFocused: boolean) {
     this.selectedEmailField = isFocused;
-    this.loggerService.log(`Email field focus changed to: ${isFocused}`);
+    this.loggerService.log('Email field focus changed to:', isFocused);
   }
 
   isPasswordFocused(isFocused: boolean) {
     this.selectedPasswordField = isFocused;
-    this.loggerService.log(`Password field focus changed to: ${isFocused}`);
+    this.loggerService.log('Password field focus changed to:', isFocused);
   }
 
   get emailControl(): FormControl {
