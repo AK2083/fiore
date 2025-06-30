@@ -63,12 +63,6 @@ export class CommonNavigationBarComponent implements OnInit {
     styleClass: 'size-6',
   };
 
-  COMPONENTNAME = '';
-
-  constructor() {
-    this.COMPONENTNAME = this.constructor.name;
-  }
-
   ngOnInit(): void {
     const storedTheme = this.getLocalStorage('fioreTheme');
     this.loggerService.log('Theme from localStorage:', storedTheme);
@@ -127,25 +121,25 @@ export class CommonNavigationBarComponent implements OnInit {
   setLocalStorage(key: string, value: string) {
     try {
       localStorage.setItem(key, value);
-      this.loggerService.log(`LocalStorage: Set item '${key}' to '${value}'`);
+      this.loggerService.log('LocalStorage: Set item', `${key} = ${value}`);
     } catch (e) {
-      this.loggerService.error(
-        `LocalStorage Error: Failed to set item '${key}' with value '${value}'`,
+      this.loggerService.error('LocalStorage Error: Failed to set item', [
+        `${key} = ${value}`,
         e,
-      );
+      ]);
     }
   }
 
   getLocalStorage(key: string): string | null {
     try {
       const item = localStorage.getItem(key);
-      this.loggerService.log(`LocalStorage: Got item '${key}': '${item}'`);
+      this.loggerService.log('LocalStorage: Got item', `${key} = ${item}`);
       return item;
     } catch (e) {
-      this.loggerService.error(
-        `LocalStorage Error: Failed to get item '${key}'`,
+      this.loggerService.error('LocalStorage Error: Failed to get item', [
+        key,
         e,
-      );
+      ]);
     }
 
     return null;
