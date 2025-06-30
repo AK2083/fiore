@@ -4,6 +4,8 @@ import { ScopedLogger } from '@core/helper/logging/scope.logger';
 
 export function scopedLoggerFactory(component: unknown): ScopedLogger {
   const loggerService = inject(LoggerService);
-  const scope = (component as any)?.name ?? 'UnknownComponent';
+  const scope = typeof component === 'function' && 'name' in component
+  ? component.name
+  : 'UnknownComponent';
   return new ScopedLogger(loggerService, scope);
 }
