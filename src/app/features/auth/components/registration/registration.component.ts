@@ -50,7 +50,7 @@ export class RegistrationComponent {
   private loggerService = inject(ScopedLogger);
   public registrationFormService = inject(RegistrationFormService);
 
-  MINPWDLENGTH = 8;
+  pwdUtils: PasswordUtils = new PasswordUtils(this.pwdControl);
 
   translations = {
     title: this.translationService.title(),
@@ -71,7 +71,7 @@ export class RegistrationComponent {
     passwordSpecialChars: this.translationService.passwordRuleSpecialChars(),
     passwordUppercase: this.translationService.passwordRuleUppercase(),
     passwordMinLength: this.translationService.passwordRuleMinLength(
-      this.MINPWDLENGTH,
+      this.pwdUtils.MINPASSWORDLENGTH,
     ),
     question: this.translationService.accountQuestion(),
     exclamation: this.translationService.signInExclamation(),
@@ -83,7 +83,6 @@ export class RegistrationComponent {
   selectedEmailField = false;
   selectedPasswordField = false;
   currentError = computed(() => this.errorService.getLatestError());
-  pwdUtils: PasswordUtils = new PasswordUtils(this.pwdControl);
 
   get registrationForm() {
     return this.registrationFormService.registrationForm;
