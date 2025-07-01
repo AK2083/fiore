@@ -8,8 +8,8 @@ import { TranslationService } from '@features/translation/services/localize/tran
 import { Translations } from '@features/translation/models/localize/language-chooser.translation';
 import { LanguageAbbrevations } from '@features/translation/models/localize/language.abbrevations';
 import { LanguageModel } from '@features/translation/models/localize/language.model';
-import { ScopedLogger } from '@core/helper/logging/scope.logger';
-import { scopedLoggerFactory } from '@core/helper/logging/scope.logger.factory';
+import { ScopedLogger } from '@core/utils/logging/scope.logger';
+import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
 
 @Component({
   selector: 'app-language-chooser',

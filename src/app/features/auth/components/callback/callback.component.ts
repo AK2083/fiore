@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, Signal, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { ScopedLogger } from '@core/helper/logging/scope.logger';
-import { scopedLoggerFactory } from '@core/helper/logging/scope.logger.factory';
+import { ScopedLogger } from '@core/utils/logging/scope.logger';
+import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
 import { CallbackTranslation } from '@features/auth/models/localize/callback.translation';
 import { TranslationService } from '@features/auth/services/localize/translation.service';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';

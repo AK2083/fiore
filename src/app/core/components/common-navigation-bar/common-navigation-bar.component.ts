@@ -11,8 +11,8 @@ import { BurgerComponent } from '@shared/components/misc/icons/burger.component'
 import { RegisterComponent } from '@shared/components/misc/icons/register.component';
 import { TranslationService } from '@core/services/localize/translation.service';
 import { NavigationTranslation } from '@core/models/localize/common-navigation.translation';
-import { ScopedLogger } from '@core/helper/logging/scope.logger';
-import { scopedLoggerFactory } from '@core/helper/logging/scope.logger.factory';
+import { ScopedLogger } from '@core/utils/logging/scope.logger';
+import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
 
 @Component({
   selector: 'app-common-navigation-bar',
