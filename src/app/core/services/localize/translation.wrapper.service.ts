@@ -6,7 +6,7 @@ import {
   Signal,
 } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { scopedLoggerFactory } from '@core/helper/logging/scope.logger.factory';
+import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
