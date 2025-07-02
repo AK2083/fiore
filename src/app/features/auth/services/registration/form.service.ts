@@ -4,13 +4,14 @@ import { Injectable, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PasswordUtils } from '@features/auth/utils/password.utils';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';
-import { ErrorService, ErrorType } from '@core/services/error/error.service';
+import { ErrorService } from '@core/services/error/error.service';
 import { TranslationService } from '@features/auth/services/localize/translation.service';
 import {
   ScopedLogger,
   scopedLoggerFactory,
 } from '@core/utils/logging/scope.logger.factory';
 import { signal } from '@angular/core';
+import { ErrorType } from '@core/models/messages/error.message.model';
 
 @Injectable({
   providedIn: 'root',

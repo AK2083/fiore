@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '@environments/environment';
-import { ErrorService, ErrorType } from '@core/services/error/error.service';
+import { ErrorService } from '@core/services/error/error.service';
 import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
+import { ErrorType } from '@core/models/messages/error.message.model';
 
 @Injectable({
   providedIn: 'root',
