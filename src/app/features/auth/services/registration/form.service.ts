@@ -4,40 +4,35 @@ import { Injectable, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { PasswordUtils } from '@features/auth/utils/password.utils';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';
-import { ErrorService } from '@core/services/error/error.service';
 import { TranslationService } from '@features/auth/services/localize/translation.service';
 import {
   ScopedLogger,
   scopedLoggerFactory,
 } from '@core/utils/logging/scope.logger.factory';
 import { signal } from '@angular/core';
-import { ErrorType } from '@core/models/messages/error.message.model';
+import {
+  DisplayType,
+  UserMessage,
+} from '@core/models/messages/user.message.model';
+import { WrongPasswordException } from '@features/auth/models/error/wrongPasswordException';
+import { TimeoutException } from '@features/auth/models/error/timeoutException';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegistrationFormService {
   private spbsService = inject(SupabaseService);
-  private errorService = inject(ErrorService);
   private translationService = inject(TranslationService);
   private loggerService: ScopedLogger = scopedLoggerFactory(
     RegistrationFormService,
   );
 
-  public registrationForm: FormGroup;
-  public passwordUtils: PasswordUtils;
-
-  public isLoading = signal(false);
-  public showInfo = signal('');
-
-  constructor() {
-    this.registrationForm = new FormGroup({
-      email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
-    });
-
-    this.passwordUtils = new PasswordUtils(this.pwdControl);
-  }
+  public registrationForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
+  public passwordUtils = new PasswordUtils(this.pwdControl);
+  public errorUserMessage = signal<UserMessage | null>(null);
 
   get emailControl(): FormControl<string> {
     return this.registrationForm.get('email') as FormControl<string>;
@@ -47,21 +42,20 @@ export class RegistrationFormService {
     return this.registrationForm.get('password') as FormControl<string>;
   }
 
-  public async registerUser(): Promise<void> {
+  public async registerUser(): Promise<UserMessage> {
     this.loggerService.log('Starting user signup process from service');
-    this.showInfo.update(() => '');
-    this.isLoading.update(() => true);
-    this.errorService.clearErrors();
 
     if (!this.registrationForm.valid || !this.passwordUtils.allRulesValid()) {
-      this.loggerService.log('Form or password rules are invalid in service');
-      this.isLoading.update(() => false);
-      this.errorService.addError({
-        type: ErrorType.error,
-        userMessage: this.translationService.passwordWrong()(), // Beispiel
-        additionalMessage: 'Formular- oder Passwortregeln ungültig.',
+      this.loggerService.error('Form or password rules are invalid in service');
+
+      throw new WrongPasswordException({
+        title: 'Wrong password',
+        message: this.translationService.passwordWrong()(),
+        code: this.passwordUtils.getErrorCode() || 'PASSWORD_VALIDATION_FAILED',
+        field: 'password',
+        displayType: DisplayType.Inline,
+        severity: 'danger',
       });
-      return;
     }
 
     let timeoutId: ReturnType<typeof setTimeout> | undefined;
@@ -72,8 +66,14 @@ export class RegistrationFormService {
       timeoutId = setTimeout(() => {
         if (!signUpCompleted) {
           this.loggerService.warn('Signup process timed out in service');
-          this.setTimeoutMessage();
-          this.isLoading.update(() => false);
+          throw new TimeoutException({
+            title: 'Signup process took too long.',
+            message: this.translationService.errorTimeout()(),
+            code: 'SUBMIT_TIMEOUT',
+            field: '',
+            displayType: DisplayType.Inline,
+            severity: 'danger',
+          });
         }
       }, timeoutInSeconds * 1000);
 
@@ -82,8 +82,16 @@ export class RegistrationFormService {
         this.pwdControl.value,
       );
       signUpCompleted = true;
-      this.showInfo.set('Wurde erfolgreich versendet.');
       this.loggerService.log('User signup successful from service');
+
+      return {
+        title: 'Registrierung erfolgreich',
+        message: this.translationService.successReport()(),
+        code: 'REGISTRATION_SUCCESS',
+        field: '',
+        displayType: DisplayType.Inline,
+        severity: 'info',
+      };
     } catch (error) {
       signUpCompleted = true;
       this.loggerService.error('User signup failed in service', error);
@@ -91,17 +99,14 @@ export class RegistrationFormService {
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-      if (this.isLoading()) {
-        this.isLoading.update(() => false);
-      }
     }
-  }
 
-  private setTimeoutMessage() {
-    this.errorService.addError({
-      type: ErrorType.error,
-      userMessage: this.translationService.errorTimeout()(),
-      additionalMessage: 'Signup process took too long.',
-    });
+    return {
+      title: 'Unbekannter Zustand',
+      message: 'Bitte versuchen Sie es erneut.',
+      code: 'UNKNOWN_STATE',
+      displayType: DisplayType.Inline,
+      severity: 'warning',
+    };
   }
 }

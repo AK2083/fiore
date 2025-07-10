@@ -4,7 +4,7 @@ export enum DisplayType {
   'Modal',
 }
 
-export interface UserError {
+export interface UserMessage {
   /**
    * A user-friendly title for the error.
    * Example: "Invalid input", "Password too weak"
@@ -46,13 +46,8 @@ export interface UserError {
   displayType: DisplayType;
 
   /**
-   * Optional: A time duration in milliseconds after which the error should automatically disappear (e.g., for toasts).
+   * Indicates severity of the message.
+   * Example: 'danger', 'warning', 'info'
    */
-  autoDismissMs?: number;
-
-  /**
-   * Optional: A unique identifier for this specific error,
-   * in case it needs to be removed from a list or tracked.
-   */
-  id?: string;
+  severity: 'danger' | 'warning' | 'info';
 }
