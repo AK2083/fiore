@@ -1,6 +1,7 @@
 import { computed } from "@angular/core";
 import { toSignal } from "@angular/core/rxjs-interop";
 import { FormControl } from "@angular/forms";
+import { PasswordRules } from "@features/auth/models/passwordRules";
 
 export class PasswordUtils {
   private passwordValue;
@@ -12,7 +13,7 @@ export class PasswordUtils {
   constructor(public pwdControl: FormControl<string | null>) { 
     this.passwordValue = toSignal(this.pwdControl.valueChanges, { initialValue: '' });
 
-    this.rules = computed(() => {
+    this.rules = computed<PasswordRules>(() => {
       const value = this.passwordValue() || ''; 
       return {
         minLength: this.isLengthValid(value),
@@ -44,5 +45,26 @@ export class PasswordUtils {
   hasSpecialChars(password: string) {
     const regexSpecialChars = /[°"@!%*?&§/()=?`´+*~'#,.\-;:_<>|]/;
     return regexSpecialChars.test(password);
+  }
+
+  getErrorCode() {
+    let errorCode: string = 'PASSWORD_VALIDATION_FAILED';
+    let failedCodeRule = this.getFailedFirstRule();
+
+    if (failedCodeRule) {
+      errorCode = `PASSWORD_RULE_${failedCodeRule.toUpperCase()}_FAILED`;
+    } else {
+      errorCode = 'PASSWORD_RULES_GENERIC_FAILED';
+    }
+
+    return errorCode;
+  }
+
+  private getFailedFirstRule(): string | undefined {
+    const passwordRuleDetails = this.rules();
+
+    return Object.keys(passwordRuleDetails).find(
+      (key) => !passwordRuleDetails[key as keyof PasswordRules],
+    );
   }
 }

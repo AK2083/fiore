@@ -25,7 +25,7 @@
     </app-header>
 
     <ng-template #regForm>
-      <form [formGroup]="registrationForm" (ngSubmit)="registrationFormService.registerUser()">
+      <form [formGroup]="registrationForm" (ngSubmit)="submitRegistration()">
         <div>
           <ng-template #iconEmail>
             <app-lettercase
@@ -132,14 +132,9 @@
           </button>
 
           <app-hint
-            *ngIf="currentError()?.userMessage"
-            severity="danger"
-            [message]="currentError()!.userMessage"
-          ></app-hint>
-          <app-hint
             *ngIf="showInfo()"
-            severity="info"
-            [message]="showInfo()"
+            [severity]="showInfo()!.severity"
+            [message]="showInfo()!.message"
           ></app-hint>
         </div>
       </form>

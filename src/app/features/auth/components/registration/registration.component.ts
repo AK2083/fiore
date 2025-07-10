@@ -1,9 +1,8 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { HeaderComponent } from '@shared/components/misc/header/header.component';
 import { SimplePanelComponent } from '@shared/components/misc/simple-panel/simple-panel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
-import { ErrorService } from '@core/services/error/error.service';
 import { RegisterComponent } from '@shared/components/misc/icons/register.component';
 import { LettercaseComponent } from '@shared/components/misc/icons/lettercase.component';
 import { LockComponent } from '@shared/components/misc/icons/lock.component';
@@ -18,6 +17,9 @@ import { ScopedLogger } from '@core/utils/logging/scope.logger';
 import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
 import { PasswordUtils } from '@features/auth/utils/password.utils';
 import { RegistrationFormService } from '@features/auth/services/registration/form.service';
+import { WrongPasswordException } from '@features/auth/models/error/wrongPasswordException';
+import { UserMessage } from '@core/models/messages/user.message.model';
+import { TimeoutException } from '@features/auth/models/error/timeoutException';
 
 @Component({
   selector: 'app-registration',
@@ -45,10 +47,9 @@ import { RegistrationFormService } from '@features/auth/services/registration/fo
   ],
 })
 export class RegistrationComponent {
-  private errorService = inject(ErrorService);
   private translationService = inject(TranslationService);
   private loggerService = inject(ScopedLogger);
-  public registrationFormService = inject(RegistrationFormService);
+  private registrationFormService = inject(RegistrationFormService);
 
   pwdUtils: PasswordUtils = new PasswordUtils(this.pwdControl);
 
@@ -78,11 +79,28 @@ export class RegistrationComponent {
   } as RegisterTranslation;
 
   isPasswordVisible = false;
-  isLoading = this.registrationFormService.isLoading;
-  showInfo = this.registrationFormService.showInfo;
+  isLoading = signal(false);
+  showInfo = signal<UserMessage | null>(null);
   selectedEmailField = false;
   selectedPasswordField = false;
-  currentError = computed(() => this.errorService.getLatestError());
+
+  async submitRegistration() {
+    this.loggerService.log('Submitting registration form');
+    this.isLoading.update(() => true);
+
+    try {
+      const message = await this.registrationFormService.registerUser();
+      this.showInfo.set(message);
+    } catch (ex: unknown) {
+      if (ex instanceof WrongPasswordException || ex instanceof TimeoutException) {
+        this.loggerService.error("Registration Fehler:", ex.userMessage);
+        this.showInfo.set(ex.userMessage);
+      }
+    }
+
+    this.loggerService.log('Finished submitting registration form');
+    this.isLoading.update(() => false);
+  }
 
   get registrationForm() {
     return this.registrationFormService.registrationForm;

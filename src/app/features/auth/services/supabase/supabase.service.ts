@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '@environments/environment';
-import { ErrorService } from '@core/services/error/error.service';
 import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
 import { ErrorType } from '@core/models/messages/error.message.model';
+import { DisplayType } from '@core/models/messages/user.message.model';
+import { SupabaseCriticalException } from '@features/auth/models/error/supabaseCriticalException';
+import { DuplicateMailException } from '@features/auth/models/error/duplicateMailException';
+import { SupabaseSessionError } from '@features/auth/models/error/supabaseSessionError';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +15,7 @@ export class SupabaseService {
   private supabase: SupabaseClient;
   private loggerService = scopedLoggerFactory(SupabaseService);
 
-  constructor(private errorService: ErrorService) {
+  constructor() {
     this.supabase = createClient(
       environment.supabaseUrl,
       environment.supabaseKey,
@@ -35,26 +38,31 @@ export class SupabaseService {
 
     if (error) {
       this.loggerService.error('Supabase sign-up error:', error);
-      this.errorService.addError({
-        type: ErrorType.error,
-        userMessage: 'Ein kritischer Fehler ist aufgetreten: ' + error.message,
-        additionalMessage: 'Bitte überprüfen Sie die Logs.',
+      throw new SupabaseCriticalException({
+        title: 'Wrong password',
+        message: 'Ein kritischer Fehler ist aufgetreten',
+        details: { ['SUPABASE_ERROR']: error },
+        code: 'SUPABASE_ERROR',
+        displayType: DisplayType.Inline,
+        severity: 'danger',
       });
-
-      throw error;
     }
 
     if (!data.user && !data.session) {
-      const warning = 'E-Mail bereits registriert oder keine Session erstellt.';
-      this.loggerService.warn(warning, { email: mail });
-      this.errorService.addError({
-        type: ErrorType.warning,
-        userMessage: 'Diese E-Mail-Adresse ist bereits registriert.',
-        additionalMessage:
-          'Bitte melden Sie sich an oder verwenden Sie eine andere E-Mail-Adresse.',
-      });
+      this.loggerService.warn(
+        'E-Mail bereits registriert oder keine Session erstellt.',
+        mail,
+      );
 
-      throw new Error(warning);
+      throw new DuplicateMailException({
+        title: 'Wrong password',
+        message:
+          'Diese E-Mail-Adresse ist bereits registriert. Bitte melden Sie sich an oder verwenden Sie eine andere E-Mail-Adresse.',
+        details: { ['MAIL']: mail },
+        code: 'SUPABASE_WARNING',
+        displayType: DisplayType.Inline,
+        severity: 'danger',
+      });
     }
 
     this.loggerService.log('Sign-up successful for email:', mail);
@@ -70,7 +78,14 @@ export class SupabaseService {
 
     if (error) {
       this.loggerService.error('Error setting session:', error);
-      throw error;
+      throw new SupabaseSessionError({
+        title: 'Session Fehler',
+        message: 'Session konnte nicht gesetzt werden.',
+        details: { ['SUPABASE_ERROR']: error },
+        code: 'SUPABASE_ERROR',
+        displayType: DisplayType.Inline,
+        severity: 'danger',
+      });
     }
 
     this.loggerService.log('Session set successfully');
