@@ -2,11 +2,10 @@ import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '@environments/environment';
 import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
-import { ErrorType } from '@core/models/messages/error.message.model';
 import { DisplayType } from '@core/models/messages/user.message.model';
 import { SupabaseCriticalException } from '@features/auth/models/error/supabaseCriticalException';
 import { DuplicateMailException } from '@features/auth/models/error/duplicateMailException';
-import { SupabaseSessionError } from '@features/auth/models/error/supabaseSessionError';
+import { SupabaseSessionException } from '@features/auth/models/error/supabaseSessionException';
 
 @Injectable({
   providedIn: 'root',
@@ -78,7 +77,7 @@ export class SupabaseService {
 
     if (error) {
       this.loggerService.error('Error setting session:', error);
-      throw new SupabaseSessionError({
+      throw new SupabaseSessionException({
         title: 'Session Fehler',
         message: 'Session konnte nicht gesetzt werden.',
         details: { ['SUPABASE_ERROR']: error },

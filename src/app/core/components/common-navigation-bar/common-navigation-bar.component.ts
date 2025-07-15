@@ -13,6 +13,7 @@ import { TranslationService } from '@core/services/localize/translation.service'
 import { NavigationTranslation } from '@core/models/localize/common-navigation.translation';
 import { ScopedLogger } from '@core/utils/logging/scope.logger';
 import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
+import { LocalStorageService } from '@core/services/storage/local-storage.service';
 
 @Component({
   selector: 'app-common-navigation-bar',
@@ -41,6 +42,7 @@ import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
 export class CommonNavigationBarComponent implements OnInit {
   private translationService = inject(TranslationService);
   private loggerService = inject(ScopedLogger);
+  private storageService = inject(LocalStorageService);
 
   isMobileMenuOpen = false;
   isLanguageMenuOpen = false;
@@ -64,7 +66,7 @@ export class CommonNavigationBarComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    const storedTheme = this.getLocalStorage('fioreTheme');
+    const storedTheme = this.storageService.getLocalStorage('fioreTheme');
     this.loggerService.log('Theme from localStorage:', storedTheme);
     this.loggerService.log(
       'Document has "dark" class initially:',
@@ -111,38 +113,14 @@ export class CommonNavigationBarComponent implements OnInit {
     this.isDarkModeOn = !this.isDarkModeOn;
     this.loggerService.log('After toggling theme:', this.isDarkModeOn);
     document.documentElement.classList.toggle('dark');
-    this.setLocalStorage('fioreTheme', this.isDarkModeOn ? 'dark' : 'light');
+    this.storageService.setLocalStorage(
+      'fioreTheme',
+      this.isDarkModeOn ? 'dark' : 'light',
+    );
     this.loggerService.log(
       'Theme set in localStorage:',
       this.isDarkModeOn ? 'dark' : 'light',
     );
-  }
-
-  setLocalStorage(key: string, value: string) {
-    try {
-      localStorage.setItem(key, value);
-      this.loggerService.log('LocalStorage: Set item', `${key} = ${value}`);
-    } catch (e) {
-      this.loggerService.error('LocalStorage Error: Failed to set item', [
-        `${key} = ${value}`,
-        e,
-      ]);
-    }
-  }
-
-  getLocalStorage(key: string): string | null {
-    try {
-      const item = localStorage.getItem(key);
-      this.loggerService.log('LocalStorage: Got item', `${key} = ${item}`);
-      return item;
-    } catch (e) {
-      this.loggerService.error('LocalStorage Error: Failed to get item', [
-        key,
-        e,
-      ]);
-    }
-
-    return null;
   }
 
   closeMenu() {

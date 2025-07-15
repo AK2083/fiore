@@ -2,6 +2,7 @@ export enum DisplayType {
   'Inline',
   'Toast',
   'Modal',
+  'None',
 }
 
 export interface UserMessage {
