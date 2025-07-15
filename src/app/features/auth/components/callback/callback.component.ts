@@ -1,12 +1,18 @@
 import { Component, inject, OnInit, Signal, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  DisplayType,
+  UserMessage,
+} from '@core/models/messages/user.message.model';
 import { ScopedLogger } from '@core/utils/logging/scope.logger';
 import { scopedLoggerFactory } from '@core/utils/logging/scope.logger.factory';
+import { RedirectException } from '@features/auth/models/error/redirectException';
+import { SupabaseSessionException } from '@features/auth/models/error/supabaseSessionException';
 import { CallbackTranslation } from '@features/auth/models/localize/callback.translation';
 import { TranslationService } from '@features/auth/services/localize/translation.service';
+import { RedirectService } from '@features/auth/services/redirection/redirect.service';
 import { SupabaseService } from '@features/auth/services/supabase/supabase.service';
+import { WindowHandlerService } from '@features/auth/services/window/window-handler.service';
 import { HintComponent } from '@shared/components/misc/hint/hint.component';
-import { AuthError } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-callback',
@@ -23,7 +29,8 @@ export class CallbackComponent implements OnInit {
   private supabase = inject(SupabaseService);
   private translationService = inject(TranslationService);
   private loggerService = inject(ScopedLogger);
-  private router = inject(Router);
+  private windowService = inject(WindowHandlerService);
+  private redirectService = inject(RedirectService);
 
   translations = {
     message: signal(''),
@@ -34,79 +41,54 @@ export class CallbackComponent implements OnInit {
 
   async ngOnInit() {
     this.loggerService.log('ngOnInit: CallbackComponent initialized.');
+    this.setParameter();
+  }
+
+  setParameter() {
+    this.params = this.windowService.getUrlSearchParams();
+    this.loggerService.log('Extracted URL hash params', this.params.toString());
 
     try {
-      this.setParameter();
-    } catch (error) {
-      if (error instanceof AuthError) {
-        this.loggerService.error(
-          'AuthError caught during parameter parsing',
-          error,
+      if (this.areTokenExists()) {
+        this.loggerService.log('Access + Refresh token found, setting session');
+        this.setSupabaseSession();
+        this.setMessage(
+          this.redirectService.redirectByType(this.params.get('type') || ''),
         );
-        this.setCommonError(error);
       } else {
-        this.loggerService.error(
-          'Unknown error during parameter parsing',
-          error,
+        this.loggerService.warn(
+          'No tokens found assuming expired or invalid link.',
         );
+        this.setMessage({
+          title: 'Invalid Link',
+          message: this.translationService.linkExpired()(),
+          details: { ['INVALID_LINK']: '' },
+          code: 'INVALID_LINK',
+          displayType: DisplayType.Inline,
+          severity: 'warning',
+        });
       }
+    } catch (error: unknown) {
+      this.loggerService.error('Error on redirect', error);
+      if (
+        error instanceof RedirectException ||
+        error instanceof SupabaseSessionException
+      )
+        this.setMessage(error.userMessage);
     } finally {
-      this.setClearHistory();
+      this.windowService.clearHistory();
       this.loggerService.log('Browser history cleaned up.');
     }
   }
 
-  setParameter() {
-    const hash = window.location.hash.substring(1);
-    this.params = new URLSearchParams(hash);
-
-    this.loggerService.log('Extracted URL hash params', this.params.toString());
-
-    if (this.params.get('access_token') && this.params.get('refresh_token')) {
-      this.loggerService.log(
-        'Access + Refresh token found, setting session...',
-      );
-      this.supabase.setSession(
-        this.params.get('access_token') ?? '',
-        this.params.get('refresh_token') ?? '',
-      );
-      this.redirectByType();
-    } else {
-      this.loggerService.warn(
-        'No tokens found – assuming expired or invalid link.',
-      );
-      this.setLinkExpired();
-    }
+  areTokenExists() {
+    return this.params.get('access_token') && this.params.get('refresh_token');
   }
 
-  redirectByType() {
-    const type = this.params.get('type');
-    this.loggerService.log('Redirection type:', type);
-
-    switch (type) {
-      case 'signup':
-      case 'email_otp':
-        this.loggerService.log('Register successful');
-        this.setRegisterSuccessful();
-        break;
-      case 'recovery':
-        this.loggerService.log('Set password reset');
-        this.setPasswordResetProcessed();
-        break;
-      default:
-        this.loggerService.warn(
-          'Unknown redirection type, redirecting to /auth.',
-        );
-        this.redirect('/auth');
-        break;
-    }
-  }
-
-  setClearHistory() {
-    window.history.replaceState(
-      null,
-      '',
-      window.location.pathname + window.location.search,
+  setSupabaseSession() {
+    this.supabase.setSession(
+      this.params.get('access_token') ?? '',
+      this.params.get('refresh_token') ?? '',
     );
   }
 
@@ -116,32 +98,7 @@ export class CallbackComponent implements OnInit {
     this.loggerService.log('Set hint with severity', severity);
   }
 
-  setCommonError(error: AuthError) {
-    this.setHint(this.translationService.authError(error.message), 'danger');
-  }
-
-  setLinkExpired() {
-    this.setHint(this.translationService.linkExpired(), 'danger');
-  }
-
-  setPasswordResetProcessed() {
-    this.setHint(this.translationService.processReset(), 'info');
-    this.redirect('/reset-password-form');
-  }
-
-  setRegisterSuccessful() {
-    this.setHint(this.translationService.successReport(), 'info');
-  }
-
-  redirect(redirectTo: string) {
-    const redirectInMilliSeconds = 3000;
-    this.loggerService.log(
-      'Redirecting to ',
-      `${redirectTo} in ${redirectInMilliSeconds}ms`,
-    );
-
-    setTimeout(() => {
-      this.router.navigate([redirectTo]);
-    }, redirectInMilliSeconds);
+  setMessage(msg: UserMessage) {
+    this.setHint(signal(msg.message), msg.severity);
   }
 }
