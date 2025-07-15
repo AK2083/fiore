@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { HeaderComponent } from '@shared/components/misc/header/header.component';
 import { SimplePanelComponent } from '@shared/components/misc/simple-panel/simple-panel.component';
 import { ReactiveFormsModule } from '@angular/forms';

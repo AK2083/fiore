@@ -48,8 +48,8 @@ export class PasswordUtils {
   }
 
   getErrorCode() {
-    let errorCode: string = 'PASSWORD_VALIDATION_FAILED';
-    let failedCodeRule = this.getFailedFirstRule();
+    let errorCode = 'PASSWORD_VALIDATION_FAILED';
+    const failedCodeRule = this.getFailedFirstRule();
 
     if (failedCodeRule) {
       errorCode = `PASSWORD_RULE_${failedCodeRule.toUpperCase()}_FAILED`;

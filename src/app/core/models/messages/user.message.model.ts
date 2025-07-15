@@ -37,7 +37,7 @@ export interface UserMessage {
    * Optional: Additional context or specific values relevant to the user.
    * Example: 'minLength: 8' when the password is too short.
    */
-  details?: { [key: string]: any };
+  details?: Record<string, unknown>;
 
   /**
    * Optional: Indicates whether the error should be displayed as a "toast", pop-up,
